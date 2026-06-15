@@ -1,0 +1,115 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;900&family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+@import "tailwindcss";
+
+@theme {
+  --font-serif: 'Cinzel', Georgia, serif;
+  --font-sans: 'Inter', sans-serif;
+  --color-mystic-bg: #070510;
+  --color-mystic-dark: #0f0a1e;
+  --color-mystic-purple: #1e113a;
+  --color-mystic-indigo: #3b0764;
+  --color-mystic-gold: #f59e0b;
+  --color-mystic-gold-light: #fbbf24;
+  --color-mystic-gold-pale: #fef3c7;
+}
+
+body {
+  background-color: var(--color-mystic-bg);
+  font-family: var(--font-sans);
+  color: #e2e8f0;
+  background-image: 
+    radial-gradient(circle at 10% 20%, rgba(76, 29, 149, 0.2) 0%, transparent 40%),
+    radial-gradient(circle at 90% 80%, rgba(139, 92, 246, 0.15) 0%, transparent 40%),
+    radial-gradient(circle at 50% 50%, rgba(99, 102, 241, 0.1) 0%, transparent 50%);
+  background-attachment: fixed;
+  min-height: 100vh;
+  margin: 0;
+  overflow-x: hidden;
+}
+
+/* Glassmorphism utility */
+.glass-panel {
+  background: rgba(15, 10, 30, 0.65);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(245, 158, 11, 0.15);
+}
+
+.glass-panel-hover {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-panel-hover:hover {
+  background: rgba(26, 17, 50, 0.8);
+  border-color: rgba(245, 158, 11, 0.4);
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.7), 0 0 15px rgba(245, 158, 11, 0.1);
+  transform: translateY(-2px);
+}
+
+/* Cosmic starfield keyframe animations */
+@keyframes twinkle {
+  0%, 100% { opacity: 0.1; transform: scale(0.8); }
+  50% { opacity: 0.9; transform: scale(1.2); }
+}
+
+.twinkle-star {
+  position: absolute;
+  background-color: #fff;
+  border-radius: 50%;
+  pointer-events: none;
+  animation: twinkle var(--duration, 4s) infinite ease-in-out;
+  animation-delay: var(--delay, 0s);
+}
+
+/* Glow effects */
+.glow-gold {
+  filter: drop-shadow(0 0 8px rgba(245, 158, 11, 0.5));
+}
+
+.glow-purple {
+  filter: drop-shadow(0 0 12px rgba(139, 92, 246, 0.6));
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #070510;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1e113a;
+  border-radius: 9999px;
+  border: 2px solid #070510;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #3b0764;
+}
+
+/* Custom Print styles for PDF layout */
+@media print {
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+  }
+  .glass-panel {
+    background: #ffffff !important;
+    border: 1px solid #e2e8f0 !important;
+    box-shadow: none !important;
+    color: #000000 !important;
+    page-break-inside: avoid;
+  }
+  .no-print {
+    display: none !important;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    color: #1e1b4b !important;
+  }
+  .twinkle-star {
+    display: none !important;
+  }
+}

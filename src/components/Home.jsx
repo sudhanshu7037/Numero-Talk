@@ -1,45 +1,7 @@
-import React, { useState } from 'react';
-import { Sun, Moon, Heart, User, Compass, Sparkles, ArrowRight, Calendar, RefreshCw, Award, HelpCircle } from 'lucide-react';
-import { calculateLifePath } from '../utils/numerologyCalc';
+import React from 'react';
+import { Sun, Moon, Heart, User, Compass, Sparkles, ArrowRight } from 'lucide-react';
 
-export default function Home({ setCurrentTab, onBeginWithDob }) {
-  const [dobInput, setDobInput] = useState('');
-  const [miniResult, setMiniResult] = useState(null);
-  const [miniLoading, setMiniLoading] = useState(false);
-
-  const handleMiniCalculate = (e) => {
-    e.preventDefault();
-    if (!dobInput) return;
-    setMiniLoading(true);
-    setMiniResult(null);
-
-    // Cosmic processing simulation
-    setTimeout(() => {
-      const result = calculateLifePath(dobInput);
-      
-      const meanings = {
-        1: { title: "The Pioneer & Leader", desc: "Driven by independence, high individuality, and original creative power. You carve unique paths where others follow." },
-        2: { title: "The Diplomat & Peacemaker", desc: "Guided by harmony, deep intuition, and cooperation. You excel at healing rifts and resolving conflicts." },
-        3: { title: "The Creative Expresser", desc: "Vibrating with artistic expression, joyful communication, and rich social imagination. You bring light to the dark." },
-        4: { title: "The Methodical Builder", desc: "Grounded in structure, loyalty, logical discipline, and stability. You construct foundations that endure." },
-        5: { title: "The Visionary Adventurer", desc: "Driven by progressive change, freedom, versatility, and multi-faceted experiences. You thrive on expansion." },
-        6: { title: "The Loving Nurturer", desc: "Governed by cosmic responsibility, healing power, unconditional care, and deep domestic harmony." },
-        7: { title: "The Mystic Seeker", desc: "Aligned with analytical analysis, absolute truth, inner solitude, and deep spiritual intelligence." },
-        8: { title: "The Karmic Authority", desc: "Anchored in material mastery, abundance, karmic balance, and powerful executive leadership." },
-        9: { title: "The Humane Philanthropist", desc: "Representing universal completion, selfless global service, deep empathy, and artistic completion." },
-        11: { title: "The Intuitive Messenger", desc: "Master Vibration of spiritual illumination. You act as an energetic bridge between physical and cosmic realms." },
-        22: { title: "The Master Architect", desc: "Master Vibration of practical manifestation. You possess the power to ground grand dreams into physical reality." },
-        33: { title: "The Cosmic Guardian", desc: "Master Vibration of pure compassion. You serve as a protective guide, healer, and teacher of teachers." }
-      };
-
-      setMiniResult({
-        number: result,
-        ...meanings[result] || { title: "Cosmic Frequency", desc: "Your unique number frequency holds sacred universal codes." }
-      });
-      setMiniLoading(false);
-    }, 1200);
-  };
-
+export default function Home({ setCurrentTab }) {
   const coreNumbers = [
     {
       title: "Life Path",
@@ -117,8 +79,8 @@ export default function Home({ setCurrentTab, onBeginWithDob }) {
       <section className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center py-8 sm:py-12 glass-panel rounded-3xl border border-mystic-gold/15 overflow-hidden shadow-2xl pulse-gold-glow bg-gradient-to-b from-mystic-purple/20 via-mystic-dark/10 to-transparent p-6 sm:p-10 relative">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(245,158,11,0.08)_0%,transparent_70%)] pointer-events-none" />
         
-        {/* Left Side: Text and CTA */}
-        <div className="lg:col-span-5 space-y-6 text-left relative z-10 animate-fade-in-up">
+        {/* Left Side: Text and CTA (sliding in from the left) */}
+        <div className="lg:col-span-7 space-y-6 text-left relative z-10 animate-slide-in-left">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-mystic-gold/10 border border-mystic-gold/30 text-[10px] font-semibold text-mystic-gold uppercase tracking-[0.25em] animate-pulse">
             <Sparkles className="h-3 w-3" />
             Pythagorean Esoteric Engine
@@ -144,130 +106,29 @@ export default function Home({ setCurrentTab, onBeginWithDob }) {
           </div>
         </div>
 
-        {/* Middle Column: CSS Celestial Orbit Graphic (Restored) */}
-        <div className="hidden lg:flex lg:col-span-3 justify-center items-center relative h-[280px] pointer-events-none select-none">
+        {/* Right Side: Celestial Orbit Graphic (sliding in from the right) */}
+        <div className="lg:col-span-5 flex justify-center items-center relative h-[280px] sm:h-[340px] pointer-events-none select-none animate-slide-in-right z-10">
           {/* Orbital Core Sphere */}
-          <div className="absolute w-12 h-12 rounded-full bg-gradient-to-tr from-mystic-gold via-amber-400 to-yellow-300 blur-[1px] shadow-[0_0_25px_rgba(245,158,11,0.7)] z-20 flex items-center justify-center animate-float">
-            <span className="font-serif text-mystic-dark font-black text-xl">9</span>
+          <div className="absolute w-16 h-16 rounded-full bg-gradient-to-tr from-mystic-gold via-amber-400 to-yellow-300 blur-[2px] shadow-[0_0_40px_rgba(245,158,11,0.8)] z-20 flex items-center justify-center animate-float">
+            <span className="font-serif text-mystic-dark font-black text-2xl">9</span>
           </div>
 
           {/* Orbit Line 1 (Inner Gold) */}
-          <div className="absolute w-24 h-24 border border-dashed border-mystic-gold/30 rounded-full animate-orbit-3 z-10 flex items-center justify-center">
-            <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-mystic-gold text-mystic-dark font-mono text-[8px] font-bold px-1 py-0.2 rounded-full border border-yellow-355">1</div>
-            <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1/2 bg-mystic-gold text-mystic-dark font-mono text-[8px] font-bold px-1 py-0.2 rounded-full border border-yellow-355">7</div>
+          <div className="absolute w-36 h-36 border border-dashed border-mystic-gold/30 rounded-full animate-orbit-3 z-10 flex items-center justify-center">
+            <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-mystic-gold text-mystic-dark font-mono text-[9px] font-bold px-1.5 py-0.5 rounded-full border border-yellow-350">1</div>
+            <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1/2 bg-mystic-gold text-mystic-dark font-mono text-[9px] font-bold px-1.5 py-0.5 rounded-full border border-yellow-350">7</div>
           </div>
 
           {/* Orbit Line 2 (Middle Purple) */}
-          <div className="absolute w-36 h-36 border border-double border-violet-500/20 rounded-full animate-orbit-2 z-10 flex items-center justify-center">
-            <div className="absolute right-0 top-1/2 transform translate-x-1/2 -translate-y-1/2 bg-violet-950/80 border border-violet-500/40 text-violet-300 font-mono text-[8px] font-bold px-1.5 py-0.2 rounded-full shadow-sm">11</div>
-            <div className="absolute left-0 top-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-violet-950/80 border border-violet-500/40 text-violet-300 font-mono text-[8px] font-bold px-1.5 py-0.2 rounded-full shadow-sm">22</div>
+          <div className="absolute w-56 h-56 border border-double border-violet-500/20 rounded-full animate-orbit-2 z-10 flex items-center justify-center">
+            <div className="absolute right-0 top-1/2 transform translate-x-1/2 -translate-y-1/2 bg-violet-950/80 border border-violet-500/40 text-violet-300 font-mono text-[9px] font-bold px-2 py-0.5 rounded-full shadow-md">11</div>
+            <div className="absolute left-0 top-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-violet-950/80 border border-violet-500/40 text-violet-300 font-mono text-[9px] font-bold px-2 py-0.5 rounded-full shadow-md">22</div>
           </div>
 
           {/* Orbit Line 3 (Outer Gold Dot) */}
-          <div className="absolute w-[180px] h-[180px] border border-dotted border-mystic-gold/15 rounded-full animate-orbit-1 z-0 flex items-center justify-center">
-            <div className="absolute top-1/4 right-0 transform translate-x-1/2 bg-amber-950/80 border border-mystic-gold/40 text-mystic-gold font-mono text-[8px] font-bold px-1.5 py-0.2 rounded-full shadow-md">33</div>
-            <div className="absolute bottom-1/4 left-0 transform -translate-x-1/2 bg-amber-950/80 border border-mystic-gold/40 text-mystic-gold font-mono text-[8px] font-bold px-1.5 py-0.2 rounded-full shadow-md">3</div>
-          </div>
-        </div>
-
-        {/* Right Side: Interactive Mini Calculator Widget */}
-        <div className="lg:col-span-4 relative z-10 w-full max-w-md mx-auto">
-          {/* Circular Orbit Backdrops floating behind card */}
-          <div className="absolute -top-10 -right-10 w-48 h-48 bg-mystic-gold/5 rounded-full blur-3xl pointer-events-none" />
-          <div className="absolute -bottom-10 -left-10 w-48 h-48 bg-violet-600/5 rounded-full blur-3xl pointer-events-none" />
-
-          <div className="glass-panel p-6 rounded-3xl border border-white/10 bg-mystic-dark/80 relative overflow-hidden shadow-2xl min-h-[300px] flex flex-col justify-center">
-            
-            {miniLoading ? (
-              <div className="flex flex-col items-center justify-center space-y-4 py-8 animate-pulse">
-                <div className="relative w-16 h-16 flex items-center justify-center">
-                  <div className="absolute inset-0 border-2 border-dashed border-mystic-gold/30 rounded-full animate-orbit-3" />
-                  <div className="absolute inset-2 border border-dotted border-violet-500/50 rounded-full animate-orbit-2" />
-                  <Compass className="h-6 w-6 text-mystic-gold animate-spin" />
-                </div>
-                <div className="space-y-1">
-                  <h4 className="font-serif text-sm font-semibold tracking-wider text-mystic-gold uppercase">Aligning Coordinates</h4>
-                  <p className="text-[10px] text-gray-400 font-sans">Scanning Pythagorean frequencies...</p>
-                </div>
-              </div>
-            ) : miniResult ? (
-              <div className="space-y-4 text-center animate-fade-in">
-                <div className="relative w-24 h-24 mx-auto flex items-center justify-center">
-                  {/* Glowing pulse rings */}
-                  <div className="absolute inset-0 border border-dashed border-mystic-gold/30 rounded-full animate-orbit-3" />
-                  <div className="absolute inset-2 border border-dotted border-violet-500/40 rounded-full animate-orbit-2" />
-                  
-                  {/* Center Number Block */}
-                  <div className="w-16 h-16 rounded-full bg-gradient-to-tr from-mystic-gold via-amber-400 to-yellow-300 flex items-center justify-center text-mystic-dark font-serif font-black text-3xl shadow-[0_0_20px_rgba(245,158,11,0.5)] animate-float">
-                    {miniResult.number}
-                  </div>
-                </div>
-
-                <div className="space-y-1">
-                  <span className="text-[9px] uppercase font-bold tracking-widest text-mystic-gold bg-mystic-gold/10 px-2.5 py-0.5 rounded-full border border-mystic-gold/20 inline-block">
-                    Your Life Path Vibration
-                  </span>
-                  <h4 className="font-serif text-lg font-bold text-white tracking-wide">{miniResult.title}</h4>
-                  <p className="text-[11px] leading-relaxed text-gray-300 font-sans max-w-[280px] mx-auto">
-                    {miniResult.desc}
-                  </p>
-                </div>
-
-                <div className="flex flex-col sm:flex-row gap-2 justify-center items-center pt-2">
-                  <button
-                    onClick={() => onBeginWithDob(dobInput)}
-                    className="w-full sm:w-auto px-5 py-2.5 rounded-xl text-xs font-bold bg-mystic-gold text-mystic-dark hover:bg-mystic-gold-light hover:scale-105 active:scale-95 transition-all cursor-pointer flex items-center justify-center gap-1.5"
-                  >
-                    <Award className="h-3.5 w-3.5" />
-                    Get Full Analysis
-                  </button>
-                  <button
-                    onClick={() => {
-                      setMiniResult(null);
-                      setDobInput('');
-                    }}
-                    className="w-full sm:w-auto px-5 py-2.5 rounded-xl text-xs font-medium bg-white/5 border border-white/10 text-gray-300 hover:text-white hover:bg-white/10 transition-all cursor-pointer flex items-center justify-center gap-1.5"
-                  >
-                    <RefreshCw className="h-3.5 w-3.5" />
-                    Try Another
-                  </button>
-                </div>
-              </div>
-            ) : (
-              <form onSubmit={handleMiniCalculate} className="space-y-4">
-                <div className="text-center space-y-1">
-                  <h3 className="font-serif text-lg font-bold text-white tracking-wide">
-                    Instant Life Path Calculation
-                  </h3>
-                  <p className="text-gray-400 text-xs font-sans">
-                    Reveal your primary cosmic frequency right now.
-                  </p>
-                </div>
-
-                <div className="space-y-2 text-left">
-                  <label className="block text-[10px] font-bold uppercase tracking-wider text-gray-400 flex items-center gap-1">
-                    <Calendar className="h-3.5 w-3.5 text-mystic-gold" />
-                    Select Date of Birth
-                  </label>
-                  <input
-                    type="date"
-                    required
-                    value={dobInput}
-                    onChange={(e) => setDobInput(e.target.value)}
-                    className="w-full bg-mystic-dark border border-white/10 focus:border-mystic-gold/40 rounded-xl px-4 py-3 text-sm text-gray-200 outline-none transition-all placeholder:text-gray-650 font-sans"
-                  />
-                </div>
-
-                <button
-                  type="submit"
-                  className="w-full flex items-center justify-center gap-2 px-5 py-3 rounded-xl text-xs font-bold bg-mystic-gold text-mystic-dark hover:bg-mystic-gold-light hover:scale-[1.01] active:scale-[0.99] transition-all shadow-md shadow-mystic-gold/10 cursor-pointer"
-                >
-                  <Compass className="h-4 w-4" />
-                  Calculate Frequency
-                </button>
-              </form>
-            )}
-
+          <div className="absolute w-[280px] h-[280px] border border-dotted border-mystic-gold/15 rounded-full animate-orbit-1 z-0 flex items-center justify-center">
+            <div className="absolute top-1/4 right-0 transform translate-x-1/2 bg-amber-955/80 border border-mystic-gold/40 text-mystic-gold font-mono text-[9px] font-bold px-2 py-0.5 rounded-full shadow-md">33</div>
+            <div className="absolute bottom-1/4 left-0 transform -translate-x-1/2 bg-amber-955/80 border border-mystic-gold/40 text-mystic-gold font-mono text-[9px] font-bold px-2 py-0.5 rounded-full shadow-md">3</div>
           </div>
         </div>
       </section>
@@ -366,7 +227,6 @@ export default function Home({ setCurrentTab, onBeginWithDob }) {
                 
                 {/* Front Side */}
                 <div className="flip-card-front w-full h-full flex flex-col justify-center items-center border border-white/5 bg-mystic-purple/20 glass-panel p-6 shadow-xl relative overflow-hidden">
-                  {/* Micro gradient shine */}
                   <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-mystic-gold/2 to-transparent pointer-events-none" />
                   <span className="font-serif text-5xl font-black text-mystic-gold glow-gold mb-2 block">
                     {card.number}

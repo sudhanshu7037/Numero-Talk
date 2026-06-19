@@ -37,7 +37,7 @@ export default function Header({ currentTab, setCurrentTab }) {
           </div>
           <div className="text-left">
             <h1 className="font-serif text-2xl font-bold tracking-widest text-mystic-gold-light m-0 p-0 leading-none">
-              AETHERIA
+             VADIC
             </h1>
             <span className="text-[10px] tracking-[0.25em] text-violet-300 font-sans uppercase font-medium">
               Cosmic Numerology

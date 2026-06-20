@@ -272,3 +272,71 @@ body {
     display: none !important;
   }
 }
+
+/* Specific CSS Overrides for client-side html2pdf/html2canvas export */
+.pdf-export {
+  background-color: #070510 !important;
+  color: #e2e8f0 !important;
+}
+
+.pdf-export .glass-panel {
+  background-color: #150a26 !important; /* Solid high-contrast background instead of transparent filter */
+  background-image: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border: 1px solid rgba(245, 158, 11, 0.3) !important;
+  box-shadow: none !important;
+  color: #e2e8f0 !important;
+}
+
+.pdf-export h2, 
+.pdf-export h3, 
+.pdf-export h4 {
+  color: #ffffff !important;
+}
+
+.pdf-export p {
+  color: #d1d5db !important; /* Fallback static gray-300 color for body text */
+}
+
+/* Direct text color overrides using hex codes for html2canvas compatibility */
+.pdf-export .text-white {
+  color: #ffffff !important;
+}
+
+.pdf-export .text-mystic-gold {
+  color: #fbbf24 !important;
+}
+
+.pdf-export .text-violet-300 {
+  color: #c4b5fd !important;
+}
+
+.pdf-export .text-gray-200 {
+  color: #e5e7eb !important;
+}
+
+.pdf-export .text-gray-300 {
+  color: #d1d5db !important;
+}
+
+.pdf-export .text-gray-400 {
+  color: #9ca3af !important;
+}
+
+.pdf-export .text-gray-500 {
+  color: #6b7280 !important;
+}
+
+.pdf-export .text-gray-600 {
+  color: #4b5563 !important;
+}
+
+.pdf-export .text-emerald-400 {
+  color: #34d399 !important;
+}
+
+.pdf-export .text-amber-500 {
+  color: #f59e0b !important;
+}
+

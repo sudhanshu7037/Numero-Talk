@@ -1,9 +1,9 @@
 import React, { useState, useRef } from 'react';
 import { Download, Share2, Mail, ArrowLeft, Check, Copy, Heart, User, Sun, Moon } from 'lucide-react';
-import { interpretations } from '../utils/interpretations';
+import { translations } from '../utils/translations';
 import html2pdf from 'html2pdf.js';
 
-function RadialGauge({ value, title, subLabel, max = 9 }) {
+function RadialGauge({ value, title, subLabel, vibrationLabel = "Vibration", max = 9 }) {
   const radius = 36;
   const stroke = 5;
   const normalizedValue = Math.min(Math.max(value, 0), max);
@@ -49,7 +49,7 @@ function RadialGauge({ value, title, subLabel, max = 9 }) {
             {value}
           </span>
           <span className="block text-[8px] text-gray-400 uppercase tracking-widest leading-none">
-            Vibration
+            {vibrationLabel}
           </span>
         </div>
       </div>
@@ -67,6 +67,7 @@ export default function ReportDisplay({ reportData, onBack }) {
   const { firstName, middleName, lastName, dob, email, calculations } = reportData;
   const fullName = [firstName, middleName, lastName].filter(Boolean).join(' ');
 
+  const [language, setLanguage] = useState('en');
   const [activeTab, setActiveTab] = useState('lifePath');
   const [showEmailModal, setShowEmailModal] = useState(false);
   const [emailSent, setEmailSent] = useState(false);
@@ -82,13 +83,17 @@ export default function ReportDisplay({ reportData, onBack }) {
   const formatDOB = (dobStr) => {
     if (!dobStr) return '';
     const date = new Date(dobStr);
-    return date.toLocaleDateString('en-US', {
+    return date.toLocaleDateString(language === 'en' ? 'en-US' : language, {
       month: 'long',
       day: 'numeric',
       year: 'numeric',
       timeZone: 'UTC' // keep YYYY-MM-DD literal format
     });
   };
+
+  const currentLabels = translations[language]?.labels || translations.en.labels;
+  const currentInterpretations = translations[language]?.interpretations || translations.en.interpretations;
+  const activeMeaning = currentInterpretations[activeTab][calculations[activeTab]];
 
   const handleDownloadPDF = () => {
     setPdfGenerating(true);
@@ -102,7 +107,13 @@ export default function ReportDisplay({ reportData, onBack }) {
         scale: 2, 
         useCORS: true, 
         backgroundColor: '#070510',
-        letterRendering: true 
+        letterRendering: true,
+        onclone: (clonedDoc) => {
+          const el = clonedDoc.getElementById('numerology-report-root');
+          if (el) {
+            el.classList.add('pdf-export');
+          }
+        }
       },
       jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
     };
@@ -123,6 +134,30 @@ export default function ReportDisplay({ reportData, onBack }) {
     setEtherealUrl(null);
 
     try {
+      const element = reportRef.current;
+      const opt = {
+        margin:       [12, 12, 12, 12],
+        filename:     `${fullName.replace(/\s+/g, '_')}_Numerology_Report.pdf`,
+        image:        { type: 'jpeg', quality: 0.98 },
+        html2canvas:  { 
+          scale: 2, 
+          useCORS: true, 
+          backgroundColor: '#070510',
+          letterRendering: true,
+          onclone: (clonedDoc) => {
+            const el = clonedDoc.getElementById('numerology-report-root');
+            if (el) {
+              el.classList.add('pdf-export');
+            }
+          }
+        },
+        jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+      };
+
+      // Generate client-side PDF as base64 string
+      const pdfDataUri = await html2pdf().set(opt).from(element).output('datauristring');
+      const base64Pdf = pdfDataUri.split(',')[1];
+
       const response = await fetch('/api/send-email', {
         method: 'POST',
         headers: {
@@ -133,7 +168,9 @@ export default function ReportDisplay({ reportData, onBack }) {
           fullName,
           dob,
           calculations,
-          activeMeaning: interpretations[activeTab][calculations[activeTab]]
+          activeMeaning,
+          pdfAttachment: base64Pdf,
+          pdfLanguage: language
         }),
       });
 
@@ -162,14 +199,13 @@ export default function ReportDisplay({ reportData, onBack }) {
     });
   };
 
-  const activeMeaning = interpretations[activeTab][calculations[activeTab]];
-
   const tabsConfig = [
-    { id: 'lifePath', label: 'Life Path', val: calculations.lifePath, sub: 'Birth Date Frequency', icon: Sun },
-    { id: 'destiny', label: 'Destiny', val: calculations.destiny, sub: 'Full Name Vibration', icon: Moon },
-    { id: 'soulUrge', label: 'Soul Urge', val: calculations.soulUrge, sub: 'Inner Desires', icon: Heart },
-    { id: 'personality', label: 'Personality', val: calculations.personality, sub: 'Outer Self', icon: User },
+    { id: 'lifePath', label: currentLabels.lifePath, val: calculations.lifePath, sub: 'Birth Date Frequency', icon: Sun },
+    { id: 'destiny', label: currentLabels.destiny, val: calculations.destiny, sub: 'Full Name Vibration', icon: Moon },
+    { id: 'soulUrge', label: currentLabels.soulUrge, val: calculations.soulUrge, sub: 'Inner Desires', icon: Heart },
+    { id: 'personality', label: currentLabels.personality, val: calculations.personality, sub: 'Outer Self', icon: User },
   ];
+
 
   return (
     <div className="w-full max-w-4xl mx-auto space-y-8 animate-fade-in">
@@ -182,6 +218,21 @@ export default function ReportDisplay({ reportData, onBack }) {
           <ArrowLeft className="h-4 w-4" />
           Back to Calculator
         </button>
+
+        {/* Global Language Selector */}
+        <div className="flex items-center gap-2 bg-white/5 px-3 py-1.5 rounded-xl border border-white/10">
+          <span className="text-xs text-violet-300 font-medium font-sans">Language:</span>
+          <select 
+            value={language} 
+            onChange={(e) => setLanguage(e.target.value)}
+            className="bg-[#0f0a1e] text-xs text-white border-none rounded focus:ring-1 focus:ring-mystic-gold cursor-pointer py-1 px-2 font-sans focus:outline-none"
+          >
+            <option value="en">English</option>
+            <option value="hi">हिन्दी (Hindi)</option>
+            <option value="gu">ગુજરાતી (Gujarati)</option>
+            <option value="mr">मराठी (Marathi)</option>
+          </select>
+        </div>
 
         <div className="flex flex-wrap gap-2">
           {/* Email button */}
@@ -233,18 +284,18 @@ export default function ReportDisplay({ reportData, onBack }) {
         <div className="border-b border-mystic-gold/15 pb-8 mb-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
           <div>
             <span className="font-sans text-xs font-bold uppercase tracking-[0.3em] text-mystic-gold">
-              Esoteric Calculation Engine
+              {currentLabels.engine}
             </span>
             <h2 className="font-serif text-3xl sm:text-4xl font-extrabold text-white tracking-wider mt-1">
-              NUMEROLOGY ANALYSIS
+              {currentLabels.analysis}
             </h2>
             <p className="text-gray-400 text-xs mt-1">
-              Generated on {new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+              {currentLabels.generatedOn} {new Date().toLocaleDateString(language === 'en' ? 'en-US' : language, { month: 'long', day: 'numeric', year: 'numeric' })}
             </p>
           </div>
           <div className="glass-panel px-4 py-3 rounded-2xl border border-white/5 flex flex-col items-start min-w-[200px] text-xs">
             <span className="text-[10px] uppercase tracking-wider text-violet-300 font-bold mb-1">
-              Subject Profile
+              {currentLabels.profile}
             </span>
             <span className="text-white font-semibold truncate max-w-[180px]">{fullName}</span>
             <span className="text-gray-400">{formatDOB(dob)}</span>
@@ -272,7 +323,8 @@ export default function ReportDisplay({ reportData, onBack }) {
                 <RadialGauge
                   value={item.val}
                   title={item.label}
-                  subLabel={`Vibration ${item.val}`}
+                  subLabel={`${currentLabels.vibration} ${item.val}`}
+                  vibrationLabel={currentLabels.vibration}
                   max={item.val > 9 ? 33 : 9}
                 />
               </div>
@@ -285,10 +337,10 @@ export default function ReportDisplay({ reportData, onBack }) {
           <div className="flex flex-col md:flex-row md:items-center justify-between mb-4 gap-2">
             <div>
               <span className="text-xs uppercase tracking-widest text-mystic-gold font-bold">
-                Detailed Analysis
+                {currentLabels.detailedAnalysis}
               </span>
               <h3 className="font-serif text-2xl font-bold text-white mt-1">
-                {tabsConfig.find(t => t.id === activeTab)?.label} Number: {calculations[activeTab]}
+                {tabsConfig.find(t => t.id === activeTab)?.label} {currentLabels.vibration}: {calculations[activeTab]}
               </h3>
             </div>
             <span className="text-xs italic text-violet-300/80 bg-violet-950/40 px-3 py-1.5 rounded-full border border-violet-800/30">
@@ -304,7 +356,7 @@ export default function ReportDisplay({ reportData, onBack }) {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-4 border-t border-white/5">
               <div className="space-y-2">
                 <span className="text-xs font-bold text-emerald-400 uppercase tracking-wider block">
-                  Vibrational Strengths
+                  {currentLabels.strengths}
                 </span>
                 <p className="text-xs text-gray-400 leading-relaxed font-sans">
                   {activeMeaning.strengths}
@@ -313,7 +365,7 @@ export default function ReportDisplay({ reportData, onBack }) {
 
               <div className="space-y-2">
                 <span className="text-xs font-bold text-amber-500 uppercase tracking-wider block">
-                  Growth Challenges
+                  {currentLabels.challenges}
                 </span>
                 <p className="text-xs text-gray-400 leading-relaxed font-sans">
                   {activeMeaning.challenges}
@@ -325,8 +377,8 @@ export default function ReportDisplay({ reportData, onBack }) {
 
         {/* Spiritual Signature */}
         <div className="mt-12 flex justify-between items-center text-[10px] text-gray-600 border-t border-white/5 pt-4">
-          <span>Aetheria Calculations v1.0.0</span>
-          <span>Verified Pythagorean Mathematics</span>
+          <span>{currentLabels.version}</span>
+          <span>{currentLabels.verifiedMath}</span>
         </div>
       </div>
 

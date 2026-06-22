@@ -3,13 +3,27 @@ import nodemailer from 'nodemailer';
 // ── Create Nodemailer transporter using Gmail App Password ──
 const createTransporter = () => {
   return nodemailer.createTransport({
-    host: 'smtp.gmail.com',
-    port: parseInt(process.env.SMTP_PORT || '465'),
-    secure: process.env.SMTP_SECURE === 'true' || process.env.SMTP_PORT === '465',
+
+    host: process.env.SMTP_HOST,
+
+    port: Number(process.env.SMTP_PORT),
+
+    secure: process.env.SMTP_SECURE === 'true',
+
     auth: {
+
       user: process.env.SMTP_USER,
+
       pass: process.env.SMTP_PASS,
+
     },
+
+    connectionTimeout: 30000,
+
+    greetingTimeout: 30000,
+
+    socketTimeout: 30000,
+
   });
 };
 

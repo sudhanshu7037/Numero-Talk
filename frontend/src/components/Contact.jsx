@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Send, Check, Clock, Phone, MessageCircle, Mail, AlertCircle } from 'lucide-react';
-import { API_BASE_URL } from '../config';
+
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+
 
 export default function Contact() {
   // Dynamic Math Captcha

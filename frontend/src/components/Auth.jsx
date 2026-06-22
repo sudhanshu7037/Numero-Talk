@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { Mail, Lock, User, Sparkles, Star, BookOpen, TrendingUp, Shield, KeyRound, RefreshCw, ArrowLeft } from 'lucide-react';
 import { toast } from 'react-toastify';
-import { API_BASE_URL } from '../config';
+
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
 
 // ── 60s Countdown Timer ──
 function OtpCountdown({ onExpire }) {

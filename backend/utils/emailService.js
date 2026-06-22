@@ -1,7 +1,7 @@
 import nodemailer from 'nodemailer';
 
-// ── Create Nodemailer transporter using Gmail App Password ──
 const createTransporter = () => {
+
   return nodemailer.createTransport({
 
     host: process.env.SMTP_HOST,
@@ -25,19 +25,35 @@ const createTransporter = () => {
     socketTimeout: 30000,
 
   });
+
 };
 
-// ── Send email helper ──
-export const sendEmail = async ({ to, subject, html }) => {
-  const transporter = createTransporter();
-  const from = `"${process.env.SENDER_NAME || 'NumeroTalk'}" <${process.env.SMTP_USER}>`;
+export const sendEmail = async (
 
-  try {
-    const info = await transporter.sendMail({ from, to, subject, html });
-    console.log(`[Email Sent] To: ${to} | MsgID: ${info.messageId}`);
-    return { success: true };
-  } catch (err) {
-    console.error('[Email Error]', err.message);
-    throw err;
-  }
+  
+  
+  
+  {
+  to,
+  subject,
+  html,
+
+
+  
+}) => {
+
+  const transporter = createTransporter();
+
+  return transporter.sendMail({
+
+    from: `"${process.env.SENDER_NAME}" <${process.env.SENDER_EMAIL}>`,
+
+    to,
+
+    subject,
+
+    html,
+
+  });
+
 };

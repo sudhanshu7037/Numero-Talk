@@ -1,0 +1,203 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;900&family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+@import "tailwindcss";
+
+@theme {
+  --font-serif: 'Cinzel', Georgia, serif;
+  --font-sans: 'Inter', sans-serif;
+  --color-mystic-bg: #f8fafc;
+  --color-mystic-dark: #ffffff;
+  --color-mystic-purple: #f1f5f9;
+  --color-mystic-indigo: #e2e8f0;
+  --color-mystic-gold: #d97706;
+  --color-mystic-gold-light: #b45309;
+  --color-mystic-gold-pale: #fef3c7;
+}
+
+body {
+  background-color: var(--color-mystic-bg);
+  font-family: var(--font-sans);
+  color: #1e293b;
+  min-height: 100vh;
+  margin: 0;
+  overflow-x: hidden;
+}
+
+/* Elegant Light Panel */
+.glass-panel {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+}
+
+.glass-panel-hover {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-panel-hover:hover {
+  background: #ffffff;
+  border-color: #cbd5e1;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.03);
+  transform: translateY(-1px);
+}
+
+/* Animations definition */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+
+.animate-float {
+  animation: float 5s ease-in-out infinite;
+}
+
+@keyframes float-reverse {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(8px) rotate(-4deg); }
+}
+
+.animate-float-reverse {
+  animation: float-reverse 7s ease-in-out infinite;
+}
+
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 30s linear infinite;
+}
+
+@keyframes pulse-slow {
+  0%, 100% { opacity: 0.2; transform: scale(1); }
+  50% { opacity: 0.7; transform: scale(1.08); }
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 6s ease-in-out infinite;
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.4s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f8fafc;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 9999px;
+  border: 2px solid #f8fafc;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Custom Print styles for PDF layout */
+@media print {
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+  }
+  .glass-panel {
+    background: #ffffff !important;
+    border: 1px solid #e2e8f0 !important;
+    box-shadow: none !important;
+    color: #000000 !important;
+    page-break-inside: avoid;
+  }
+  .no-print {
+    display: none !important;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    color: #0f172a !important;
+  }
+}
+
+/* Specific CSS Overrides for client-side html2pdf/html2canvas export */
+.pdf-export {
+  background-color: #ffffff !important;
+  color: #1e293b !important;
+}
+
+.pdf-export * {
+  color: #1e293b !important;
+}
+
+.pdf-export .glass-panel {
+  background-color: #ffffff !important;
+  background-image: none !important;
+  border: 1px solid #cbd5e1 !important;
+  box-shadow: none !important;
+}
+
+.pdf-export h2, 
+.pdf-export h3, 
+.pdf-export h4 {
+  color: #0f172a !important;
+}
+
+.pdf-export p {
+  color: #334155 !important;
+}
+
+/* PDF Page break styles for 20-page paginated report */
+.pdf-page {
+  box-sizing: border-box;
+  width: 210mm;
+  height: 297mm;
+  padding: 16mm 14mm;
+  position: relative;
+  background: white !important;
+  color: #1e293b !important;
+  overflow: hidden;
+  page-break-after: always;
+}
+
+.pdf-page * {
+  color: #1e293b !important;
+}
+
+.pdf-header {
+  width: 100%;
+}
+
+.pdf-footer {
+  width: calc(100% - 28mm);
+}
+
+/* Preview Modal Page Styling */
+.preview-mode .pdf-page {
+  margin-bottom: 24px !important;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.25) !important;
+  border: 1px solid #cbd5e1 !important;
+  border-radius: 6px !important;
+}

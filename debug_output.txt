@@ -1,0 +1,5 @@
+=== DIAGNOSTIC LOG ===
+Message: Download PDF triggered. targetElement exists: true, tag: DIV, children: 1
+
+HTML Content:
+<div class="pdf-report-container"><div class="pdf-page relative p-12 bg-white flex flex-col justify-between border-[8px] border-amber-600/30" style="height: 297mm; width: 210mm; break-after: page; position: relative;"><div class="text-center pt-8"><span class="text-xs uppercase tracking-widest font-bold text-amber-700 font-serif">|| ॐ गं गणपतये नमः ||</span><div class="w-12 h-0.5 bg-amber-600 mx-auto mt-2"></div></div><div class="text-center space-y-6 my-auto"><svg class="w-48 h-48 mx-auto text-amber-600" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M50 15c-6 0-11 5-11 11s5 11 11 11 11-5 11-11-5-11-11-11z"></path><path d="M50 37c-10 0-18 8-18 18 0 15 10 25 18 25s18-10 18-25c0-10-8-18-18-18z"></path><path d="M45 42c-2 2-3 5-3 8 0 8 5 12 8 12s8-4 8-12c0-3-1-6-3-8"></path><path d="M44 15l6-10 6 10M40 14h20M46 9h8"></path><path d="M50 50c3 3 5 8 5 13 0 5-4 7-7 7-4 0-5-3-2-5 3-2 3-5 1-8l-2-2"></path><path d="M39 20c-5-3-10-1-12 4s0 11 6 13M61 20c5-3 10

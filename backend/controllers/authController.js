@@ -10,7 +10,7 @@ const OTP_EXPIRY_MS = 60 * 1000; // 60 seconds
 const otpStore = new Map();
 
 // ── Resend Client ──
-const getResend = () => new Resend(process.env.RESEND_API_KEY);
+const getResend = () => new Resend((process.env.RESEND_API_KEY || '').trim());
 
 // ── OTP Email HTML Builder ──
 const buildOtpEmail = (otp, title, subtitle) => `

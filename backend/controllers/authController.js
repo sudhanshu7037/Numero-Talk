@@ -1,16 +1,13 @@
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import User from '../models/User.js';
-import { Resend } from 'resend';
+import { sendEmail } from '../utils/emailService.js';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'aetheria-cosmic-secret-key-999';
 const OTP_EXPIRY_MS = 60 * 1000; // 60 seconds
 
 // ── In-Memory OTP Store ──
 const otpStore = new Map();
-
-// ── Resend Client ──
-const getResend = () => new Resend((process.env.RESEND_API_KEY || '').trim());
 
 // ── OTP Email HTML Builder ──
 const buildOtpEmail = (otp, title, subtitle) => `
@@ -56,15 +53,12 @@ export const sendOtp = async (req, res) => {
     const otp = Math.floor(100000 + Math.random() * 900000).toString();
     otpStore.set(`register:${email.toLowerCase()}`, { otp, expiresAt: Date.now() + OTP_EXPIRY_MS });
 
-    const resend = getResend();
-    const { error } = await resend.emails.send({
-      from: 'NumeroTalk <onboarding@resend.dev>',
+    await sendEmail({
       to: email,
       subject: 'Your NumeroTalk Registration OTP',
       html: buildOtpEmail(otp, 'Verify Your Email', 'Email Verification'),
     });
 
-    if (error) throw new Error(error.message);
     res.json({ success: true, message: 'OTP sent to your email.' });
   } catch (err) {
     console.error('OTP email error:', err);
@@ -102,15 +96,12 @@ export const sendForgotOtp = async (req, res) => {
     const otp = Math.floor(100000 + Math.random() * 900000).toString();
     otpStore.set(`forgot:${email.toLowerCase()}`, { otp, expiresAt: Date.now() + OTP_EXPIRY_MS });
 
-    const resend = getResend();
-    const { error } = await resend.emails.send({
-      from: 'NumeroTalk <onboarding@resend.dev>',
+    await sendEmail({
       to: email,
       subject: 'NumeroTalk Password Reset OTP',
       html: buildOtpEmail(otp, 'Reset Your Password', 'Password Reset'),
     });
 
-    if (error) throw new Error(error.message);
     res.json({ success: true, message: 'OTP sent to your registered email.' });
   } catch (err) {
     console.error('Forgot OTP error:', err);

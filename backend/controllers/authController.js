@@ -1,35 +1,16 @@
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import User from '../models/User.js';
-import nodemailer from 'nodemailer';
-import dotenv from 'dotenv';
-import path from 'path';
-import { fileURLToPath } from 'url';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-// Load dotenv configs
-dotenv.config();
-dotenv.config({ path: path.join(__dirname, '../.env') });
-dotenv.config({ path: path.join(__dirname, '../../.env') });
+import { Resend } from 'resend';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'aetheria-cosmic-secret-key-999';
 const OTP_EXPIRY_MS = 60 * 1000; // 60 seconds
 
-// ── In-Memory OTP Store: { email -> { otp, expiresAt, purpose } } ──
+// ── In-Memory OTP Store ──
 const otpStore = new Map();
 
-// ── Nodemailer transporter ──
-const createTransporter = () => nodemailer.createTransport({
-  host: process.env.SMTP_HOST || 'smtp.gmail.com',
-  port: parseInt(process.env.SMTP_PORT || '587'),
-  secure: process.env.SMTP_SECURE === 'true',
-  auth: {
-    user: process.env.SMTP_USER,
-    pass: process.env.SMTP_PASS,
-  },
-});
+// ── Resend Client ──
+const getResend = () => new Resend(process.env.RESEND_API_KEY);
 
 // ── OTP Email HTML Builder ──
 const buildOtpEmail = (otp, title, subtitle) => `
@@ -75,13 +56,15 @@ export const sendOtp = async (req, res) => {
     const otp = Math.floor(100000 + Math.random() * 900000).toString();
     otpStore.set(`register:${email.toLowerCase()}`, { otp, expiresAt: Date.now() + OTP_EXPIRY_MS });
 
-    const transporter = createTransporter();
-    await transporter.sendMail({
-      from: `"NumeroTalk" <${process.env.SENDER_EMAIL || process.env.SMTP_USER}>`,
+    const resend = getResend();
+    const { error } = await resend.emails.send({
+      from: 'NumeroTalk <onboarding@resend.dev>',
       to: email,
       subject: 'Your NumeroTalk Registration OTP',
       html: buildOtpEmail(otp, 'Verify Your Email', 'Email Verification'),
     });
+
+    if (error) throw new Error(error.message);
     res.json({ success: true, message: 'OTP sent to your email.' });
   } catch (err) {
     console.error('OTP email error:', err);
@@ -119,13 +102,15 @@ export const sendForgotOtp = async (req, res) => {
     const otp = Math.floor(100000 + Math.random() * 900000).toString();
     otpStore.set(`forgot:${email.toLowerCase()}`, { otp, expiresAt: Date.now() + OTP_EXPIRY_MS });
 
-    const transporter = createTransporter();
-    await transporter.sendMail({
-      from: `"NumeroTalk" <${process.env.SENDER_EMAIL || process.env.SMTP_USER}>`,
+    const resend = getResend();
+    const { error } = await resend.emails.send({
+      from: 'NumeroTalk <onboarding@resend.dev>',
       to: email,
       subject: 'NumeroTalk Password Reset OTP',
       html: buildOtpEmail(otp, 'Reset Your Password', 'Password Reset'),
     });
+
+    if (error) throw new Error(error.message);
     res.json({ success: true, message: 'OTP sent to your registered email.' });
   } catch (err) {
     console.error('Forgot OTP error:', err);

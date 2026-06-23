@@ -226,6 +226,7 @@ export default function ReportDisplay({ reportData, onBack }) {
     { id: 'personality', label: currentLabels.personality, val: calculations.personality, icon: User },
   ];
 
+  return (
     <div className="w-full space-y-4 sm:space-y-8 animate-fade-in">
       {/* Action Panel — stacks on mobile */}
       <div className="no-print flex flex-col sm:flex-row sm:flex-wrap sm:items-center sm:justify-between gap-3 py-3 sm:py-4 border-b border-gray-200">
@@ -571,5 +572,5 @@ export default function ReportDisplay({ reportData, onBack }) {
         </div>
       )}
     </div>
-  
+  );
 }

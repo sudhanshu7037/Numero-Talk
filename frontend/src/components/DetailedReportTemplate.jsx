@@ -1007,86 +1007,222 @@ export default function DetailedReportTemplate({ reportData, language = 'en' }) 
       </div>
 
 
-      {/* PAGE 4: PERSONAL COSMIC GRIDS */}
-      <div className="pdf-page relative p-12 bg-white flex flex-col justify-between" style={{ height: '297mm', width: '210mm', pageBreakAfter: 'always' }}>
-        {renderWatermark()}
-        <div>
-          {renderHeader(4)}
-          <h2 className="font-serif text-2xl font-bold text-gray-900 mb-6">{t('cosmicGridTitle')}</h2>
-          <div className="space-y-6">
-            <div className="grid grid-cols-2 gap-4 text-xs">
-              {[
-                { title: t('moolankBoxTitle'), value: moolank, desc: `${t('planetLabel')}: ${getTranslation(planetaryLords[moolank])}` },
-                { title: t('bhagyankBoxTitle'), value: bhagyank, desc: `${t('planetLabel')}: ${getTranslation(planetaryLords[bhagyank])}` },
-                { title: t('destinyPythBoxTitle'), value: destinyPyth, desc: t('pythDescLabel') },
-                { title: t('destinyChaldBoxTitle'), value: destinyChald, desc: t('chaldDescLabel') },
-                { title: t('soulUrgeBoxTitle'), value: soulUrge, desc: t('vowelsLabel') },
-                { title: t('personalityBoxTitle'), value: personality, desc: t('consonantsLabel') }
-              ].map((grid, idx) => (
-                <div key={idx} className="p-4 bg-amber-50/20 border border-amber-100 rounded-xl space-y-1.5">
-                  <span className="text-[10px] uppercase font-bold text-gray-400">{grid.title}</span>
-                  <span className="text-3xl font-black text-amber-700 block">{grid.value}</span>
-                  <span className="text-[10px] text-gray-500 font-medium">{grid.desc}</span>
-                </div>
-              ))}
-            </div>
+     {/* PAGE 4: COSMIC GRID */}
+
+<div
+  className="pdf-page relative p-12 bg-white flex flex-col justify-between"
+  style={{
+    height: '297mm',
+    width: '210mm',
+    pageBreakAfter: 'always',
+  }}
+>
+  {renderWatermark()}
+
+  <div style={{ position: 'relative', zIndex: 1 }}>
+    {renderHeader(4)}
+
+    <h2 className="font-serif text-2xl font-bold text-gray-900 mb-6">
+      {t('cosmicGridTitle')}
+    </h2>
+
+    <div className="space-y-6 text-xs text-gray-700 leading-relaxed text-justify">
+
+      <div className="grid grid-cols-2 gap-4">
+
+        {[
+          {
+            title: t('moolankBoxTitle'),
+            value: moolank,
+            desc: `${t('planetLabel')}: ${getTranslation(
+              planetaryLords[moolank]
+            )}`,
+          },
+
+          {
+            title: t('bhagyankBoxTitle'),
+            value: bhagyank,
+            desc: `${t('planetLabel')}: ${getTranslation(
+              planetaryLords[bhagyank]
+            )}`,
+          },
+
+          {
+            title: t('destinyPythBoxTitle'),
+            value: destinyPyth,
+            desc: t('pythDescLabel'),
+          },
+
+          {
+            title: t('destinyChaldBoxTitle'),
+            value: destinyChald,
+            desc: t('chaldDescLabel'),
+          },
+
+          {
+            title: t('soulUrgeBoxTitle'),
+            value: soulUrge,
+            desc: t('vowelsLabel'),
+          },
+
+          {
+            title: t('personalityBoxTitle'),
+            value: personality,
+            desc: t('consonantsLabel'),
+          },
+        ].map((grid, idx) => (
+          <div
+            key={idx}
+            className="p-4 bg-amber-50/20 border border-amber-100 rounded-xl space-y-1.5"
+          >
+            <span className="text-[10px] uppercase font-bold text-gray-400">
+              {grid.title}
+            </span>
+
+            <span className="text-3xl font-black text-amber-700 block">
+              {grid.value}
+            </span>
+
+            <span className="text-[10px] text-gray-500 font-medium">
+              {grid.desc}
+            </span>
           </div>
-        </div>
-        {renderFooter(4)}
+        ))}
+
       </div>
 
+    </div>
+  </div>
 
-      {/* PAGE 5: MOOLANK POSITIVE ANALYSIS */}
-      <div className="pdf-page relative p-12 bg-white flex flex-col justify-between" style={{ height: '297mm', width: '210mm', pageBreakAfter: 'always' }}>
-        {renderWatermark()}
-        <div style={{ position: 'relative', zIndex: 1 }}>
-          {renderHeader(5)}
-          <h2 className="font-serif text-2xl font-bold text-gray-900 mb-3">{t('moolankPositiveTitle')}</h2>
-          <div className="space-y-3 text-xs text-gray-700 leading-relaxed text-justify">
-            <h3 className="font-serif text-lg font-bold text-amber-700">
-              {language === 'en' ? 'Moolank' : 'मूलांक'} {moolank} &mdash; {t('rulerLabel')}: {getTranslation(planetaryLords[moolank])}
-            </h3>
-            <p>{getTranslation(currentMoolank.desc)}</p>
+  {renderFooter(4)}
+</div>
 
-            <div className="p-4 bg-emerald-50/60 border border-emerald-200 rounded-xl space-y-2">
-              <strong className="text-emerald-700 uppercase tracking-wider block text-[10px]">✦ {t('positiveVibrationsLabel')}</strong>
-              <p className="text-gray-700">{getTranslation(currentMoolank.strengths)}</p>
-            </div>
+     {/* PAGE 5: MOOLANK POSITIVE ANALYSIS */}
 
-            <div className="p-4 bg-amber-50/50 border border-amber-200 rounded-xl space-y-2">
-              <strong className="text-amber-700 uppercase tracking-wider block text-[10px]">✦ {language === 'en' ? 'Core Personality Traits' : (language === 'gu' ? 'મૂળ વ્યક્તિત્વ ગુણો' : 'मूल व्यक्तित्व गुण')}</strong>
-              <ul className="list-disc list-inside space-y-1 text-gray-700">
-                {getTranslation(currentMoolank.traits || currentMoolank.strengths).split('.').filter(s => s.trim().length > 10).slice(0, 5).map((trait, i) => (
-                  <li key={i}>{trait.trim()}.</li>
-                ))}
-              </ul>
-            </div>
+<div
+  className="pdf-page relative p-12 bg-white flex flex-col justify-between"
+  style={{
+    height: '297mm',
+    width: '210mm',
+    pageBreakAfter: 'always',
+  }}
+>
+  {renderWatermark()}
 
-            <div className="p-4 bg-blue-50/40 border border-blue-100 rounded-xl">
-              <strong className="text-blue-700 uppercase tracking-wider block text-[10px] mb-1">✦ {language === 'en' ? 'Planetary Influence' : (language === 'gu' ? 'ગ્રહ પ્રભાવ' : 'ग्रहीय प्रभाव')}</strong>
-              <p className="text-gray-700">
-                {language === 'en'
-                  ? `The ruling planet ${getTranslation(planetaryLords[moolank])} governs your fundamental nature. This cosmic energy shapes your instincts, drives your ambitions, and influences how you respond to life's challenges. People born under Moolank ${moolank} naturally embody the qualities of this planetary lord.`
-                  : language === 'gu'
-                  ? `ગ્રહ ${getTranslation(planetaryLords[moolank])} તમારી મૂળ પ્રકૃતિ પર શાસન કરે છે. આ વૈશ્વિક ઊર્જા તમારી સ્વાભાવિક વૃત્તિઓ, મહત્ત્વાકાંક્ષાઓ અને પ્રતિક્રિયાઓ ઘડે છે.`
-                  : `स्वामी ग्रह ${getTranslation(planetaryLords[moolank])} आपकी मूल प्रकृति को नियंत्रित करता है। यह ब्रह्मांडीय ऊर्जा आपकी प्रवृत्तियों, महत्वाकांक्षाओं और जीवन की चुनौतियों के प्रति आपकी प्रतिक्रियाओं को आकार देती है।`
-                }
-              </p>
-            </div>
+  <div style={{ position: 'relative', zIndex: 1 }}>
+    {renderHeader(5)}
 
-            <div className="p-3 bg-gray-50 border border-gray-200 rounded-xl">
-              <strong className="text-gray-600 uppercase tracking-wider block text-[10px] mb-1">✦ {language === 'en' ? 'Key Strengths Summary' : (language === 'gu' ? 'મુખ્ય શક્તિઓ' : 'मुख्य शक्तियां')}</strong>
-              <div className="grid grid-cols-2 gap-1">
-                {['Leadership', 'Creativity', 'Intuition', 'Determination', 'Adaptability', 'Vision'].map((s, i) => (
-                  <span key={i} className="text-[10px] text-gray-600 flex items-center gap-1"><span className="text-amber-600">▸</span> {s}</span>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-        {renderFooter(5)}
+    <h2 className="font-serif text-2xl font-bold text-gray-900 mb-3">
+      {t('moolankPositiveTitle')}
+    </h2>
+
+    <div className="space-y-3 text-xs text-gray-700 leading-relaxed text-justify">
+
+      <h3 className="font-serif text-lg font-bold text-amber-700">
+        {language === 'en' ? 'Moolank' : 'मूलांक'} {moolank}
+        &nbsp;—&nbsp;
+        {t('rulerLabel')}: {getTranslation(planetaryLords[moolank])}
+      </h3>
+
+      <p>{getTranslation(currentMoolank.desc)}</p>
+
+      <div className="p-4 bg-emerald-50/60 border border-emerald-200 rounded-xl space-y-2">
+        <strong className="text-emerald-700 uppercase tracking-wider block text-[10px]">
+          ✦ {t('positiveVibrationsLabel')}
+        </strong>
+
+        <p className="text-gray-700">
+          {getTranslation(currentMoolank.strengths)}
+        </p>
       </div>
 
+      <div className="p-4 bg-amber-50/50 border border-amber-200 rounded-xl space-y-2">
+        <strong className="text-amber-700 uppercase tracking-wider block text-[10px]">
+          ✦ {
+            language === 'en'
+              ? 'Core Personality Traits'
+              : language === 'gu'
+              ? 'મૂળ વ્યક્તિત્વ ગુણો'
+              : 'मूल व्यक्तित्व गुण'
+          }
+        </strong>
+
+        <ul className="list-disc list-inside space-y-1 text-gray-700">
+          {getTranslation(
+            currentMoolank.traits || currentMoolank.strengths
+          )
+            .split('.')
+            .filter((s) => s.trim().length > 10)
+            .slice(0, 5)
+            .map((trait, i) => (
+              <li key={i}>{trait.trim()}.</li>
+            ))}
+        </ul>
+      </div>
+
+      <div className="p-4 bg-blue-50/40 border border-blue-100 rounded-xl">
+        <strong className="text-blue-700 uppercase tracking-wider block text-[10px] mb-1">
+          ✦ {
+            language === 'en'
+              ? 'Planetary Influence'
+              : language === 'gu'
+              ? 'ગ્રહ પ્રભાવ'
+              : 'ग्रहीय प्रभाव'
+          }
+        </strong>
+
+        <p className="text-gray-700">
+          {language === 'en'
+            ? `The ruling planet ${getTranslation(
+                planetaryLords[moolank]
+              )} governs your fundamental nature. This cosmic energy shapes your instincts, drives your ambitions, and influences how you respond to life's challenges. People born under Moolank ${moolank} naturally embody the qualities of this planetary lord.`
+            : language === 'gu'
+            ? `ગ્રહ ${getTranslation(
+                planetaryLords[moolank]
+              )} તમારી મૂળ પ્રકૃતિ પર શાસન કરે છે. આ વૈશ્વિક ઊર્જા તમારી સ્વાભાવિક વૃત્તિઓ, મહત્ત્વાકાંક્ષાઓ અને પ્રતિક્રિયાઓ ઘડે છે.`
+            : `स्वामी ग्रह ${getTranslation(
+                planetaryLords[moolank]
+              )} आपकी मूल प्रकृति को नियंत्रित करता है। यह ब्रह्मांडीय ऊर्जा आपकी प्रवृत्तियों, महत्वाकांक्षाओं और जीवन की चुनौतियों के प्रति आपकी प्रतिक्रियाओं को आकार देती है।`}
+        </p>
+      </div>
+
+      <div className="p-3 bg-gray-50 border border-gray-200 rounded-xl">
+        <strong className="text-gray-600 uppercase tracking-wider block text-[10px] mb-1">
+          ✦ {
+            language === 'en'
+              ? 'Key Strengths Summary'
+              : language === 'gu'
+              ? 'મુખ્ય શક્તિઓ'
+              : 'मुख्य शक्तियां'
+          }
+        </strong>
+
+        <div className="grid grid-cols-2 gap-1">
+          {[
+            'Leadership',
+            'Creativity',
+            'Intuition',
+            'Determination',
+            'Adaptability',
+            'Vision',
+          ].map((s, i) => (
+            <span
+              key={i}
+              className="text-[10px] text-gray-600 flex items-center gap-1"
+            >
+              <span className="text-amber-600">▸</span>
+
+              {s}
+            </span>
+          ))}
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  {renderFooter(5)}
+</div>
 
       {/* PAGE 6: MOOLANK CHALLENGES */}
       <div className="pdf-page relative p-12 bg-white flex flex-col justify-between" style={{ height: '297mm', width: '210mm', pageBreakAfter: 'always' }}>
@@ -1520,31 +1656,66 @@ export default function DetailedReportTemplate({ reportData, language = 'en' }) 
       </div>
 
 
-      {/* PAGE 13: NAME CORRECTION MODULE */}
-      <div className="pdf-page relative p-12 bg-white flex flex-col justify-between" style={{ height: '297mm', width: '210mm', pageBreakAfter: 'always' }}>
-        {renderWatermark()}
-        <div>
-          {renderHeader(13)}
-          <h2 className="font-serif text-2xl font-bold text-gray-900 mb-4">{t('nameCorrTitle')}</h2>
-          <div className="space-y-4 text-xs text-gray-700 leading-relaxed text-justify">
-            <p>
-              {t('nameCorrDescText')}
-            </p>
-            <div className="p-4 bg-amber-50/20 border border-amber-100 rounded-xl">
-              <h4 className="text-[10px] uppercase font-bold text-amber-700 tracking-wider mb-2">{t('currentSpellingLabel')}</h4>
-              <div className="grid grid-cols-2 gap-2">
-                <span>{t('originalNameLabel')}</span>
-                <span className="font-bold text-gray-950">{fullName}</span>
-                <span>{t('pythValueLabel')}</span>
-                <span className="font-bold text-gray-950">{destinyPyth}</span>
-                <span>{t('chaldValueLabel')}</span>
-                <span className="font-bold text-gray-950">{destinyChald}</span>
-              </div>
-            </div>
-          </div>
+     {/* PAGE 13: NAME CORRECTION MODULE */}
+
+<div
+  className="pdf-page relative p-12 bg-white flex flex-col justify-between"
+  style={{
+    height: '297mm',
+    width: '210mm',
+    pageBreakAfter: 'always',
+  }}
+>
+  {renderWatermark()}
+
+  <div style={{ position: 'relative', zIndex: 1 }}>
+    {renderHeader(13)}
+
+    <h2 className="font-serif text-2xl font-bold text-gray-900 mb-4">
+      {t('nameCorrTitle')}
+    </h2>
+
+    <div className="space-y-4 text-xs text-gray-700 leading-relaxed text-justify">
+
+      <p>
+        {t('nameCorrDescText')}
+      </p>
+
+      <div className="p-4 bg-amber-50/20 border border-amber-100 rounded-xl">
+
+        <h4 className="text-[10px] uppercase font-bold text-amber-700 tracking-wider mb-2">
+          {t('currentSpellingLabel')}
+        </h4>
+
+        <div className="grid grid-cols-2 gap-2">
+
+          <span>{t('originalNameLabel')}</span>
+
+          <span className="font-bold text-gray-950">
+            {fullName}
+          </span>
+
+          <span>{t('pythValueLabel')}</span>
+
+          <span className="font-bold text-gray-950">
+            {destinyPyth}
+          </span>
+
+          <span>{t('chaldValueLabel')}</span>
+
+          <span className="font-bold text-gray-950">
+            {destinyChald}
+          </span>
+
         </div>
-        {renderFooter(13)}
+
       </div>
+
+    </div>
+  </div>
+
+  {renderFooter(13)}
+</div>
 
 
       {/* PAGE 14: SPELLING SUGGESTIONS */}
@@ -1612,30 +1783,64 @@ export default function DetailedReportTemplate({ reportData, language = 'en' }) 
 
 
       {/* PAGE 16: MOBILE COMPATIBILITY */}
-      <div className="pdf-page relative p-12 bg-white flex flex-col justify-between" style={{ height: '297mm', width: '210mm', pageBreakAfter: 'always' }}>
-        {renderWatermark()}
-        <div>
-          {renderHeader(16)}
-          <h2 className="font-serif text-2xl font-bold text-gray-900 mb-4">{t('mobileCompatibilityTitle')}</h2>
-          <div className="space-y-4 text-xs text-gray-700 leading-relaxed text-justify">
-            {mobileComp && (
-              <div className="p-6 bg-gray-50 border border-gray-200 rounded-2xl space-y-4">
-                <div className="text-center space-y-1">
-                  <span className="text-[10px] uppercase font-bold text-gray-400">{t('compatibilityStatusLabel')}</span>
-                  <h3 className="text-3xl font-black text-amber-700">{mobileComp.percentage}%</h3>
-                  <strong className="text-sm font-bold text-gray-800 uppercase block">
-                    {language === 'en' ? mobileComp.status : (mobileComp.status === 'Friendly' ? 'मैत्रीपूर्ण' : (mobileComp.status === 'Neutral' ? 'तटस्थ' : 'शत्रुतापूर्ण'))}
-                  </strong>
-                </div>
-                <p className="text-xs text-gray-600 leading-relaxed pt-2 border-t border-gray-200">
-                  {t('compatibilityDescText')}
-                </p>
-              </div>
-            )}
+     {/* PAGE 16: MOBILE COMPATIBILITY */}
+
+<div
+  className="pdf-page relative p-12 bg-white flex flex-col justify-between"
+  style={{
+    height: '297mm',
+    width: '210mm',
+    pageBreakAfter: 'always',
+  }}
+>
+  {renderWatermark()}
+
+  <div style={{ position: 'relative', zIndex: 1 }}>
+    {renderHeader(16)}
+
+    <h2 className="font-serif text-2xl font-bold text-gray-900 mb-4">
+      {t('mobileCompatibilityTitle')}
+    </h2>
+
+    <div className="space-y-4 text-xs text-gray-700 leading-relaxed text-justify">
+
+      {mobileComp && (
+        <div className="p-6 bg-gray-50 border border-gray-200 rounded-2xl space-y-4">
+
+          <div className="text-center space-y-1">
+
+            <span className="text-[10px] uppercase font-bold text-gray-400">
+              {t('compatibilityStatusLabel')}
+            </span>
+
+            <h3 className="text-3xl font-black text-amber-700">
+              {mobileComp.percentage}%
+            </h3>
+
+            <strong className="text-sm font-bold text-gray-800 uppercase block">
+              {language === 'en'
+                ? mobileComp.status
+                : mobileComp.status === 'Friendly'
+                ? 'मैत्रीपूर्ण'
+                : mobileComp.status === 'Neutral'
+                ? 'तटस्थ'
+                : 'शत्रुतापूर्ण'}
+            </strong>
+
           </div>
+
+          <p className="text-xs text-gray-600 leading-relaxed pt-2 border-t border-gray-200">
+            {t('compatibilityDescText')}
+          </p>
+
         </div>
-        {renderFooter(16)}
-      </div>
+      )}
+
+    </div>
+  </div>
+
+  {renderFooter(16)}
+</div>
 
 
       {/* PAGE 17: VIP NUMBER RECOMMENDATIONS */}

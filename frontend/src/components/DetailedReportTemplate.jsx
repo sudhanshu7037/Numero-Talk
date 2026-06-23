@@ -1032,8 +1032,6 @@ export default function DetailedReportTemplate({ reportData, language = 'en' }) 
 
     {/* PAGE 3: INTRODUCTION */}
 
-{/* PAGE 3: INTRODUCTION */}
-
 <div
   className="pdf-page relative p-12 bg-white flex flex-col justify-between"
   style={{
@@ -1044,26 +1042,15 @@ export default function DetailedReportTemplate({ reportData, language = 'en' }) 
 >
   {renderWatermark()}
 
-  <div
-    style={{
-      position: 'relative',
-      zIndex: 1,
-      minHeight: '220mm',
-      width: '100%',
-    }}
-  >
+  <div style={{ position: 'relative', zIndex: 1 }}>
     {renderHeader(3)}
 
     <h2 className="font-serif text-2xl font-bold text-gray-900 mb-4">
       {t('introductionTitle')}
     </h2>
 
-    <div
-      className="space-y-4 text-xs text-gray-700 leading-relaxed text-justify"
-      style={{
-        overflowWrap: 'break-word',
-      }}
-    >
+    <div className="space-y-4 text-xs text-gray-700 leading-relaxed text-justify">
+
       <p>
         {t('introductionTextP1')}
       </p>
@@ -1093,14 +1080,13 @@ export default function DetailedReportTemplate({ reportData, language = 'en' }) 
       <p>
         {t('introductionTextP4')}
       </p>
+
     </div>
   </div>
 
   {renderFooter(3)}
 </div>  
      {/* PAGE 4: COSMIC GRID */}
-
-{/* PAGE 4: COSMIC GRID */}
 
 <div
   className="pdf-page relative p-12 bg-white flex flex-col justify-between"
@@ -1112,27 +1098,16 @@ export default function DetailedReportTemplate({ reportData, language = 'en' }) 
 >
   {renderWatermark()}
 
-  <div
-    style={{
-      position: 'relative',
-      zIndex: 1,
-      minHeight: '220mm',
-      width: '100%',
-    }}
-  >
+  <div style={{ position: 'relative', zIndex: 1 }}>
     {renderHeader(4)}
 
-    <h2 className="font-serif text-2xl font-bold text-gray-900 mb-4">
+    <h2 className="font-serif text-2xl font-bold text-gray-900 mb-6">
       {t('cosmicGridTitle')}
     </h2>
 
-    <div
-      className="space-y-4 text-xs text-gray-700 leading-relaxed"
-      style={{
-        overflowWrap: 'break-word',
-      }}
-    >
-      <div className="grid grid-cols-2 gap-3">
+    <div className="space-y-6 text-xs text-gray-700 leading-relaxed text-justify">
+
+      <div className="grid grid-cols-2 gap-4">
 
         {[
           {
@@ -1174,35 +1149,27 @@ export default function DetailedReportTemplate({ reportData, language = 'en' }) 
             value: personality,
             desc: t('consonantsLabel'),
           },
-
         ].map((grid, idx) => (
-
           <div
             key={idx}
-            className="p-4 bg-amber-50/20 border border-amber-100 rounded-xl"
+            className="p-4 bg-amber-50/20 border border-amber-100 rounded-xl space-y-1.5"
           >
+            <span className="text-[10px] uppercase font-bold text-gray-400">
+              {grid.title}
+            </span>
 
-            <div className="space-y-2">
+            <span className="text-3xl font-black text-amber-700 block">
+              {grid.value}
+            </span>
 
-              <span className="text-[10px] uppercase font-bold text-gray-400 block">
-                {grid.title}
-              </span>
-
-              <span className="text-3xl font-black text-amber-700 block">
-                {grid.value}
-              </span>
-
-              <span className="text-[10px] text-gray-500 font-medium block">
-                {grid.desc}
-              </span>
-
-            </div>
-
+            <span className="text-[10px] text-gray-500 font-medium">
+              {grid.desc}
+            </span>
           </div>
-
         ))}
 
       </div>
+
     </div>
   </div>
 
@@ -1725,416 +1692,118 @@ export default function DetailedReportTemplate({ reportData, language = 'en' }) 
 
 
       {/* PAGE 9: DESTINY NUMBER */}
-      {/* PAGE 9: DESTINY */}
+      <div className="pdf-page relative p-12 bg-white flex flex-col justify-between" style={{ height: '297mm', width: '210mm', pageBreakAfter: 'always' }}>
+        {renderWatermark()}
+        <div style={{ position: 'relative', zIndex: 1 }}>
+          {renderHeader(9)}
+          <h2 className="font-serif text-2xl font-bold text-gray-900 mb-3">{t('destinyTitle')}</h2>
+          <div className="space-y-3 text-xs text-gray-700 leading-relaxed text-justify">
+            <h3 className="font-serif text-base font-bold text-gray-900">{t('alignmentLabel')}</h3>
+            <p>{t('destinyIntroText')}</p>
 
-<div
-  className="pdf-page relative p-12 bg-white flex flex-col justify-between"
-  style={{
-    height: '297mm',
-    width: '210mm',
-    pageBreakAfter: 'always',
-  }}
->
-  {renderWatermark()}
+            <div className="grid grid-cols-2 gap-4 my-2">
+              <div className="p-4 bg-gray-50 border border-gray-200 rounded-xl text-center">
+                <span className="text-[10px] uppercase font-bold text-gray-400 block">{language === 'en' ? 'Pythagorean Destiny' : 'पाइथागोरस नामांक'}</span>
+                <span className="text-3xl font-black text-gray-900 block mt-1">{destinyPyth}</span>
+                <span className="text-[10px] text-gray-500 font-medium">{t('rulerLabel')}: {getTranslation(planetaryLords[destinyPyth])}</span>
+              </div>
+              <div className="p-4 bg-gray-50 border border-gray-200 rounded-xl text-center">
+                <span className="text-[10px] uppercase font-bold text-gray-400 block">{language === 'en' ? 'Chaldean Destiny' : 'चाल्डियन नामांक'}</span>
+                <span className="text-3xl font-black text-gray-900 block mt-1">{destinyChald}</span>
+                <span className="text-[10px] text-gray-500 font-medium">{t('rulerLabel')}: {getTranslation(planetaryLords[destinyChald])}</span>
+              </div>
+            </div>
 
-  <div
-    style={{
-      position: 'relative',
-      zIndex: 1,
-      minHeight: '220mm',
-      width: '100%',
-    }}
-  >
-    {renderHeader(9)}
+            <p>{t('destinyOutroText')}</p>
 
-    <h2 className="font-serif text-2xl font-bold text-gray-900 mb-4">
-      {t('destinyTitle')}
-    </h2>
+            <div className="p-4 bg-amber-50/50 border border-amber-200 rounded-xl">
+              <strong className="text-amber-700 uppercase tracking-wider block text-[10px] mb-2">✦ {language === 'en' ? 'Name–Destiny Alignment Analysis' : (language === 'gu' ? 'નામ–ભાગ્ય સુસંગતતા' : 'नाम–भाग्य संरेखण विश्लेषण')}</strong>
+              <p className="text-gray-700">
+                {destinyPyth === destinyChald
+                  ? (language === 'en'
+                      ? `Your Pythagorean and Chaldean values both resolve to ${destinyPyth}, indicating strong cosmic alignment between your name's sound vibration and its structural frequency. This rare harmony amplifies your name's positive influence significantly.`
+                      : `आपके पाइथागोरस और चाल्डियन मान दोनों ${destinyPyth} पर आते हैं, जो आपके नाम की ध्वनि और संरचनात्मक आवृत्ति के बीच मजबूत ब्रह्मांडीय संरेखण दर्शाता है।`)
+                  : (language === 'en'
+                      ? `Your Pythagorean value (${destinyPyth}) and Chaldean value (${destinyChald}) differ, revealing a dual-layer name vibration. Externally you project the energy of ${destinyPyth}, while your deeper, Chaldean frequency of ${destinyChald} influences your subconscious patterns and hidden tendencies.`
+                      : `आपका पाइथागोरस मान (${destinyPyth}) और चाल्डियन मान (${destinyChald}) भिन्न हैं, जो एक द्वि-स्तरीय नाम कंपन प्रकट करते हैं।`)
+                }
+              </p>
+            </div>
 
-    <div
-      className="space-y-4 text-xs text-gray-700 leading-relaxed"
-      style={{
-        overflowWrap: 'break-word',
-      }}
-    >
-      <h3 className="font-serif text-base font-bold text-gray-900">
-        {t('alignmentLabel')}
-      </h3>
-
-      <p>{t('destinyIntroText')}</p>
-
-      {/* Destiny Cards */}
-
-      <div className="grid grid-cols-2 gap-3">
-
-        <div className="p-4 bg-gray-50 border border-gray-200 rounded-xl text-center">
-
-          <span className="text-[10px] uppercase font-bold text-gray-400 block">
-
-            {language === 'en'
-              ? 'Pythagorean Destiny'
-              : 'पाइथागोरस नामांक'}
-
-          </span>
-
-          <span className="text-3xl font-black text-gray-900 block mt-1">
-
-            {destinyPyth}
-
-          </span>
-
-          <span className="text-[10px] text-gray-500 font-medium">
-
-            {t('rulerLabel')}:{' '}
-
-            {getTranslation(
-              planetaryLords[destinyPyth]
-            )}
-
-          </span>
-
+            <div className="p-3 bg-purple-50/40 border border-purple-200 rounded-xl">
+              <strong className="text-purple-700 uppercase tracking-wider block text-[10px] mb-1">✦ {language === 'en' ? 'Expression & Public Identity' : (language === 'gu' ? 'અભિવ્યક્તિ અને સામાજિક ઓળખ' : 'अभिव्यक्ति और सार्वजनिक पहचान')}</strong>
+              <p className="text-[10px] text-gray-600">
+                {language === 'en'
+                  ? `The Destiny Number represents how you express yourself to the world and the legacy you are destined to create. It governs your public identity, your reputation, and the mark you leave on those around you.`
+                  : `नामांक दर्शाता है कि आप दुनिया को खुद को कैसे व्यक्त करते हैं और आप किस विरासत को बनाने के लिए नियत हैं। यह आपकी सार्वजनिक पहचान और प्रतिष्ठा को नियंत्रित करता है।`
+                }
+              </p>
+            </div>
+          </div>
         </div>
-
-        <div className="p-4 bg-gray-50 border border-gray-200 rounded-xl text-center">
-
-          <span className="text-[10px] uppercase font-bold text-gray-400 block">
-
-            {language === 'en'
-              ? 'Chaldean Destiny'
-              : 'चाल्डियन नामांक'}
-
-          </span>
-
-          <span className="text-3xl font-black text-gray-900 block mt-1">
-
-            {destinyChald}
-
-          </span>
-
-          <span className="text-[10px] text-gray-500 font-medium">
-
-            {t('rulerLabel')}:{' '}
-
-            {getTranslation(
-              planetaryLords[destinyChald]
-            )}
-
-          </span>
-
-        </div>
-
+        {renderFooter(9)}
       </div>
-
-      <p>{t('destinyOutroText')}</p>
-
-      {/* Alignment Analysis */}
-
-      <div className="p-4 bg-amber-50/50 border border-amber-200 rounded-xl">
-
-        <strong className="text-amber-700 uppercase tracking-wider block text-[10px] mb-2">
-
-          ✦ {
-            language === 'en'
-
-              ? 'Name–Destiny Alignment Analysis'
-
-              : language === 'gu'
-
-              ? 'નામ–ભાગ્ય સુસંગતતા'
-
-              : 'नाम–भाग्य संरेखण विश्लेषण'
-          }
-
-        </strong>
-
-        <p className="text-gray-700">
-
-          {destinyPyth === destinyChald
-
-            ? (
-
-              language === 'en'
-
-                ? `Your Pythagorean and Chaldean values both resolve to ${destinyPyth}, indicating strong cosmic alignment between your name's sound vibration and its structural frequency. This rare harmony amplifies your name's positive influence significantly.`
-
-                : `आपके पाइथागोरस और चाल्डियन मान दोनों ${destinyPyth} पर आते हैं, जो आपके नाम की ध्वनि और संरचनात्मक आवृत्ति के बीच मजबूत ब्रह्मांडीय संरेखण दर्शाता है।`
-
-            )
-
-            : (
-
-              language === 'en'
-
-                ? `Your Pythagorean value (${destinyPyth}) and Chaldean value (${destinyChald}) differ, revealing a dual-layer name vibration. Externally you project the energy of ${destinyPyth}, while your deeper Chaldean frequency of ${destinyChald} influences your subconscious patterns and hidden tendencies.`
-
-                : `आपका पाइथागोरस मान (${destinyPyth}) और चाल्डियन मान (${destinyChald}) भिन्न हैं, जो एक द्वि-स्तरीय नाम कंपन प्रकट करते हैं।`
-
-            )}
-
-        </p>
-
-      </div>
-
-      {/* Public Identity */}
-
-      <div className="p-4 bg-purple-50/40 border border-purple-200 rounded-xl">
-
-        <strong className="text-purple-700 uppercase tracking-wider block text-[10px] mb-2">
-
-          ✦ {
-            language === 'en'
-
-              ? 'Expression & Public Identity'
-
-              : language === 'gu'
-
-              ? 'અભિવ્યક્તિ અને સામાજિક ઓળખ'
-
-              : 'अभिव्यक्ति और सार्वजनिक पहचान'
-          }
-
-        </strong>
-
-        <p className="text-[10px] text-gray-600">
-
-          {language === 'en'
-
-            ? `The Destiny Number represents how you express yourself to the world and the legacy you are destined to create. It governs your public identity, your reputation, and the mark you leave on those around you.`
-
-            : `नामांक दर्शाता है कि आप दुनिया को खुद को कैसे व्यक्त करते हैं और आप किस विरासत को बनाने के लिए नियत हैं। यह आपकी सार्वजनिक पहचान और प्रतिष्ठा को नियंत्रित करता है।`
-
-          }
-
-        </p>
-
-      </div>
-
-    </div>
-  </div>
-
-  {renderFooter(9)}
-</div>
 
 
       {/* PAGE 10: NAME VIBRATION */}
-     {/* PAGE 10: NAME VIBRATION */}
+      <div className="pdf-page relative p-12 bg-white flex flex-col justify-between" style={{ height: '297mm', width: '210mm', pageBreakAfter: 'always' }}>
+        {renderWatermark()}
+        <div style={{ position: 'relative', zIndex: 1 }}>
+          {renderHeader(10)}
+          <h2 className="font-serif text-2xl font-bold text-gray-900 mb-3">{t('nameVibeTitle')}</h2>
+          <div className="space-y-3 text-xs text-gray-700 leading-relaxed text-justify">
+            <h3 className="font-serif text-lg font-bold text-amber-700">
+              {language === 'en' ? 'Name Value' : 'नामांक'} {destinyPyth} &mdash; {t('nameValueMeaningLabel')}
+            </h3>
 
-<div
-  className="pdf-page relative p-12 bg-white flex flex-col justify-between"
-  style={{
-    height: '297mm',
-    width: '210mm',
-    pageBreakAfter: 'always',
-  }}
->
-  {renderWatermark()}
+            <div className="p-4 bg-amber-50/50 border border-amber-200 rounded-xl">
+              <strong className="text-amber-700 uppercase tracking-wider block text-[10px] mb-1">✦ {language === 'en' ? 'Name Vibration Interpretation' : 'नाम कंपन व्याख्या'}</strong>
+              <p>{getTranslation(currentNameVal)}</p>
+            </div>
 
-  <div
-    style={{
-      position: 'relative',
-      zIndex: 1,
-      minHeight: '220mm',
-      width: '100%',
-    }}
-  >
-    {renderHeader(10)}
+            <div className="p-4 bg-indigo-50/40 border border-indigo-200 rounded-xl">
+              <strong className="text-indigo-700 uppercase tracking-wider block text-[10px] mb-2">✦ {language === 'en' ? 'Letter-by-Letter Frequency Breakdown' : (language === 'gu' ? 'અક્ષર-દ-અક્ષર ફ્રિક્વન્સી' : 'अक्षर-दर-अक्षर आवृत्ति')}</strong>
+              <div className="flex flex-wrap gap-1.5">
+                {fullName.replace(/\s/g, '').toUpperCase().split('').map((char, i) => {
+                  const pythVal = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.indexOf(char) % 9 + 1;
+                  return (
+                    <div key={i} className="text-center">
+                      <div className="w-7 h-7 rounded-md bg-amber-100 border border-amber-300 flex items-center justify-center font-bold text-amber-700 text-[11px]">{char}</div>
+                      <div className="text-[9px] text-gray-500 mt-0.5">{pythVal}</div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
 
-    <h2 className="font-serif text-2xl font-bold text-gray-900 mb-4">
-      {t('nameVibeTitle')}
-    </h2>
+            <div className="p-4 bg-emerald-50/40 border border-emerald-200 rounded-xl">
+              <strong className="text-emerald-700 uppercase tracking-wider block text-[10px] mb-1">✦ {language === 'en' ? 'Name Power & Aura' : (language === 'gu' ? 'નામ શક્તિ અને ઓરા' : 'नाम शक्ति और आभा')}</strong>
+              <p className="text-gray-700">
+                {language === 'en'
+                  ? `The name "${fullName}" carries a Pythagorean vibration of ${destinyPyth}. This frequency projects a specific aura into the universe — a vibrational calling card that precedes you in every interaction, meeting, and opportunity. Strengthening your name's vibration through correct spelling can amplify your cosmic signal.`
+                  : `नाम "${fullName}" का पाइथागोरस कंपन ${destinyPyth} है। यह आवृत्ति ब्रह्मांड में एक विशेष आभा प्रक्षेपित करती है।`
+                }
+              </p>
+            </div>
 
-    <div
-      className="space-y-4 text-xs text-gray-700 leading-relaxed"
-      style={{
-        overflowWrap: 'break-word',
-      }}
-    >
-
-      <h3 className="font-serif text-lg font-bold text-amber-700">
-        {language === 'en' ? 'Name Value' : 'नामांक'} {destinyPyth}
-        &nbsp;—&nbsp;
-        {t('nameValueMeaningLabel')}
-      </h3>
-
-      {/* Name Interpretation */}
-
-      <div className="p-4 bg-amber-50/50 border border-amber-200 rounded-xl">
-
-        <strong className="text-amber-700 uppercase tracking-wider block text-[10px] mb-2">
-
-          ✦ {language === 'en'
-            ? 'Name Vibration Interpretation'
-            : 'नाम कंपन व्याख्या'}
-
-        </strong>
-
-        <p>
-
-          {getTranslation(currentNameVal)}
-
-        </p>
-
-      </div>
-
-      {/* Letter Breakdown */}
-
-      <div className="p-4 bg-indigo-50/40 border border-indigo-200 rounded-xl">
-
-        <strong className="text-indigo-700 uppercase tracking-wider block text-[10px] mb-2">
-
-          ✦ {
-            language === 'en'
-
-              ? 'Letter-by-Letter Frequency Breakdown'
-
-              : language === 'gu'
-
-              ? 'અક્ષર-દ-અક્ષર ફ્રિક્વન્સી'
-
-              : 'अक्षर-दर-अक्षर आवृत्ति'
-          }
-
-        </strong>
-
-        <div className="flex flex-wrap gap-2">
-
-          {fullName
-            .replace(/\s/g, '')
-            .toUpperCase()
-            .split('')
-            .map((char, i) => {
-
-              const pythVal =
-                ('ABCDEFGHIJKLMNOPQRSTUVWXYZ'.indexOf(char) % 9) + 1;
-
-              return (
-
-                <div
-                  key={i}
-                  className="text-center"
-                >
-
-                  <div className="w-7 h-7 rounded-md bg-amber-100 border border-amber-300 flex items-center justify-center font-bold text-amber-700 text-[11px]">
-
-                    {char}
-
-                  </div>
-
-                  <div className="text-[9px] text-gray-500 mt-1">
-
-                    {pythVal}
-
-                  </div>
-
-                </div>
-
-              );
-
-            })}
-
+            <div className="grid grid-cols-3 gap-2">
+              <div className="p-3 bg-gray-50 border border-gray-200 rounded-xl text-center">
+                <div className="text-[9px] uppercase font-bold text-gray-400 mb-1">{language === 'en' ? 'Total Letters' : 'कुल अक्षर'}</div>
+                <div className="text-xl font-black text-gray-800">{fullName.replace(/\s/g, '').length}</div>
+              </div>
+              <div className="p-3 bg-gray-50 border border-gray-200 rounded-xl text-center">
+                <div className="text-[9px] uppercase font-bold text-gray-400 mb-1">{language === 'en' ? 'Vowel Sum' : 'स्वर योग'}</div>
+                <div className="text-xl font-black text-amber-700">{soulUrge}</div>
+              </div>
+              <div className="p-3 bg-gray-50 border border-gray-200 rounded-xl text-center">
+                <div className="text-[9px] uppercase font-bold text-gray-400 mb-1">{language === 'en' ? 'Consonant Sum' : 'व्यंजन योग'}</div>
+                <div className="text-xl font-black text-gray-800">{personality}</div>
+              </div>
+            </div>
+          </div>
         </div>
-
+        {renderFooter(10)}
       </div>
-
-      {/* Name Aura */}
-
-      <div className="p-4 bg-emerald-50/40 border border-emerald-200 rounded-xl">
-
-        <strong className="text-emerald-700 uppercase tracking-wider block text-[10px] mb-2">
-
-          ✦ {
-            language === 'en'
-
-              ? 'Name Power & Aura'
-
-              : language === 'gu'
-
-              ? 'નામ શક્તિ અને ઓરા'
-
-              : 'नाम शक्ति और आभा'
-          }
-
-        </strong>
-
-        <p className="text-gray-700">
-
-          {language === 'en'
-
-            ? `The name "${fullName}" carries a Pythagorean vibration of ${destinyPyth}. This frequency projects a specific aura into the universe — a vibrational calling card that precedes you in every interaction, meeting, and opportunity. Strengthening your name's vibration through correct spelling can amplify your cosmic signal.`
-
-            : `नाम "${fullName}" का पाइथागोरस कंपन ${destinyPyth} है। यह आवृत्ति ब्रह्मांड में एक विशेष आभा प्रक्षेपित करती है।`
-
-          }
-
-        </p>
-
-      </div>
-
-      {/* Summary Cards */}
-
-      <div className="grid grid-cols-3 gap-3">
-
-        <div className="p-3 bg-gray-50 border border-gray-200 rounded-xl text-center">
-
-          <div className="text-[9px] uppercase font-bold text-gray-400 mb-1">
-
-            {language === 'en'
-              ? 'Total Letters'
-              : 'कुल अक्षर'}
-
-          </div>
-
-          <div className="text-xl font-black text-gray-800">
-
-            {fullName.replace(/\s/g, '').length}
-
-          </div>
-
-        </div>
-
-        <div className="p-3 bg-gray-50 border border-gray-200 rounded-xl text-center">
-
-          <div className="text-[9px] uppercase font-bold text-gray-400 mb-1">
-
-            {language === 'en'
-              ? 'Vowel Sum'
-              : 'स्वर योग'}
-
-          </div>
-
-          <div className="text-xl font-black text-amber-700">
-
-            {soulUrge}
-
-          </div>
-
-        </div>
-
-        <div className="p-3 bg-gray-50 border border-gray-200 rounded-xl text-center">
-
-          <div className="text-[9px] uppercase font-bold text-gray-400 mb-1">
-
-            {language === 'en'
-              ? 'Consonant Sum'
-              : 'व्यंजन योग'}
-
-          </div>
-
-          <div className="text-xl font-black text-gray-800">
-
-            {personality}
-
-          </div>
-
-        </div>
-
-      </div>
-
-    </div>
-  </div>
-
-  {renderFooter(10)}
-</div>
 
 
       {/* PAGE 11: SOUL URGE NUMBER */}
@@ -2480,8 +2149,6 @@ export default function DetailedReportTemplate({ reportData, language = 'en' }) 
 
 {/* PAGE 16: MOBILE COMPATIBILITY */}
 
-{/* PAGE 16: MOBILE COMPATIBILITY */}
-
 <div
   className="pdf-page relative p-12 bg-white flex flex-col justify-between"
   style={{
@@ -2492,77 +2159,45 @@ export default function DetailedReportTemplate({ reportData, language = 'en' }) 
 >
   {renderWatermark()}
 
-  <div
-    style={{
-      position: 'relative',
-      zIndex: 1,
-      minHeight: '220mm',
-      width: '100%',
-    }}
-  >
+  <div style={{ position: 'relative', zIndex: 1 }}>
     {renderHeader(16)}
 
     <h2 className="font-serif text-2xl font-bold text-gray-900 mb-4">
       {t('mobileCompatibilityTitle')}
     </h2>
 
-    <div
-      className="space-y-4 text-xs text-gray-700 leading-relaxed"
-      style={{
-        overflowWrap: 'break-word',
-      }}
-    >
+    <div className="space-y-4 text-xs text-gray-700 leading-relaxed text-justify">
 
       {mobileComp && (
+        <div className="p-6 bg-gray-50 border border-gray-200 rounded-2xl space-y-4">
 
-        <div className="p-6 bg-gray-50 border border-gray-200 rounded-2xl">
+          <div className="text-center space-y-1">
 
-          <div className="text-center space-y-2">
-
-            <span className="text-[10px] uppercase font-bold text-gray-400 block">
-
+            <span className="text-[10px] uppercase font-bold text-gray-400">
               {t('compatibilityStatusLabel')}
-
             </span>
 
             <h3 className="text-3xl font-black text-amber-700">
-
               {mobileComp.percentage}%
-
             </h3>
 
             <strong className="text-sm font-bold text-gray-800 uppercase block">
-
               {language === 'en'
-
                 ? mobileComp.status
-
                 : mobileComp.status === 'Friendly'
-
                 ? 'मैत्रीपूर्ण'
-
                 : mobileComp.status === 'Neutral'
-
                 ? 'तटस्थ'
-
                 : 'शत्रुतापूर्ण'}
-
             </strong>
 
           </div>
 
-          <div className="mt-4 pt-3 border-t border-gray-200">
-
-            <p className="text-xs text-gray-600 leading-relaxed">
-
-              {t('compatibilityDescText')}
-
-            </p>
-
-          </div>
+          <p className="text-xs text-gray-600 leading-relaxed pt-2 border-t border-gray-200">
+            {t('compatibilityDescText')}
+          </p>
 
         </div>
-
       )}
 
     </div>

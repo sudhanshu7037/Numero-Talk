@@ -156,7 +156,7 @@ export default function Footer() {
 
         {/* Bottom Bar: Copyright & Legal */}
         <div className="flex flex-col sm:flex-row items-center justify-between w-full text-sm text-gray-500 pt-8 gap-4">
-          <p className='font-bold'>© {new Date().getFullYear()} Numero Talk. Design And Developed by Pushpendra Technology</p>
+          <p className='font-bold'>© {new Date().getFullYear()} Numero Talk. Design And Developed by <a href="https://pushpendratechnology.com/" target="_blank" rel="noopener noreferrer">Pushpendra Technology Pvt Ltd</a></p>
           <div className="flex gap-4">
             <a href="#" className="hover:text-[#d2691e] transition-colors">Privacy Policy</a>
             <span>•</span>

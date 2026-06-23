@@ -201,3 +201,21 @@ body {
   border: 1px solid #cbd5e1 !important;
   border-radius: 6px !important;
 }
+
+/* Hide scrollbar but allow scrolling */
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* xs breakpoint utility (below 475px) */
+@media (max-width: 475px) {
+  .xs\:hidden { display: none; }
+}
+@media (min-width: 475px) {
+  .xs\:inline { display: inline; }
+  .hidden.xs\:inline { display: inline; }
+}

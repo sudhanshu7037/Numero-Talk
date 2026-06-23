@@ -719,33 +719,40 @@ export default function DetailedReportTemplate({ reportData, language = 'en' }) 
           <div className="w-24 h-[1px] bg-amber-600/30 mx-auto pt-4" />
 
           {/* Client Details Box */}
-          <div className="max-w-md mx-auto p-6 bg-amber-50/30 border border-amber-100 rounded-2xl text-left space-y-3">
-            <h3 className="text-[10px] uppercase font-bold text-amber-700 tracking-wider border-b border-amber-200/50 pb-1.5">
+          <div className="max-w-md mx-auto p-6 bg-amber-50/30 border border-amber-100 rounded-2xl text-left">
+            <h3 className="text-[10px] uppercase font-bold text-amber-700 tracking-wider border-b border-amber-200/50 pb-1.5 mb-3">
               {t('personalCoordinates')}
             </h3>
-            <div className="grid grid-cols-2 gap-y-2 text-xs text-gray-700">
-              <span className="font-medium">{t('nameLabel')}</span>
-              <span className="font-bold text-gray-900">{fullName}</span>
-              <span className="font-medium">{t('dobLabel')}</span>
-              <span className="font-bold text-gray-900">{dob}</span>
+            <div style={{ display: 'table', width: '100%', borderSpacing: '0 6px' }}>
+              <div style={{ display: 'table-row' }}>
+                <span style={{ display: 'table-cell', fontSize: '11px', color: '#374151', fontWeight: '500', paddingRight: '12px', whiteSpace: 'nowrap' }}>{t('nameLabel')}</span>
+                <span style={{ display: 'table-cell', fontSize: '11px', color: '#111827', fontWeight: '700' }}>{fullName}</span>
+              </div>
+              <div style={{ display: 'table-row' }}>
+                <span style={{ display: 'table-cell', fontSize: '11px', color: '#374151', fontWeight: '500', paddingRight: '12px', whiteSpace: 'nowrap' }}>{t('dobLabel')}</span>
+                <span style={{ display: 'table-cell', fontSize: '11px', color: '#111827', fontWeight: '700' }}>{dob}</span>
+              </div>
               {mobileNumber && (
-                <>
-                  <span className="font-medium">{t('mobileLabel')}</span>
-                  <span className="font-bold text-gray-900">{mobileNumber}</span>
-                </>
+                <div style={{ display: 'table-row' }}>
+                  <span style={{ display: 'table-cell', fontSize: '11px', color: '#374151', fontWeight: '500', paddingRight: '12px', whiteSpace: 'nowrap' }}>{t('mobileLabel')}</span>
+                  <span style={{ display: 'table-cell', fontSize: '11px', color: '#111827', fontWeight: '700' }}>{mobileNumber}</span>
+                </div>
               )}
-              <span className="font-medium">{t('emailLabel')}</span>
-              <span className="font-bold text-gray-900 truncate">{email}</span>
+              <div style={{ display: 'table-row' }}>
+                <span style={{ display: 'table-cell', fontSize: '11px', color: '#374151', fontWeight: '500', paddingRight: '12px', whiteSpace: 'nowrap' }}>{t('emailLabel')}</span>
+                <span style={{ display: 'table-cell', fontSize: '11px', color: '#111827', fontWeight: '700' }}>{email}</span>
+              </div>
+              <div style={{ display: 'table-row' }}>
+                <span style={{ display: 'table-cell', fontSize: '11px', color: '#374151', fontWeight: '500', paddingRight: '12px', whiteSpace: 'nowrap' }}>{t('preparedBy')}</span>
+                <span style={{ display: 'table-cell', fontSize: '11px', color: '#b45309', fontWeight: '700' }}>{t('vedicAstrologer')}</span>
+              </div>
             </div>
           </div>
         </div>
 
-        <div className="text-center border-t border-gray-150 pt-4">
-          <span className="text-xs font-bold text-amber-700 uppercase tracking-widest block font-serif">
-            {t('preparedBy')}
-          </span>
-          <span className="text-[10px] text-gray-400 font-sans block mt-1">
-            {t('vedicAstrologer')}
+        <div className="text-center border-t border-amber-200/40 pt-4">
+          <span className="text-[10px] text-amber-700/60 uppercase tracking-widest font-serif">
+            ✦ &nbsp; Numerotalk &nbsp; ✦
           </span>
         </div>
       </div>

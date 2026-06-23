@@ -226,47 +226,50 @@ export default function ReportDisplay({ reportData, onBack }) {
     { id: 'personality', label: currentLabels.personality, val: calculations.personality, icon: User },
   ];
 
-  return (
-    <div className="w-full space-y-8 animate-fade-in">
-      {/* Light Action Panel (Flat layout, No Card Wrapper) */}
-      <div className="no-print flex flex-wrap items-center justify-between gap-4 py-4 border-b border-gray-250">
-        <button
-          onClick={onBack}
-          className="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium text-gray-650 hover:text-gray-950 hover:bg-gray-100 transition-all cursor-pointer"
-        >
-          <ArrowLeft className="h-4 w-4" />
-          Back to Calculator
-        </button>
-
-        {/* Language Selector */}
-        <div className="flex items-center gap-2 bg-gray-100 px-3 py-1.5 rounded-xl border border-gray-200">
-          <span className="text-xs text-gray-650 font-medium font-sans">Language:</span>
-          <select 
-            value={language} 
-            onChange={(e) => setLanguage(e.target.value)}
-            className="bg-white text-xs text-gray-900 border border-gray-300 rounded focus:ring-1 focus:ring-amber-600 cursor-pointer py-1 px-2 font-sans focus:outline-none"
+    <div className="w-full space-y-4 sm:space-y-8 animate-fade-in">
+      {/* Action Panel — stacks on mobile */}
+      <div className="no-print flex flex-col sm:flex-row sm:flex-wrap sm:items-center sm:justify-between gap-3 py-3 sm:py-4 border-b border-gray-200">
+        {/* Row 1 on mobile: Back + Language */}
+        <div className="flex items-center justify-between gap-2 w-full sm:w-auto">
+          <button
+            onClick={onBack}
+            className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs sm:text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition-all cursor-pointer"
           >
-            <option value="en">English</option>
-            <option value="hi">हिन्दी (Hindi)</option>
-            <option value="gu">ગુજરાતી (Gujarati)</option>
-            <option value="mr">मराठी (Marathi)</option>
-          </select>
+            <ArrowLeft className="h-4 w-4" />
+            <span className="hidden xs:inline">Back to Calculator</span>
+            <span className="xs:hidden">Back</span>
+          </button>
+
+          {/* Language Selector */}
+          <div className="flex items-center gap-1.5 bg-gray-100 px-2.5 py-1.5 rounded-xl border border-gray-200">
+            <span className="text-[10px] sm:text-xs text-gray-600 font-medium font-sans hidden sm:inline">Language:</span>
+            <select 
+              value={language} 
+              onChange={(e) => setLanguage(e.target.value)}
+              className="bg-white text-xs text-gray-900 border border-gray-300 rounded focus:ring-1 focus:ring-amber-600 cursor-pointer py-1 px-1.5 font-sans focus:outline-none"
+            >
+              <option value="en">English</option>
+              <option value="hi">हिन्दी</option>
+              <option value="gu">ગુજરાતી</option>
+              <option value="mr">मराठी</option>
+            </select>
+          </div>
         </div>
 
-        <div className="flex flex-wrap gap-2">
+        {/* Row 2 on mobile: Buttons full width */}
+        <div className="flex gap-2 w-full sm:w-auto">
           <button
             onClick={() => setShowEmailModal(true)}
-            className="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium bg-gray-100 border border-gray-250 text-gray-700 hover:bg-gray-200 transition-all cursor-pointer"
+            className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-3 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-medium bg-gray-100 border border-gray-200 text-gray-700 hover:bg-gray-200 transition-all cursor-pointer"
           >
             <Mail className="h-4 w-4 text-amber-700" />
             Email Report
           </button>
 
-
           <button
             onClick={() => setShowPreviewModal(true)}
             disabled={pdfGenerating}
-            className="flex items-center gap-2 px-5 py-2 rounded-xl text-sm font-semibold bg-amber-600 text-white hover:bg-amber-700 transition-all shadow-sm cursor-pointer disabled:opacity-50"
+            className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-3 sm:px-5 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-amber-600 text-white hover:bg-amber-700 transition-all shadow-sm cursor-pointer disabled:opacity-50"
           >
             <Download className="h-4 w-4" />
             {pdfGenerating ? 'Generating...' : 'Download PDF'}
@@ -303,44 +306,44 @@ export default function ReportDisplay({ reportData, onBack }) {
           </div>
         </div>
 
-        {/* Flat Horizontal Tab list (No Grid Cards) */}
-        <div className="flex flex-wrap justify-between items-center gap-4 py-4 border-b border-gray-200">
+        {/* Scrollable Horizontal Tab list — mobile friendly */}
+        <div className="flex overflow-x-auto gap-1 sm:gap-3 py-3 sm:py-4 border-b border-gray-200 no-scrollbar">
           {tabsConfig.map((item) => {
             const IconComponent = item.icon;
             return (
               <div 
                 key={item.id} 
                 onClick={() => setActiveTab(item.id)}
-                className={`flex items-center gap-3 cursor-pointer p-3 rounded-xl transition-all ${
+                className={`flex items-center gap-2 cursor-pointer px-3 py-2 sm:p-3 rounded-xl transition-all shrink-0 ${
                   activeTab === item.id 
                     ? 'bg-amber-50 border border-amber-200 shadow-xs' 
-                    : 'hover:bg-gray-100'
+                    : 'hover:bg-gray-100 border border-transparent'
                 }`}
               >
-                <div className={`p-2 rounded-lg ${activeTab === item.id ? 'bg-amber-600 text-white' : 'bg-gray-100 text-gray-500'}`}>
-                  <IconComponent className="h-5 w-5" />
+                <div className={`p-1.5 sm:p-2 rounded-lg ${activeTab === item.id ? 'bg-amber-600 text-white' : 'bg-gray-100 text-gray-500'}`}>
+                  <IconComponent className="h-4 w-4 sm:h-5 sm:w-5" />
                 </div>
                 <div className="text-left">
-                  <span className="text-2xl font-black text-gray-900 block leading-none mb-1">{item.val}</span>
-                  <div className="text-[10px] font-bold text-gray-500 uppercase tracking-wider">{item.label}</div>
+                  <span className="text-xl sm:text-2xl font-black text-gray-900 block leading-none mb-0.5">{item.val}</span>
+                  <div className="text-[9px] sm:text-[10px] font-bold text-gray-500 uppercase tracking-wider whitespace-nowrap">{item.label}</div>
                 </div>
               </div>
             );
           })}
         </div>
 
-        {/* Detailed Interpretation (Flat layout, No Card Wrapper) */}
-        <div className="pt-8 animate-fade-in-up">
-          <div className="flex flex-col md:flex-row md:items-center justify-between mb-4 gap-2">
+        {/* Detailed Interpretation */}
+        <div className="pt-6 sm:pt-8 animate-fade-in-up">
+          <div className="flex flex-col gap-2 mb-4">
             <div>
               <span className="text-xs uppercase tracking-wider text-amber-700 font-bold">
                 {currentLabels.detailedAnalysis}
               </span>
-              <h3 className="font-serif text-2xl font-bold text-gray-900 mt-1">
+              <h3 className="font-serif text-xl sm:text-2xl font-bold text-gray-900 mt-1">
                 {tabsConfig.find(t => t.id === activeTab)?.label} {currentLabels.vibration}: {calculations[activeTab]}
               </h3>
             </div>
-            <span className="text-xs italic text-amber-700 bg-amber-50 px-3 py-1.5 rounded-full border border-amber-200">
+            <span className="text-xs italic text-amber-700 bg-amber-50 px-3 py-1.5 rounded-full border border-amber-200 self-start">
               "{activeMeaning.title}"
             </span>
           </div>
@@ -350,7 +353,7 @@ export default function ReportDisplay({ reportData, onBack }) {
               {activeMeaning.description}
             </p>
 
-            <div className="flex flex-col md:flex-row gap-6 pt-4 border-t border-gray-200">
+            <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 pt-4 border-t border-gray-200">
               <div className="flex-1 space-y-1">
                 <span className="text-xs font-bold text-emerald-600 uppercase tracking-wider block">
                   {currentLabels.strengths}
@@ -492,19 +495,19 @@ export default function ReportDisplay({ reportData, onBack }) {
         <DetailedReportTemplate reportData={reportData} language={language} />
       </div>
 
-      {/* Premium Report Preview Modal */}
+      {/* Premium Report Preview Modal — full-screen on mobile */}
       {showPreviewModal && (
-        <div className="fixed left-0 right-0 bottom-0 top-[73px] z-40 bg-black/85 backdrop-blur-xs flex items-center justify-center p-4 overflow-hidden animate-fade-in no-print">
-          <div className="bg-neutral-900 w-full max-w-5xl h-[82vh] flex flex-col rounded-2xl border border-neutral-800 shadow-2xl overflow-hidden relative animate-fade-in-up">
+        <div className="fixed inset-0 z-40 bg-black/85 backdrop-blur-xs flex items-center justify-center p-0 sm:p-4 overflow-hidden animate-fade-in no-print">
+          <div className="bg-neutral-900 w-full h-full sm:max-w-5xl sm:h-[82vh] flex flex-col sm:rounded-2xl border-0 sm:border border-neutral-800 shadow-2xl overflow-hidden relative animate-fade-in-up">
             
             {/* Modal Header */}
-            <div className="flex items-center justify-between px-6 py-4 bg-neutral-950 border-b border-neutral-800">
-              <div>
-                <h3 className="font-serif text-lg font-bold text-amber-500 flex items-center gap-2">
-                  <Eye className="h-5 w-5 text-amber-500" />
-                  {getModalTitle()}
+            <div className="flex items-center justify-between px-4 sm:px-6 py-3 sm:py-4 bg-neutral-950 border-b border-neutral-800">
+              <div className="min-w-0">
+                <h3 className="font-serif text-base sm:text-lg font-bold text-amber-500 flex items-center gap-2">
+                  <Eye className="h-4 w-4 sm:h-5 sm:w-5 text-amber-500 shrink-0" />
+                  <span className="truncate">{getModalTitle()}</span>
                 </h3>
-                <p className="text-xs text-neutral-400 font-sans mt-0.5">
+                <p className="text-[10px] sm:text-xs text-neutral-400 font-sans mt-0.5 hidden sm:block">
                   {language === 'en' ? 'Review your detailed 20-page Vedic Numerology analysis.' : 'अपने विस्तृत 20-पृष्ठ वैदिक अंकशास्त्र विश्लेषण की समीक्षा करें।'}
                 </p>
               </div>
@@ -513,24 +516,24 @@ export default function ReportDisplay({ reportData, onBack }) {
                   setShowPreviewModal(false);
                   setPdfGenerating(false);
                 }}
-                className="text-neutral-400 hover:text-white hover:bg-neutral-800 px-3 py-2 rounded-xl transition-all cursor-pointer font-sans text-xs font-semibold"
+                className="text-neutral-400 hover:text-white hover:bg-neutral-800 px-2.5 sm:px-3 py-1.5 sm:py-2 rounded-xl transition-all cursor-pointer font-sans text-xs font-semibold shrink-0 ml-2"
               >
                 {getCloseText()}
               </button>
             </div>
 
             {/* Modal Controls Bar */}
-            <div className="flex flex-wrap gap-4 items-center justify-between px-6 py-3 bg-neutral-900 border-b border-neutral-800">
-              <div className="text-xs text-neutral-400 font-sans font-medium">
+            <div className="flex flex-wrap gap-3 items-center justify-between px-4 sm:px-6 py-2.5 sm:py-3 bg-neutral-900 border-b border-neutral-800">
+              <div className="text-[10px] sm:text-xs text-neutral-400 font-sans font-medium">
                 {getPagesInfoText()}
               </div>
               <div className="flex gap-2">
                 <button
                   onClick={() => handleDownloadPDF()}
                   disabled={pdfGenerating}
-                  className="flex items-center gap-2 px-5 py-2 rounded-xl text-xs font-bold bg-amber-600 hover:bg-amber-700 text-white transition-all shadow-md cursor-pointer disabled:opacity-50"
+                  className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-5 py-1.5 sm:py-2 rounded-xl text-xs font-bold bg-amber-600 hover:bg-amber-700 text-white transition-all shadow-md cursor-pointer disabled:opacity-50"
                 >
-                  <Download className="h-4 w-4" />
+                  <Download className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
                   {getDownloadText()}
                 </button>
               </div>
@@ -539,13 +542,13 @@ export default function ReportDisplay({ reportData, onBack }) {
             {/* Scrollable Preview Container */}
             <div 
               id="preview-modal-scroll-area" 
-              className="flex-1 overflow-y-auto p-4 md:p-8 bg-neutral-950 flex justify-center scroll-smooth"
+              className="flex-1 overflow-y-auto p-2 sm:p-4 md:p-8 bg-neutral-950 flex justify-center scroll-smooth"
             >
-              <div className="w-full max-w-[210mm] overflow-x-auto py-4">
+              <div className="w-full overflow-x-auto py-2 sm:py-4">
                 <div 
                   id="preview-report-template-root" 
                   className="preview-mode bg-white text-gray-900 shadow-2xl mx-auto"
-                  style={{ width: '210mm' }}
+                  style={{ width: '210mm', minWidth: '210mm' }}
                 >
                   <DetailedReportTemplate reportData={reportData} language={language} />
                 </div>

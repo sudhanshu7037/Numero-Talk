@@ -281,7 +281,7 @@ export default function App() {
       <Header user={user} onLogout={handleLogout} />
 
       {/* Main Content Area */}
-      <main className="flex-1 w-full px-6 sm:px-12 md:px-16 py-8 sm:py-12 relative z-10 flex flex-col justify-center">
+      <main className="flex-1 w-full px-4 sm:px-8 md:px-16 py-4 sm:py-8 relative z-10 flex flex-col">
         <Routes>
           <Route path="/" element={<Home onBeginWithDob={handleBeginWithDob} />} />
           <Route path="/about" element={<About />} />

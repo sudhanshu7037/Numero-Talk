@@ -352,17 +352,17 @@ export default function ReportDisplay({ reportData, onBack }) {
 
   return (
     <div className="w-full space-y-4 sm:space-y-8 animate-fade-in">
-      {/* Action Panel — stacks on mobile */}
-      <div className="no-print flex flex-col sm:flex-row sm:flex-wrap sm:items-center sm:justify-between gap-3 py-3 sm:py-4 border-b border-gray-200">
-        {/* Row 1 on mobile: Back + Language */}
-        <div className="flex items-center justify-between gap-2 w-full sm:w-auto">
+      {/* Action Panel — fully responsive mobile layout */}
+      <div className="no-print py-3 sm:py-4 border-b border-gray-200">
+        {/* Top row: Back button + Language selector */}
+        <div className="flex items-center justify-between gap-2 mb-3">
           <button
             onClick={onBack}
             className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs sm:text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition-all cursor-pointer"
           >
             <ArrowLeft className="h-4 w-4" />
-            <span className="hidden xs:inline">Back to Calculator</span>
-            <span className="xs:hidden">Back</span>
+            <span className="hidden sm:inline">Back to Calculator</span>
+            <span className="sm:hidden">Back</span>
           </button>
 
           {/* Language Selector */}
@@ -381,23 +381,23 @@ export default function ReportDisplay({ reportData, onBack }) {
           </div>
         </div>
 
-        {/* Row 2 on mobile: Buttons full width */}
-        <div className="flex gap-2 w-full sm:w-auto">
+        {/* Bottom row: Action buttons — full width on mobile */}
+        <div className="flex gap-2 w-full">
           <button
             onClick={() => setShowEmailModal(true)}
-            className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-3 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-medium bg-gray-100 border border-gray-200 text-gray-700 hover:bg-gray-200 transition-all cursor-pointer"
+            className="flex-1 flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl text-xs sm:text-sm font-medium bg-gray-100 border border-gray-200 text-gray-700 hover:bg-gray-200 transition-all cursor-pointer"
           >
-            <Mail className="h-4 w-4 text-amber-700" />
-            Email Report
+            <Mail className="h-4 w-4 text-amber-700 shrink-0" />
+            <span>Email Report</span>
           </button>
 
           <button
             onClick={() => setShowPreviewModal(true)}
             disabled={pdfGenerating}
-            className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-3 sm:px-5 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-amber-600 text-white hover:bg-amber-700 transition-all shadow-sm cursor-pointer disabled:opacity-50"
+            className="flex-1 flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl text-xs sm:text-sm font-semibold bg-amber-600 text-white hover:bg-amber-700 transition-all shadow-sm cursor-pointer disabled:opacity-50"
           >
-            <Download className="h-4 w-4" />
-            {pdfGenerating ? 'Generating...' : 'Download PDF'}
+            <Download className="h-4 w-4 shrink-0" />
+            <span>{pdfGenerating ? 'Generating...' : 'Download PDF'}</span>
           </button>
         </div>
       </div>
@@ -621,48 +621,44 @@ export default function ReportDisplay({ reportData, onBack }) {
         <DetailedReportTemplate reportData={reportData} language={language} />
       </div>
 
-      {/* Premium Report Preview Modal — full-screen on mobile */}
+      {/* Premium Report Preview Modal — full-screen on mobile, above header (z-[200]) */}
       {showPreviewModal && (
-        <div className="fixed inset-0 z-40 bg-black/85 backdrop-blur-xs flex items-center justify-center p-0 sm:p-4 overflow-hidden animate-fade-in no-print">
-          <div className="bg-neutral-900 w-full h-full sm:max-w-5xl sm:h-[82vh] flex flex-col sm:rounded-2xl border-0 sm:border border-neutral-800 shadow-2xl overflow-hidden relative animate-fade-in-up">
-            
+        <div className="fixed inset-0 z-[200] bg-black/90 flex flex-col overflow-hidden animate-fade-in no-print">
+          {/* Modal Shell — fills entire screen on mobile, constrained on desktop */}
+          <div className="w-full h-full sm:max-w-5xl sm:h-[88vh] sm:my-auto sm:mx-auto flex flex-col sm:rounded-2xl sm:border border-neutral-800 shadow-2xl overflow-hidden bg-neutral-900 relative animate-fade-in-up">
+
             {/* Modal Header */}
-            <div className="flex items-center justify-between px-4 sm:px-6 py-3 sm:py-4 bg-neutral-950 border-b border-neutral-800">
+            <div className="flex items-center justify-between px-4 py-3 bg-neutral-950 border-b border-neutral-800 shrink-0">
               <div className="min-w-0">
-                <h3 className="font-serif text-base sm:text-lg font-bold text-amber-500 flex items-center gap-2">
-                  <Eye className="h-4 w-4 sm:h-5 sm:w-5 text-amber-500 shrink-0" />
+                <h3 className="font-serif text-sm sm:text-base font-bold text-amber-500 flex items-center gap-2">
+                  <Eye className="h-4 w-4 text-amber-500 shrink-0" />
                   <span className="truncate">{getModalTitle()}</span>
                 </h3>
-                <p className="text-[10px] sm:text-xs text-neutral-400 font-sans mt-0.5 hidden sm:block">
-                  {language === 'en' ? 'Review your detailed 20-page Vedic Numerology analysis.' : 'अपने विस्तृत 20-पृष्ठ वैदिक अंकशास्त्र विश्लेषण की समीक्षा करें।'}
-                </p>
               </div>
               <button 
                 onClick={() => {
                   setShowPreviewModal(false);
                   setPdfGenerating(false);
                 }}
-                className="text-neutral-400 hover:text-white hover:bg-neutral-800 px-2.5 sm:px-3 py-1.5 sm:py-2 rounded-xl transition-all cursor-pointer font-sans text-xs font-semibold shrink-0 ml-2"
+                className="text-neutral-400 hover:text-white hover:bg-neutral-800 px-3 py-1.5 rounded-xl transition-all cursor-pointer font-sans text-xs font-semibold shrink-0 ml-2 border border-neutral-700"
               >
-                {getCloseText()}
+                ✕ {getCloseText()}
               </button>
             </div>
 
-            {/* Modal Controls Bar */}
-            <div className="flex flex-wrap gap-3 items-center justify-between px-4 sm:px-6 py-2.5 sm:py-3 bg-neutral-900 border-b border-neutral-800">
-              <div className="text-[10px] sm:text-xs text-neutral-400 font-sans font-medium">
+            {/* Modal Controls Bar — compact on mobile */}
+            <div className="flex items-center justify-between px-4 py-2 bg-neutral-900 border-b border-neutral-800 shrink-0 gap-2">
+              <div className="text-[10px] text-neutral-500 font-sans font-medium hidden sm:block">
                 {getPagesInfoText()}
               </div>
-              <div className="flex gap-2">
-                <button
-                  onClick={() => handleDownloadPDF()}
-                  disabled={pdfGenerating}
-                  className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-5 py-1.5 sm:py-2 rounded-xl text-xs font-bold bg-amber-600 hover:bg-amber-700 text-white transition-all shadow-md cursor-pointer disabled:opacity-50"
-                >
-                  <Download className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
-                  {getDownloadText()}
-                </button>
-              </div>
+              <button
+                onClick={() => handleDownloadPDF()}
+                disabled={pdfGenerating}
+                className="w-full sm:w-auto flex items-center justify-center gap-2 px-4 py-2 rounded-xl text-xs font-bold bg-amber-600 hover:bg-amber-700 text-white transition-all shadow-md cursor-pointer disabled:opacity-50"
+              >
+                <Download className="h-3.5 w-3.5 shrink-0" />
+                {getDownloadText()}
+              </button>
             </div>
 
             {/* Scrollable Preview Container — responsive scaled A4 */}
@@ -671,13 +667,13 @@ export default function ReportDisplay({ reportData, onBack }) {
         </div>
       )}
 
-      {/* Global Generation Progress Overlay */}
+      {/* Global Generation Progress Overlay — above everything including header */}
       {pdfGenerating && (
-        <div className="fixed inset-0 bg-neutral-950/80 backdrop-blur-xs flex flex-col items-center justify-center space-y-4 z-[100000] animate-fade-in no-print">
-          <div className="w-12 h-12 border-4 border-amber-600 border-t-transparent rounded-full animate-spin"></div>
-          <div className="text-center">
+        <div className="fixed inset-0 bg-neutral-950/90 backdrop-blur-sm flex flex-col items-center justify-center space-y-5 z-[300] animate-fade-in no-print">
+          <div className="w-14 h-14 border-4 border-amber-600 border-t-transparent rounded-full animate-spin"></div>
+          <div className="text-center px-6">
             <h4 className="font-serif text-lg font-semibold text-amber-500">{getLoadingTitleText()}</h4>
-            <p className="text-xs text-neutral-400 mt-1 max-w-xs leading-relaxed font-sans px-4">
+            <p className="text-xs text-neutral-400 mt-2 max-w-xs leading-relaxed font-sans">
               {getLoadingDescText()}
             </p>
           </div>

@@ -985,7 +985,7 @@ export default function DetailedReportTemplate({ reportData, language = 'en' }) 
      {/* PAGE 2: TABLE OF CONTENTS */}
 
 <div
-  className="pdf-page relative p-12 bg-white flex flex-col justify-between"
+  className="pdf-page relative p-10 bg-white flex flex-col justify-between"
   style={{
     height: '1123px',
     width: '794px',
@@ -1001,7 +1001,7 @@ export default function DetailedReportTemplate({ reportData, language = 'en' }) 
       {t('tocTitle')}
     </h2>
 
-    <div className="space-y-3.5 text-xs text-gray-700 leading-relaxed">
+    <div className="space-y-3.5 text-[11px] text-gray-700 leading-[1.6]">
 
       {getTocItems().map((item, idx) => (
         <div
@@ -1032,7 +1032,7 @@ export default function DetailedReportTemplate({ reportData, language = 'en' }) 
     {/* PAGE 3: INTRODUCTION */}
 
 <div
-  className="pdf-page relative p-12 bg-white flex flex-col justify-between"
+  className="pdf-page relative p-10 bg-white flex flex-col justify-between"
   style={{
     height: '1123px',
     width: '794px',
@@ -1048,7 +1048,7 @@ export default function DetailedReportTemplate({ reportData, language = 'en' }) 
       {t('introductionTitle')}
     </h2>
 
-    <div className="space-y-4 text-xs text-gray-700 leading-relaxed text-justify">
+    <div className="space-y-3 text-[11px] text-gray-700 leading-[1.6] text-justify">
 
       <p>
         {t('introductionTextP1')}
@@ -1088,7 +1088,7 @@ export default function DetailedReportTemplate({ reportData, language = 'en' }) 
      {/* PAGE 4: COSMIC GRID */}
 
 <div
-  className="pdf-page relative p-12 bg-white flex flex-col justify-between"
+  className="pdf-page relative p-10 bg-white flex flex-col justify-between"
   style={{
     height: '1123px',
     width: '794px',
@@ -1104,7 +1104,7 @@ export default function DetailedReportTemplate({ reportData, language = 'en' }) 
       {t('cosmicGridTitle')}
     </h2>
 
-    <div className="space-y-4 text-xs text-gray-700 leading-relaxed text-justify">
+    <div className="space-y-3 text-[11px] text-gray-700 leading-[1.6] text-justify">
 
       <div className="p-4 rounded-xl" style={{ background: '#FFFBEB', border: '1px solid #FCD34D' }}>
         <div className="space-y-2">
@@ -1156,7 +1156,7 @@ export default function DetailedReportTemplate({ reportData, language = 'en' }) 
      {/* PAGE 5: MOOLANK POSITIVE ANALYSIS */}
 
 <div
-  className="pdf-page relative p-12 bg-white flex flex-col justify-between"
+  className="pdf-page relative p-10 bg-white flex flex-col justify-between"
   style={{
     height: '1123px',
     width: '794px',
@@ -1172,7 +1172,7 @@ export default function DetailedReportTemplate({ reportData, language = 'en' }) 
       {t('moolankPositiveTitle')}
     </h2>
 
-    <div className="space-y-3 text-xs text-gray-700 leading-relaxed text-justify">
+    <div className="space-y-3 text-[11px] text-gray-700 leading-[1.6] text-justify">
 
       <h3 className="font-serif text-lg font-bold text-amber-700">
         {language === 'en' ? 'Moolank' : 'मूलांक'} {moolank}
@@ -1270,7 +1270,7 @@ export default function DetailedReportTemplate({ reportData, language = 'en' }) 
     {/* PAGE 6: MOOLANK CHALLENGES */}
 
 <div
-  className="pdf-page relative p-12 bg-white flex flex-col justify-between"
+  className="pdf-page relative p-10 bg-white flex flex-col justify-between"
   style={{
     height: '1123px',
     width: '794px',
@@ -1295,7 +1295,7 @@ export default function DetailedReportTemplate({ reportData, language = 'en' }) 
     </h2>
 
     <div
-      className="space-y-3 text-xs text-gray-700 leading-relaxed text-justify"
+      className="space-y-3 text-[11px] text-gray-700 leading-[1.6] text-justify"
       style={{
         flex: 1,
         overflowWrap: 'break-word',
@@ -1437,12 +1437,12 @@ export default function DetailedReportTemplate({ reportData, language = 'en' }) 
 
 
       {/* PAGE 7: BHAGYANK JOURNEY */}
-      <div className="pdf-page relative p-12 bg-white flex flex-col justify-between" style={{ height: '1123px', width: '794px', pageBreakAfter: 'always' }}>
+      <div className="pdf-page relative p-10 bg-white flex flex-col justify-between" style={{ height: '1123px', width: '794px', pageBreakAfter: 'always' }}>
         {renderWatermark()}
         <div style={{ position: 'relative', zIndex: 1 }}>
           {renderHeader(7)}
           <h2 className="font-serif text-2xl font-bold text-gray-900 mb-3">{t('bhagyankLifePathTitle')}</h2>
-          <div className="space-y-3 text-xs text-gray-700 leading-relaxed text-justify">
+          <div className="space-y-3 text-[11px] text-gray-700 leading-[1.6] text-justify">
             <h3 className="font-serif text-lg font-bold text-amber-700">
               {language === 'en' ? 'Bhagyank' : 'भाग्यांक'} {bhagyank} &mdash; {t('rulerLabel')}: {getTranslation(planetaryLords[bhagyank])}
             </h3>
@@ -1498,7 +1498,7 @@ export default function DetailedReportTemplate({ reportData, language = 'en' }) 
 {/* PAGE 8: BHAGYANK CAREER */}
 
 <div
-  className="pdf-page relative p-12 bg-white flex flex-col justify-between"
+  className="pdf-page relative p-10 bg-white flex flex-col justify-between"
   style={{
     height: '1123px',
     width: '794px',
@@ -1514,7 +1514,7 @@ export default function DetailedReportTemplate({ reportData, language = 'en' }) 
       {t('bhagyankCareerTitle')}
     </h2>
 
-    <div className="space-y-3 text-xs text-gray-700 leading-relaxed text-justify">
+    <div className="space-y-3 text-[11px] text-gray-700 leading-[1.6] text-justify">
 
       <div className="p-4 bg-amber-50/50 border border-amber-200 rounded-xl space-y-1.5">
         <strong className="text-amber-700 uppercase tracking-wider block text-[10px]">
@@ -1590,12 +1590,12 @@ export default function DetailedReportTemplate({ reportData, language = 'en' }) 
 
 
       {/* PAGE 9: DESTINY NUMBER */}
-      <div className="pdf-page relative p-12 bg-white flex flex-col justify-between" style={{ height: '1123px', width: '794px', pageBreakAfter: 'always' }}>
+      <div className="pdf-page relative p-10 bg-white flex flex-col justify-between" style={{ height: '1123px', width: '794px', pageBreakAfter: 'always' }}>
         {renderWatermark()}
         <div style={{ position: 'relative', zIndex: 1 }}>
           {renderHeader(9)}
           <h2 className="font-serif text-2xl font-bold text-gray-900 mb-3">{t('destinyTitle')}</h2>
-          <div className="space-y-3 text-xs text-gray-700 leading-relaxed text-justify">
+          <div className="space-y-3 text-[11px] text-gray-700 leading-[1.6] text-justify">
             <h3 className="font-serif text-base font-bold text-gray-900">{t('alignmentLabel')}</h3>
             <p>{t('destinyIntroText')}</p>
 
@@ -1641,12 +1641,12 @@ export default function DetailedReportTemplate({ reportData, language = 'en' }) 
 
 
       {/* PAGE 10: NAME VIBRATION */}
-      <div className="pdf-page relative p-12 bg-white flex flex-col justify-between" style={{ height: '1123px', width: '794px', pageBreakAfter: 'always' }}>
+      <div className="pdf-page relative p-10 bg-white flex flex-col justify-between" style={{ height: '1123px', width: '794px', pageBreakAfter: 'always' }}>
         {renderWatermark()}
         <div style={{ position: 'relative', zIndex: 1 }}>
           {renderHeader(10)}
           <h2 className="font-serif text-2xl font-bold text-gray-900 mb-3">{t('nameVibeTitle')}</h2>
-          <div className="space-y-3 text-xs text-gray-700 leading-relaxed text-justify">
+          <div className="space-y-3 text-[11px] text-gray-700 leading-[1.6] text-justify">
             <h3 className="font-serif text-lg font-bold text-amber-700">
               {language === 'en' ? 'Name Value' : 'नामांक'} {destinyPyth} &mdash; {t('nameValueMeaningLabel')}
             </h3>
@@ -1699,7 +1699,7 @@ export default function DetailedReportTemplate({ reportData, language = 'en' }) 
       {/* PAGE 11: SOUL URGE */}
 
 <div
-  className="pdf-page relative p-12 bg-white flex flex-col justify-between"
+  className="pdf-page relative p-10 bg-white flex flex-col justify-between"
   style={{
     height: '1123px',
     width: '794px',
@@ -1715,7 +1715,7 @@ export default function DetailedReportTemplate({ reportData, language = 'en' }) 
       {t('soulUrgeTitle')}
     </h2>
 
-    <div className="space-y-3 text-xs text-gray-700 leading-relaxed text-justify">
+    <div className="space-y-3 text-[11px] text-gray-700 leading-[1.6] text-justify">
 
       <h3 className="font-serif text-lg font-bold text-amber-700">
         {language === 'en'
@@ -1814,12 +1814,12 @@ export default function DetailedReportTemplate({ reportData, language = 'en' }) 
 
 
       {/* PAGE 12: PERSONALITY NUMBER */}
-      <div className="pdf-page relative p-12 bg-white flex flex-col justify-between" style={{ height: '1123px', width: '794px', pageBreakAfter: 'always' }}>
+      <div className="pdf-page relative p-10 bg-white flex flex-col justify-between" style={{ height: '1123px', width: '794px', pageBreakAfter: 'always' }}>
         {renderWatermark()}
         <div style={{ position: 'relative', zIndex: 1, flex: 1, display: 'flex', flexDirection: 'column' }}>
           {renderHeader(12)}
           <h2 className="font-serif text-2xl font-bold text-gray-900 mb-3">{t('personalityTitle')}</h2>
-          <div className="space-y-3 text-xs text-gray-700 leading-relaxed text-justify" style={{ flex: 1 }}>
+          <div className="space-y-3 text-[11px] text-gray-700 leading-[1.6] text-justify" style={{ flex: 1 }}>
             <h3 className="font-serif text-lg font-bold" style={{ color: '#B45309' }}>
               {language === 'en' ? 'Personality Number' : 'व्यक्तित्व संख्या'} {personality} &mdash; {t('rulerLabel')}: {getTranslation(planetaryLords[personality])}
             </h3>
@@ -1861,7 +1861,7 @@ export default function DetailedReportTemplate({ reportData, language = 'en' }) 
      {/* PAGE 13: NAME CORRECTION MODULE */}
 
 <div
-  className="pdf-page relative p-12 bg-white flex flex-col justify-between"
+  className="pdf-page relative p-10 bg-white flex flex-col justify-between"
   style={{
     height: '1123px',
     width: '794px',
@@ -1877,7 +1877,7 @@ export default function DetailedReportTemplate({ reportData, language = 'en' }) 
       {t('nameCorrTitle')}
     </h2>
 
-    <div className="space-y-4 text-xs text-gray-700 leading-relaxed text-justify">
+    <div className="space-y-3 text-[11px] text-gray-700 leading-[1.6] text-justify">
 
       <p>
         {t('nameCorrDescText')}
@@ -1909,12 +1909,12 @@ export default function DetailedReportTemplate({ reportData, language = 'en' }) 
 
 
       {/* PAGE 14: SPELLING SUGGESTIONS */}
-      <div className="pdf-page relative p-12 bg-white flex flex-col justify-between" style={{ height: '1123px', width: '794px', pageBreakAfter: 'always' }}>
+      <div className="pdf-page relative p-10 bg-white flex flex-col justify-between" style={{ height: '1123px', width: '794px', pageBreakAfter: 'always' }}>
         {renderWatermark()}
         <div style={{ position: 'relative', zIndex: 1, flex: 1, display: 'flex', flexDirection: 'column' }}>
           {renderHeader(14)}
           <h2 className="font-serif text-2xl font-bold text-gray-900 mb-3">{t('spellingSuggestionsTitle')}</h2>
-          <div className="space-y-3 text-xs text-gray-700 leading-relaxed text-justify" style={{ flex: 1 }}>
+          <div className="space-y-3 text-[11px] text-gray-700 leading-[1.6] text-justify" style={{ flex: 1 }}>
             <p className="text-[11px]">
               {t('spellingSuggestionsDesc')}
             </p>
@@ -1948,7 +1948,7 @@ export default function DetailedReportTemplate({ reportData, language = 'en' }) 
       {/* PAGE 15: MOBILE NUMEROLOGY SUM */}
 
 <div
-  className="pdf-page relative p-12 bg-white flex flex-col justify-between"
+  className="pdf-page relative p-10 bg-white flex flex-col justify-between"
   style={{
     height: '1123px',
     width: '794px',
@@ -1964,7 +1964,7 @@ export default function DetailedReportTemplate({ reportData, language = 'en' }) 
       {t('mobileAnalysisTitle')}
     </h2>
 
-    <div className="space-y-4 text-xs text-gray-700 leading-relaxed text-justify">
+    <div className="space-y-3 text-[11px] text-gray-700 leading-[1.6] text-justify">
 
       <p>
         {t('mobileIntroText')}
@@ -1988,7 +1988,7 @@ export default function DetailedReportTemplate({ reportData, language = 'en' }) 
 
           {currentMobileVal && (
 
-            <div className="border-t border-amber-200/50 pt-2 text-[11px] text-gray-600 leading-relaxed">
+            <div className="border-t border-amber-200/50 pt-2 text-[11px] text-gray-600 leading-[1.6]">
 
               <p>
                 {getTranslation(currentMobileVal)}
@@ -2011,7 +2011,7 @@ export default function DetailedReportTemplate({ reportData, language = 'en' }) 
 {/* PAGE 16: MOBILE COMPATIBILITY */}
 
 <div
-  className="pdf-page relative p-12 bg-white flex flex-col justify-between"
+  className="pdf-page relative p-10 bg-white flex flex-col justify-between"
   style={{
     height: '1123px',
     width: '794px',
@@ -2027,10 +2027,10 @@ export default function DetailedReportTemplate({ reportData, language = 'en' }) 
       {t('mobileCompatibilityTitle')}
     </h2>
 
-    <div className="space-y-4 text-xs text-gray-700 leading-relaxed text-justify">
+    <div className="space-y-3 text-[11px] text-gray-700 leading-[1.6] text-justify">
 
       {mobileComp && (
-        <div className="p-6 bg-gray-50 border border-gray-200 rounded-2xl space-y-4">
+        <div className="p-6 bg-gray-50 border border-gray-200 rounded-2xl space-y-3">
 
           <div className="text-center space-y-1">
 
@@ -2054,7 +2054,7 @@ export default function DetailedReportTemplate({ reportData, language = 'en' }) 
 
           </div>
 
-          <p className="text-xs text-gray-600 leading-relaxed pt-2 border-t border-gray-200">
+          <p className="text-[11px] text-gray-600 leading-[1.6] pt-2 border-t border-gray-200">
             {t('compatibilityDescText')}
           </p>
 
@@ -2069,12 +2069,12 @@ export default function DetailedReportTemplate({ reportData, language = 'en' }) 
 
 
       {/* PAGE 17: VIP NUMBER RECOMMENDATIONS */}
-      <div className="pdf-page relative p-12 bg-white flex flex-col justify-between" style={{ height: '1123px', width: '794px', pageBreakAfter: 'always' }}>
+      <div className="pdf-page relative p-10 bg-white flex flex-col justify-between" style={{ height: '1123px', width: '794px', pageBreakAfter: 'always' }}>
         {renderWatermark()}
         <div style={{ position: 'relative', zIndex: 1, flex: 1, display: 'flex', flexDirection: 'column' }}>
           {renderHeader(17)}
           <h2 className="font-serif text-2xl font-bold text-gray-900 mb-3">{t('vipRecommendationsTitle')}</h2>
-          <div className="space-y-3 text-xs text-gray-700 leading-relaxed text-justify" style={{ flex: 1 }}>
+          <div className="space-y-3 text-[11px] text-gray-700 leading-[1.6] text-justify" style={{ flex: 1 }}>
             <h3 className="font-serif text-base font-bold text-gray-900">{t('selectingLuckyDigitsLabel')}</h3>
             <p className="text-[11px]">
               {t('selectingLuckyDigitsDesc')}
@@ -2108,12 +2108,12 @@ export default function DetailedReportTemplate({ reportData, language = 'en' }) 
 
 
       {/* PAGE 18: YEARLY PREDICTIONS 2026 */}
-      <div className="pdf-page relative p-12 bg-white flex flex-col justify-between" style={{ height: '1123px', width: '794px', pageBreakAfter: 'always' }}>
+      <div className="pdf-page relative p-10 bg-white flex flex-col justify-between" style={{ height: '1123px', width: '794px', pageBreakAfter: 'always' }}>
         {renderWatermark()}
         <div style={{ position: 'relative', zIndex: 1 }}>
           {renderHeader(18)}
           <h2 className="font-serif text-2xl font-bold text-gray-900 mb-4">{t('yearlyPredictionTitle')}</h2>
-          <div className="space-y-4 text-xs text-gray-700 leading-relaxed text-justify">
+          <div className="space-y-3 text-[11px] text-gray-700 leading-[1.6] text-justify">
             <h3 className="font-serif text-lg font-bold text-amber-700">
               {t('yearlyPredictionSub')} (Bhagyank {bhagyank})
             </h3>
@@ -2125,12 +2125,12 @@ export default function DetailedReportTemplate({ reportData, language = 'en' }) 
 
 
       {/* PAGE 19: LUCKY COORDINATES */}
-      <div className="pdf-page relative p-12 bg-white flex flex-col justify-between" style={{ height: '1123px', width: '794px', pageBreakAfter: 'always' }}>
+      <div className="pdf-page relative p-10 bg-white flex flex-col justify-between" style={{ height: '1123px', width: '794px', pageBreakAfter: 'always' }}>
         {renderWatermark()}
         <div style={{ position: 'relative', zIndex: 1 }}>
           {renderHeader(19)}
           <h2 className="font-serif text-2xl font-bold text-gray-900 mb-4">{t('luckyCoordinatesTitle')}</h2>
-          <div className="space-y-4 text-xs text-gray-700">
+          <div className="space-y-3 text-[11px] text-gray-700">
             <div className="p-4 bg-gray-50 border border-gray-200 rounded-xl">
               <strong className="text-gray-600 uppercase tracking-wider block text-[10px] mb-2">{t('luckyCoordinatesLabel') || 'Lucky Coordinates'}</strong>
               <div className="space-y-1.5 text-[11px]">
@@ -2147,15 +2147,15 @@ export default function DetailedReportTemplate({ reportData, language = 'en' }) 
 
 
       {/* PAGE 20: REMEDIES & CONCLUSION */}
-      <div className="pdf-page relative p-12 bg-white flex flex-col justify-between" style={{ height: '1123px', width: '794px', pageBreakAfter: 'always' }}>
+      <div className="pdf-page relative p-10 bg-white flex flex-col justify-between" style={{ height: '1123px', width: '794px', pageBreakAfter: 'always' }}>
         {renderWatermark()}
         <div style={{ position: 'relative', zIndex: 1, flex: 1, display: 'flex', flexDirection: 'column' }}>
           {renderHeader(20)}
           <h2 className="font-serif text-2xl font-bold text-gray-900 mb-3">{t('remediesMantraTitle')}</h2>
-          <div className="space-y-3 text-xs text-gray-700 leading-relaxed text-justify" style={{ flex: 1 }}>
+          <div className="space-y-3 text-[11px] text-gray-700 leading-[1.6] text-justify" style={{ flex: 1 }}>
             <div className="p-4 rounded-xl border border-purple-200" style={{ background: '#F3E8FF' }}>
               <strong className="uppercase tracking-wider block text-[10px] mb-2" style={{ color: '#7E22CE' }}>✦ {t('sacredMantraLabel')}</strong>
-              <p className="text-sm font-bold text-gray-950 font-serif text-center italic leading-relaxed">"{specialMantras[moolank] || 'ॐ गुरवे नमः'}"</p>
+              <p className="text-sm font-bold text-gray-950 font-serif text-center italic leading-[1.6]">"{specialMantras[moolank] || 'ॐ गुरवे नमः'}"</p>
               <p className="text-[9px] text-purple-700 text-center mt-2">{t('sacredMantraDesc')}</p>
             </div>
             <h3 className="font-serif text-base font-bold text-gray-900 mt-4">{t('finalGuidanceTitle')}</h3>
@@ -2163,7 +2163,7 @@ export default function DetailedReportTemplate({ reportData, language = 'en' }) 
               {t('finalGuidanceText')}
             </p>
             <div className="p-3 rounded-xl text-center" style={{ background: '#FEF3C7', border: '1px solid #FCD34D' }}>
-              <p className="font-serif italic text-[10px] text-amber-900 leading-relaxed">
+              <p className="font-serif italic text-[10px] text-amber-900 leading-[1.6]">
                 {language === 'en'
                   ? '✨ May your numerology guide you toward prosperity, harmony, and inner peace. Trust the numbers, align with the universe, and embrace your destiny. 🙏'
                   : '✨ संख्याओं पर भरोसा करें, ब्रह्मांड के साथ संरेखित हों। आपकी संख्याएं, आपका भाग्य। 🙏'}

@@ -698,93 +698,276 @@ export default function DetailedReportTemplate({ reportData, language = 'en' }) 
     <div className="pdf-report-container">
       
       {/* PAGE 1: COVER PAGE — all inline styles for reliable html2canvas rendering */}
-      <div className="pdf-page" style={{
-        height: '297mm', width: '210mm', pageBreakAfter: 'always', position: 'relative',
-        background: 'white', padding: '14mm',
-        display: 'flex', flexDirection: 'column', justifyContent: 'space-between',
-        border: '8px solid rgba(217,119,6,0.3)', boxSizing: 'border-box'
-      }}>
+     <div
+  className="pdf-page"
+  style={{
+    height: '297mm',
+    width: '210mm',
+    pageBreakAfter: 'always',
+    position: 'relative',
 
-        {/* TOP: OM */}
-        <div style={{ textAlign: 'center', paddingTop: '8px' }}>
-          <span style={{ fontSize: '11px', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '0.15em', color: '#b45309', fontFamily: 'Cinzel, Georgia, serif' }}>
-            {t('omGanesha')}
-          </span>
-          <div style={{ width: '48px', height: '1.5px', background: '#d97706', margin: '6px auto 0' }} />
+    background: '#fff',
+
+    padding: '14mm',
+
+    display: 'flex',
+    flexDirection: 'column',
+
+    border: '8px solid rgba(217,119,6,0.3)',
+    boxSizing: 'border-box',
+  }}
+>
+  {/* TOP: OM */}
+  <div style={{ textAlign: 'center', paddingTop: '8px' }}>
+    <span
+      style={{
+        fontSize: '11px',
+        fontWeight: 'bold',
+        textTransform: 'uppercase',
+        letterSpacing: '0.15em',
+        color: '#b45309',
+        fontFamily: 'Cinzel, Georgia, serif',
+      }}
+    >
+      {t('omGanesha')}
+    </span>
+
+    <div
+      style={{
+        width: '48px',
+        height: '1.5px',
+        background: '#d97706',
+        margin: '6px auto 0',
+      }}
+    />
+  </div>
+
+  {/* CENTER CONTENT */}
+  <div
+    style={{
+      flex: 1,
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+    }}
+  >
+    <div
+      style={{
+        textAlign: 'center',
+        width: '100%',
+        maxWidth: '520px',
+      }}
+    >
+      <GaneshaSVG />
+
+      <h1
+        style={{
+          fontFamily: 'Cinzel, Georgia, serif',
+          fontSize: '34px',
+          fontWeight: '900',
+          color: '#111827',
+
+          textTransform: 'uppercase',
+
+          letterSpacing: '0.05em',
+
+          margin: '16px 0 0',
+
+          lineHeight: '1.3',
+        }}
+      >
+        {t('coverTitle')}
+      </h1>
+
+      <p
+        style={{
+          fontFamily: 'Cinzel, Georgia, serif',
+
+          fontSize: '22px',
+
+          fontWeight: '700',
+
+          color: '#b45309',
+
+          margin: '4px 0 0',
+        }}
+      >
+        {t('coverSubtitle')}
+      </p>
+
+      <p
+        style={{
+          color: '#6b7280',
+
+          fontSize: '12px',
+
+          maxWidth: '340px',
+
+          margin: '12px auto 0',
+
+          lineHeight: '1.7',
+        }}
+      >
+        {t('coverDesc')}
+      </p>
+
+      <div
+        style={{
+          width: '80px',
+
+          height: '1px',
+
+          background: 'rgba(217,119,6,0.3)',
+
+          margin: '16px auto',
+        }}
+      />
+
+      {/* Client Details Box */}
+      <div
+        style={{
+          maxWidth: '360px',
+
+          margin: '0 auto',
+
+          padding: '18px 24px',
+
+          background: 'rgba(254,243,199,0.25)',
+
+          border: '1px solid rgba(251,191,36,0.35)',
+
+          borderRadius: '14px',
+
+          textAlign: 'left',
+        }}
+      >
+        <div
+          style={{
+            fontSize: '9px',
+
+            textTransform: 'uppercase',
+
+            fontWeight: 'bold',
+
+            color: '#b45309',
+
+            letterSpacing: '0.12em',
+
+            borderBottom: '1px solid rgba(251,191,36,0.3)',
+
+            paddingBottom: '6px',
+
+            marginBottom: '10px',
+
+            fontFamily: 'Inter, sans-serif',
+          }}
+        >
+          {t('personalCoordinates')}
         </div>
 
-        {/* MIDDLE: Ganesha + Title + Details */}
-        <div style={{ textAlign: 'center', margin: 'auto 0' }}>
-          <GaneshaSVG />
+        {[
+          {
+            label: t('nameLabel'),
+            value: fullName,
+            color: '#111827',
+          },
 
-          <h1 style={{
-            fontFamily: 'Cinzel, Georgia, serif', fontSize: '34px', fontWeight: '900',
-            color: '#111827', textTransform: 'uppercase', letterSpacing: '0.05em',
-            margin: '16px 0 0', lineHeight: '1.3'
-          }}>
-            {t('coverTitle')}
-          </h1>
-          <p style={{
-            fontFamily: 'Cinzel, Georgia, serif', fontSize: '22px', fontWeight: '700',
-            color: '#b45309', margin: '4px 0 0'
-          }}>
-            {t('coverSubtitle')}
-          </p>
+          {
+            label: t('dobLabel'),
+            value: dob,
+            color: '#111827',
+          },
 
-          <p style={{
-            color: '#6b7280', fontSize: '12px', maxWidth: '340px',
-            margin: '12px auto 0', lineHeight: '1.7'
-          }}>
-            {t('coverDesc')}
-          </p>
+          ...(mobileNumber
+            ? [
+                {
+                  label: t('mobileLabel'),
+                  value: mobileNumber,
+                  color: '#111827',
+                },
+              ]
+            : []),
 
-          <div style={{ width: '80px', height: '1px', background: 'rgba(217,119,6,0.3)', margin: '16px auto' }} />
+          {
+            label: t('emailLabel'),
+            value: email,
+            color: '#111827',
+          },
 
-          {/* Client Details Box — centered, no table layout */}
-          <div style={{
-            maxWidth: '360px', margin: '0 auto',
-            padding: '18px 24px',
-            background: 'rgba(254,243,199,0.25)',
-            border: '1px solid rgba(251,191,36,0.35)',
-            borderRadius: '14px',
-            textAlign: 'left'
-          }}>
-            <div style={{
-              fontSize: '9px', textTransform: 'uppercase', fontWeight: 'bold',
-              color: '#b45309', letterSpacing: '0.12em',
-              borderBottom: '1px solid rgba(251,191,36,0.3)',
-              paddingBottom: '6px', marginBottom: '10px',
-              fontFamily: 'Inter, sans-serif'
-            }}>
-              {t('personalCoordinates')}
-            </div>
+          {
+            label: t('preparedBy'),
+            value: t('vedicAstrologer'),
+            color: '#b45309',
+          },
+        ].map((row, i) => (
+          <div
+            key={i}
+            style={{
+              marginBottom: '7px',
 
-            {[
-              { label: t('nameLabel'), value: fullName, color: '#111827' },
-              { label: t('dobLabel'), value: dob, color: '#111827' },
-              ...(mobileNumber ? [{ label: t('mobileLabel'), value: mobileNumber, color: '#111827' }] : []),
-              { label: t('emailLabel'), value: email, color: '#111827' },
-              { label: t('preparedBy'), value: t('vedicAstrologer'), color: '#b45309' },
-            ].map((row, i) => (
-              <div key={i} style={{ marginBottom: '7px', lineHeight: '1.4' }}>
-                <span style={{ fontSize: '11px', color: '#6b7280', fontWeight: '500', fontFamily: 'Inter, sans-serif' }}>
-                  {row.label}{' '}
-                </span>
-                <span style={{ fontSize: '11px', fontWeight: '700', color: row.color, fontFamily: 'Inter, sans-serif' }}>
-                  {row.value}
-                </span>
-              </div>
-            ))}
+              lineHeight: '1.4',
+            }}
+          >
+            <span
+              style={{
+                fontSize: '11px',
+
+                color: '#6b7280',
+
+                fontWeight: '500',
+
+                fontFamily: 'Inter, sans-serif',
+              }}
+            >
+              {row.label}{' '}
+            </span>
+
+            <span
+              style={{
+                fontSize: '11px',
+
+                fontWeight: '700',
+
+                color: row.color,
+
+                fontFamily: 'Inter, sans-serif',
+              }}
+            >
+              {row.value}
+            </span>
           </div>
-        </div>
-
-        {/* BOTTOM: Numerotalk */}
-        <div style={{ textAlign: 'center', borderTop: '1px solid rgba(251,191,36,0.35)', paddingTop: '12px' }}>
-          <span style={{ fontSize: '10px', color: 'rgba(180,83,9,0.6)', textTransform: 'uppercase', letterSpacing: '0.15em', fontFamily: 'Cinzel, Georgia, serif' }}>
-            ✦ &nbsp; Numerotalk &nbsp; ✦
-          </span>
-        </div>
+        ))}
       </div>
+    </div>
+  </div>
+
+  {/* BOTTOM: Numerotalk */}
+  <div
+    style={{
+      textAlign: 'center',
+
+      borderTop: '1px solid rgba(251,191,36,0.35)',
+
+      paddingTop: '12px',
+    }}
+  >
+    <span
+      style={{
+        fontSize: '10px',
+
+        color: 'rgba(180,83,9,0.6)',
+
+        textTransform: 'uppercase',
+
+        letterSpacing: '0.15em',
+
+        fontFamily: 'Cinzel, Georgia, serif',
+      }}
+    >
+      ✦ &nbsp; Numerotalk &nbsp; ✦
+    </span>
+  </div>
+</div>
 
 
       {/* PAGE 2: TABLE OF CONTENTS */}

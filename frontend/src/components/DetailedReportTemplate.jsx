@@ -647,17 +647,29 @@ export default function DetailedReportTemplate({ reportData, language = 'en' }) 
 
   // Helper page wrapper
   const renderHeader = (pageNumber) => (
-    <div className="pdf-header flex justify-between items-center text-[10px] text-gray-400 border-b border-gray-150 pb-2 mb-8 font-serif">
+    <div style={{
+      display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+      fontSize: '10px', color: '#9ca3af',
+      borderBottom: '1px solid #e5e7eb',
+      paddingBottom: '8px', marginBottom: '32px',
+      fontFamily: 'Cinzel, Georgia, serif', width: '100%'
+    }}>
       <span>{t('shreeGaneshayaNamah')}</span>
-      <span className="tracking-widest uppercase text-amber-700 font-semibold">{t('reportHeader')}</span>
+      <span style={{ letterSpacing: '0.1em', textTransform: 'uppercase', color: '#b45309', fontWeight: '600' }}>{t('reportHeader')}</span>
       <span>{t('website')}</span>
     </div>
   );
 
   const renderFooter = (pageNumber) => (
-    <div className="pdf-footer absolute bottom-6 left-12 right-12 flex justify-between items-center text-[10px] text-gray-400 border-t border-gray-150 pt-2 font-serif">
+    <div style={{
+      display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+      fontSize: '10px', color: '#9ca3af',
+      borderTop: '1px solid #e5e7eb',
+      paddingTop: '8px', marginTop: '16px',
+      fontFamily: 'Cinzel, Georgia, serif', width: '100%'
+    }}>
       <span>{t('footerText')}</span>
-      <span className="font-bold text-amber-700">{language === 'en' ? 'Page' : (language === 'gu' ? 'પાનું' : 'पृष्ठ')} {pageNumber}</span>
+      <span style={{ fontWeight: 'bold', color: '#b45309' }}>{language === 'en' ? 'Page' : (language === 'gu' ? 'પાનું' : 'पृष्ठ')} {pageNumber}</span>
     </div>
   );
 
@@ -1860,7 +1872,7 @@ export default function DetailedReportTemplate({ reportData, language = 'en' }) 
       {/* PAGE 14: SPELLING SUGGESTIONS */}
       <div className="pdf-page relative p-12 bg-white flex flex-col justify-between" style={{ height: '297mm', width: '210mm', pageBreakAfter: 'always' }}>
         {renderWatermark()}
-        <div>
+        <div style={{ position: 'relative', zIndex: 1 }}>
           {renderHeader(14)}
           <h2 className="font-serif text-2xl font-bold text-gray-900 mb-4">{t('spellingSuggestionsTitle')}</h2>
           <div className="space-y-4 text-xs text-gray-700 leading-relaxed text-justify">
@@ -1869,12 +1881,12 @@ export default function DetailedReportTemplate({ reportData, language = 'en' }) 
             </p>
             <div className="space-y-2">
               {nameSuggestions.map((s, idx) => (
-                <div key={idx} className="p-3 bg-gray-50 border border-gray-200 rounded-xl flex justify-between">
+                <div key={idx} className="p-3 bg-gray-50 border border-gray-200 rounded-xl" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                   <div>
                     <span className="font-bold text-gray-950 block">{s.name}</span>
                     <span className="text-[10px] text-gray-500">{s.change}</span>
                   </div>
-                  <div className="text-right">
+                  <div style={{ textAlign: 'right' }}>
                     <span className="font-bold text-gray-800 font-mono">{language === 'en' ? 'Value' : 'मान'}: {s.reduced}</span>
                   </div>
                 </div>
@@ -2030,7 +2042,7 @@ export default function DetailedReportTemplate({ reportData, language = 'en' }) 
       {/* PAGE 17: VIP NUMBER RECOMMENDATIONS */}
       <div className="pdf-page relative p-12 bg-white flex flex-col justify-between" style={{ height: '297mm', width: '210mm', pageBreakAfter: 'always' }}>
         {renderWatermark()}
-        <div>
+        <div style={{ position: 'relative', zIndex: 1 }}>
           {renderHeader(17)}
           <h2 className="font-serif text-2xl font-bold text-gray-900 mb-4">{t('vipRecommendationsTitle')}</h2>
           <div className="space-y-4 text-xs text-gray-700 leading-relaxed text-justify">
@@ -2055,7 +2067,7 @@ export default function DetailedReportTemplate({ reportData, language = 'en' }) 
       {/* PAGE 18: YEARLY PREDICTIONS 2026 */}
       <div className="pdf-page relative p-12 bg-white flex flex-col justify-between" style={{ height: '297mm', width: '210mm', pageBreakAfter: 'always' }}>
         {renderWatermark()}
-        <div>
+        <div style={{ position: 'relative', zIndex: 1 }}>
           {renderHeader(18)}
           <h2 className="font-serif text-2xl font-bold text-gray-900 mb-4">{t('yearlyPredictionTitle')}</h2>
           <div className="space-y-4 text-xs text-gray-700 leading-relaxed text-justify">
@@ -2072,7 +2084,7 @@ export default function DetailedReportTemplate({ reportData, language = 'en' }) 
       {/* PAGE 19: LUCKY COORDINATES */}
       <div className="pdf-page relative p-12 bg-white flex flex-col justify-between" style={{ height: '297mm', width: '210mm', pageBreakAfter: 'always' }}>
         {renderWatermark()}
-        <div>
+        <div style={{ position: 'relative', zIndex: 1 }}>
           {renderHeader(19)}
           <h2 className="font-serif text-2xl font-bold text-gray-900 mb-4">{t('luckyCoordinatesTitle')}</h2>
           <div className="space-y-4 text-xs text-gray-700">
@@ -2103,7 +2115,7 @@ export default function DetailedReportTemplate({ reportData, language = 'en' }) 
       {/* PAGE 20: REMEDIES & CONCLUSION */}
       <div className="pdf-page relative p-12 bg-white flex flex-col justify-between" style={{ height: '297mm', width: '210mm', pageBreakAfter: 'always' }}>
         {renderWatermark()}
-        <div>
+        <div style={{ position: 'relative', zIndex: 1 }}>
           {renderHeader(20)}
           <h2 className="font-serif text-2xl font-bold text-gray-900 mb-4">{t('remediesMantraTitle')}</h2>
           <div className="space-y-4 text-xs text-gray-700 leading-relaxed text-justify">

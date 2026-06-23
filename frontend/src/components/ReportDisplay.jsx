@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { Download, Mail, ArrowLeft, Check, Eye, Heart, User, Sun, Moon } from 'lucide-react';
 import { translations } from '../utils/translations';
 import html2canvas from 'html2canvas-pro';
@@ -6,6 +6,101 @@ import { jsPDF } from 'jspdf';
 import DetailedReportTemplate from './DetailedReportTemplate';
 
 const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+
+// A4 page at 96 DPI = 794px wide (210mm)
+const A4_PX_WIDTH = 794;
+
+/**
+ * ScaledPreviewContainer
+ *
+ * Renders the 794px-wide A4 report template scaled down to fit
+ * any screen width without triggering browser-level zoom-out.
+ *
+ * How it works:
+ *  1. The outer <div> (wrapperRef) is the scroll container that measures its own width.
+ *  2. The middle "positioner" div is set to `scale * A4_PX_WIDTH` wide so it centers.
+ *  3. The inner "content" div is always A4_PX_WIDTH wide with transform:scale(s).
+ *  4. After scale, CSS still reserves the original un-scaled height in the flow.
+ *     We fix that by wrapping with position:relative + paddingTop trick:
+ *     - The content div is position:absolute, transform from top-left.
+ *     - The positioner div gets paddingTop = scaled content height (computed via ref).
+ */
+function ScaledPreviewContainer({ reportData, language }) {
+  const wrapperRef = useRef(null);
+  const contentRef = useRef(null);
+  const [scale, setScale] = useState(1);
+  const [contentHeight, setContentHeight] = useState(0);
+
+  const recalc = useCallback(() => {
+    if (!wrapperRef.current) return;
+    const available = wrapperRef.current.clientWidth;
+    const gap = 16;
+    const newScale = Math.min(1, (available - gap) / A4_PX_WIDTH);
+    setScale(newScale);
+    if (contentRef.current) {
+      setContentHeight(contentRef.current.scrollHeight);
+    }
+  }, []);
+
+  useEffect(() => {
+    // Small delay to let the template render fully before measuring
+    const timer = setTimeout(recalc, 50);
+    const ro = new ResizeObserver(recalc);
+    if (wrapperRef.current) ro.observe(wrapperRef.current);
+    return () => { clearTimeout(timer); ro.disconnect(); };
+  }, [recalc]);
+
+  // After template renders, measure its height
+  useEffect(() => {
+    if (contentRef.current) {
+      setContentHeight(contentRef.current.scrollHeight);
+    }
+  }, [reportData, language]);
+
+  const scaledContentHeight = contentHeight * scale;
+
+  return (
+    <div
+      id="preview-modal-scroll-area"
+      ref={wrapperRef}
+      className="flex-1 overflow-y-auto overflow-x-hidden bg-neutral-950 scroll-smooth"
+      style={{ padding: '8px 4px' }}
+    >
+      {/* Centering positioner — width equals the visual (scaled) width */}
+      <div
+        style={{
+          width: Math.round(A4_PX_WIDTH * scale),
+          marginLeft: 'auto',
+          marginRight: 'auto',
+          // Reserve exactly the scaled height so the scroll container is correct
+          height: scaledContentHeight > 0 ? scaledContentHeight + 16 : 'auto',
+          position: 'relative',
+        }}
+      >
+        {/* Actual content scaled from top-left corner */}
+        <div
+          style={{
+            width: A4_PX_WIDTH,
+            transformOrigin: 'top left',
+            transform: `scale(${scale})`,
+            position: 'absolute',
+            top: 0,
+            left: 0,
+          }}
+          ref={contentRef}
+        >
+          <div
+            id="preview-report-template-root"
+            className="preview-mode bg-white text-gray-900 shadow-2xl"
+          >
+            <DetailedReportTemplate reportData={reportData} language={language} />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 
 export default function ReportDisplay({ reportData, onBack }) {
   const { firstName, middleName, lastName, dob, email, calculations } = reportData;
@@ -570,21 +665,8 @@ export default function ReportDisplay({ reportData, onBack }) {
               </div>
             </div>
 
-            {/* Scrollable Preview Container */}
-            <div 
-              id="preview-modal-scroll-area" 
-              className="flex-1 overflow-y-auto p-2 sm:p-4 md:p-8 bg-neutral-950 flex justify-center scroll-smooth"
-            >
-              <div className="w-full overflow-x-auto py-2 sm:py-4">
-                <div 
-                  id="preview-report-template-root" 
-                  className="preview-mode bg-white text-gray-900 shadow-2xl mx-auto"
-                  style={{ width: '210mm', minWidth: '210mm' }}
-                >
-                  <DetailedReportTemplate reportData={reportData} language={language} />
-                </div>
-              </div>
-            </div>
+            {/* Scrollable Preview Container — responsive scaled A4 */}
+            <ScaledPreviewContainer reportData={reportData} language={language} />
           </div>
         </div>
       )}

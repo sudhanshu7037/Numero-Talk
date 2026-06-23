@@ -1,4 +1,142 @@
-// PAGE 6: MOOLANK CHALLENGES & HEALTH (FIXED)
+import React from 'react';
+
+/**
+ * PDFPageWrapper
+ * - Use this exact wrapper for every PDF page to enforce consistent layout.
+ * - Pass renderHeader, renderFooter, renderWatermark from the report file.
+ */
+export function PDFPageWrapper({
+  pageNo,
+  renderHeader,
+  renderFooter,
+  renderWatermark,
+  children,
+}) {
+  const PAGE_STYLE = {
+    height: '297mm',
+    width: '210mm',
+    padding: '14mm',
+    boxSizing: 'border-box',
+    background: '#ffffff',
+    position: 'relative',
+    overflow: 'hidden',
+    pageBreakAfter: 'always',
+    display: 'flex',
+    flexDirection: 'column',
+  };
+
+  const CONTENT_STYLE = {
+    position: 'relative',
+    zIndex: 1,
+    minHeight: '220mm',
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+  };
+
+  return (
+    <div className="pdf-page" style={PAGE_STYLE}>
+      {renderWatermark && renderWatermark()}
+      <div style={CONTENT_STYLE}>
+        {renderHeader && renderHeader(pageNo)}
+        <div style={{ flex: 1 }}>{children}</div>
+        {renderFooter && renderFooter(pageNo)}
+      </div>
+    </div>
+  );
+}import React from 'react';
+
+/**
+ * PDFPageWrapper
+ * - Use this exact wrapper for every PDF page to enforce consistent layout.
+ * - Pass renderHeader, renderFooter, renderWatermark from the report file.
+ */
+export function PDFPageWrapper({
+  pageNo,
+  renderHeader,
+  renderFooter,
+  renderWatermark,
+  children,
+}) {
+  const PAGE_STYLE = {
+    height: '297mm',
+    width: '210mm',
+    padding: '14mm',
+    boxSizing: 'border-box',
+    background: '#ffffff',
+    position: 'relative',
+    overflow: 'hidden',
+    pageBreakAfter: 'always',
+    display: 'flex',
+    flexDirection: 'column',
+  };
+
+  const CONTENT_STYLE = {
+    position: 'relative',
+    zIndex: 1,
+    minHeight: '220mm',
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+  };
+
+  return (
+    <div className="pdf-page" style={PAGE_STYLE}>
+      {renderWatermark && renderWatermark()}
+      <div style={CONTENT_STYLE}>
+        {renderHeader && renderHeader(pageNo)}
+        <div style={{ flex: 1 }}>{children}</div>
+        {renderFooter && renderFooter(pageNo)}
+      </div>
+    </div>
+  );
+}import React from 'react';
+
+/**
+ * PDFPageWrapper
+ * - Use this exact wrapper for every PDF page to enforce consistent layout.
+ * - Pass renderHeader, renderFooter, renderWatermark from the report file.
+ */
+export function PDFPageWrapper({
+  pageNo,
+  renderHeader,
+  renderFooter,
+  renderWatermark,
+  children,
+}) {
+  const PAGE_STYLE = {
+    height: '297mm',
+    width: '210mm',
+    padding: '14mm',
+    boxSizing: 'border-box',
+    background: '#ffffff',
+    position: 'relative',
+    overflow: 'hidden',
+    pageBreakAfter: 'always',
+    display: 'flex',
+    flexDirection: 'column',
+  };
+
+  const CONTENT_STYLE = {
+    position: 'relative',
+    zIndex: 1,
+    minHeight: '220mm',
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+  };
+
+  return (
+    <div className="pdf-page" style={PAGE_STYLE}>
+      {renderWatermark && renderWatermark()}
+      <div style={CONTENT_STYLE}>
+        {renderHeader && renderHeader(pageNo)}
+        <div style={{ flex: 1 }}>{children}</div>
+        {renderFooter && renderFooter(pageNo)}
+      </div>
+    </div>
+  );
+}// PAGE 6: MOOLANK CHALLENGES & HEALTH (FIXED)
 // Replace the entire Page 6 section in DetailedReportTemplate.jsx with this code
 
 <div

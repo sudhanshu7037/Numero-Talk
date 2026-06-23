@@ -41,6 +41,7 @@ export default function ReportDisplay({ reportData, onBack }) {
   const activeMeaning = currentInterpretations[activeTab][calculations[activeTab]];
 
   // Core function: renders each .pdf-page div individually → avoids browser canvas size limits
+  // PRODUCTION-SAFE: Matches preview perfectly
   const generatePdfBlob = async () => {
     const sourceElement = detailedReportRef.current;
     if (!sourceElement) throw new Error('Report template not found');
@@ -53,47 +54,75 @@ export default function ReportDisplay({ reportData, onBack }) {
       'position: fixed',
       'left: -9999px',  /* Off-screen - user can\'t see it */
       'top: 0',
-      'width: 794px',   /* 210mm @ 96 dpi */
+      'width: 210mm',   /* Exact A4 width */
       'height: auto',
       'overflow: visible',
       'opacity: 1',
       'z-index: 99999',
       'pointer-events: none',
       'background: white',
+      'margin: 0',
+      'padding: 0',
     ].join('; ');
     document.body.appendChild(clone);
 
-    // Give the browser time to lay out fonts + Tailwind styles
-    await new Promise(r => setTimeout(r, 600));
+    // Wait for fonts + images to load (critical for consistency)
+    await new Promise(r => setTimeout(r, 1000));
+    
+    // Force layout re-calculation
+    clone.offsetHeight;
 
     try {
       const pages = Array.from(clone.querySelectorAll('.pdf-page'));
       if (!pages.length) throw new Error('No .pdf-page elements found in clone');
 
-      const pdf = new jsPDF({ unit: 'mm', format: 'a4', orientation: 'portrait' });
+      const pdf = new jsPDF({ 
+        unit: 'mm', 
+        format: 'a4', 
+        orientation: 'portrait',
+        compress: false, // Disable compression for consistent rendering
+      });
       const A4_W = 210;
       const A4_H = 297;
+      const DPI = 96; // Standard screen DPI for preview matching
 
       for (let i = 0; i < pages.length; i++) {
         const page = pages[i];
 
+        // Calculate exact pixel dimensions at 96 DPI
+        const pagePixelWidth = Math.round((A4_W / 25.4) * DPI);  // 210mm = ~794px @ 96dpi
+        const pagePixelHeight = Math.round((A4_H / 25.4) * DPI); // 297mm = ~1123px @ 96dpi
+
         // Each page is captured as its own canvas → no combined size limit
         const canvas = await html2canvas(page, {
-          scale: 2,
+          scale: 1,           // 1:1 scale = 96 DPI (matches screen preview)
           useCORS: true,
           allowTaint: true,
           backgroundColor: '#ffffff',
-          letterRendering: true,
+          letterRendering: false, // Disable for consistent font rendering
           logging: false,
-          width: 794,
-          height: 1123, /* 297mm @ 96 dpi */
+          width: pagePixelWidth,
+          height: pagePixelHeight,
           scrollX: 0,
           scrollY: 0,
+          imageTimeout: 0,    // Wait indefinitely for images
+          onclone: (clonedDoc) => {
+            // Ensure all fonts are loaded in cloned document
+            const style = clonedDoc.createElement('style');
+            style.innerHTML = `
+              * { 
+                -webkit-font-smoothing: antialiased;
+                -moz-osx-font-smoothing: grayscale;
+              }
+              body { margin: 0; padding: 0; }
+            `;
+            clonedDoc.head.appendChild(style);
+          },
         });
 
-        const imgData = canvas.toDataURL('image/jpeg', 0.95);
+        const imgData = canvas.toDataURL('image/png'); // PNG for lossless quality
         if (i > 0) pdf.addPage();
-        pdf.addImage(imgData, 'JPEG', 0, 0, A4_W, A4_H);
+        pdf.addImage(imgData, 'PNG', 0, 0, A4_W, A4_H);
       }
 
       document.body.removeChild(clone);

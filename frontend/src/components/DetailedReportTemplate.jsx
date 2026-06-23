@@ -971,42 +971,109 @@ export default function DetailedReportTemplate({ reportData, language = 'en' }) 
 
 
       {/* PAGE 2: TABLE OF CONTENTS */}
-      <div className="pdf-page relative p-12 bg-white flex flex-col justify-between" style={{ height: '297mm', width: '210mm', pageBreakAfter: 'always' }}>
-        {renderWatermark()}
-        <div>
-          {renderHeader(2)}
-          <h2 className="font-serif text-2xl font-bold text-gray-900 mb-6">{t('tocTitle')}</h2>
-          <div className="space-y-3.5 text-xs text-gray-700">
-            {getTocItems().map((item, idx) => (
-              <div key={idx} className="flex justify-between border-b border-dashed border-gray-200 pb-1.5">
-                <span className="font-mono text-amber-700 font-bold mr-2">{item.num}</span>
-                <span className="flex-1 text-left">{item.title}</span>
-                <span className="font-mono text-gray-500">Page {item.page}</span>
-              </div>
-            ))}
-          </div>
+     {/* PAGE 2: TABLE OF CONTENTS */}
+
+<div
+  className="pdf-page relative p-12 bg-white flex flex-col justify-between"
+  style={{
+    height: '297mm',
+    width: '210mm',
+    pageBreakAfter: 'always',
+  }}
+>
+  {renderWatermark()}
+
+  <div style={{ position: 'relative', zIndex: 1 }}>
+    {renderHeader(2)}
+
+    <h2 className="font-serif text-2xl font-bold text-gray-900 mb-6">
+      {t('tocTitle')}
+    </h2>
+
+    <div className="space-y-3.5 text-xs text-gray-700 leading-relaxed">
+
+      {getTocItems().map((item, idx) => (
+        <div
+          key={idx}
+          className="flex justify-between border-b border-dashed border-gray-200 pb-1.5"
+        >
+          <span className="font-mono text-amber-700 font-bold mr-2">
+            {item.num}
+          </span>
+
+          <span className="flex-1 text-left">
+            {item.title}
+          </span>
+
+          <span className="font-mono text-gray-500">
+            Page {item.page}
+          </span>
         </div>
-        {renderFooter(2)}
-      </div>
+      ))}
+
+    </div>
+  </div>
+
+  {renderFooter(2)}
+</div>
 
 
-      {/* PAGE 3: INTRODUCTION */}
-      <div className="pdf-page relative p-12 bg-white flex flex-col justify-between" style={{ height: '297mm', width: '210mm', pageBreakAfter: 'always' }}>
-        {renderWatermark()}
-        <div>
-          {renderHeader(3)}
-          <h2 className="font-serif text-2xl font-bold text-gray-900 mb-4">{t('introductionTitle')}</h2>
-          <div className="space-y-4 text-xs text-gray-700 leading-relaxed text-justify">
-            <p>{t('introductionTextP1')}</p>
-            <p><strong>{language === 'en' ? 'Pythagorean System:' : (language === 'gu' ? 'પાયથાગોરિયન પદ્ધતિ:' : 'पाइथागोरस प्रणाली:')}</strong> {t('introductionTextP2')}</p>
-            <p><strong>{language === 'en' ? 'Chaldean System:' : (language === 'gu' ? 'ચેલ્ડિયન પદ્ધતિ:' : 'चाल्डियन प्रणाली:')}</strong> {t('introductionTextP3')}</p>
-            <p>{t('introductionTextP4')}</p>
-          </div>
-        </div>
-        {renderFooter(3)}
-      </div>
+    {/* PAGE 3: INTRODUCTION */}
 
+<div
+  className="pdf-page relative p-12 bg-white flex flex-col justify-between"
+  style={{
+    height: '297mm',
+    width: '210mm',
+    pageBreakAfter: 'always',
+  }}
+>
+  {renderWatermark()}
 
+  <div style={{ position: 'relative', zIndex: 1 }}>
+    {renderHeader(3)}
+
+    <h2 className="font-serif text-2xl font-bold text-gray-900 mb-4">
+      {t('introductionTitle')}
+    </h2>
+
+    <div className="space-y-4 text-xs text-gray-700 leading-relaxed text-justify">
+
+      <p>
+        {t('introductionTextP1')}
+      </p>
+
+      <p>
+        <strong>
+          {language === 'en'
+            ? 'Pythagorean System:'
+            : language === 'gu'
+            ? 'પાયથાગોરિયન પદ્ધતિ:'
+            : 'पाइथागोरस प्रणाली:'}
+        </strong>{' '}
+        {t('introductionTextP2')}
+      </p>
+
+      <p>
+        <strong>
+          {language === 'en'
+            ? 'Chaldean System:'
+            : language === 'gu'
+            ? 'ચેલ્ડિયન પદ્ધતિ:'
+            : 'चाल्डियन प्रणाली:'}
+        </strong>{' '}
+        {t('introductionTextP3')}
+      </p>
+
+      <p>
+        {t('introductionTextP4')}
+      </p>
+
+    </div>
+  </div>
+
+  {renderFooter(3)}
+</div>  
      {/* PAGE 4: COSMIC GRID */}
 
 <div
@@ -1560,49 +1627,121 @@ export default function DetailedReportTemplate({ reportData, language = 'en' }) 
 
 
       {/* PAGE 11: SOUL URGE NUMBER */}
-      <div className="pdf-page relative p-12 bg-white flex flex-col justify-between" style={{ height: '297mm', width: '210mm', pageBreakAfter: 'always' }}>
-        {renderWatermark()}
-        <div style={{ position: 'relative', zIndex: 1 }}>
-          {renderHeader(11)}
-          <h2 className="font-serif text-2xl font-bold text-gray-900 mb-3">{t('soulUrgeTitle')}</h2>
-          <div className="space-y-3 text-xs text-gray-700 leading-relaxed text-justify">
-            <h3 className="font-serif text-lg font-bold text-amber-700">
-              {language === 'en' ? 'Soul Urge Number' : 'आंतरिक इच्छा संख्या'} {soulUrge} &mdash; {t('rulerLabel')}: {getTranslation(planetaryLords[soulUrge])}
-            </h3>
+      {/* PAGE 11: SOUL URGE */}
 
-            <div className="p-4 bg-pink-50/50 border border-pink-200 rounded-xl">
-              <strong className="text-pink-700 uppercase tracking-wider block text-[10px] mb-1">✦ {language === 'en' ? 'What Your Soul Truly Desires' : (language === 'gu' ? 'આત્માની સાચી ઇચ્છા' : 'आत्मा की सच्ची इच्छा')}</strong>
-              <p>{t('soulUrgeDesc')}</p>
-            </div>
+<div
+  className="pdf-page relative p-12 bg-white flex flex-col justify-between"
+  style={{
+    height: '297mm',
+    width: '210mm',
+    pageBreakAfter: 'always',
+  }}
+>
+  {renderWatermark()}
 
-            <div className="p-4 bg-violet-50/40 border border-violet-200 rounded-xl">
-              <strong className="text-violet-700 uppercase tracking-wider block text-[10px] mb-1">✦ {t('vibeDetailsLabel')}</strong>
-              <p>{t('soulUrgeVibeDetails', { lord: getTranslation(planetaryLords[soulUrge]) })}</p>
-            </div>
+  <div style={{ position: 'relative', zIndex: 1 }}>
+    {renderHeader(11)}
 
-            <div className="p-4 bg-sky-50/40 border border-sky-200 rounded-xl">
-              <strong className="text-sky-700 uppercase tracking-wider block text-[10px] mb-2">✦ {language === 'en' ? 'Inner Motivations & Deep Drives' : (language === 'gu' ? 'આંતરિક પ્રેરણાઓ' : 'आंतरिक प्रेरणाएं')}</strong>
-              <p className="text-gray-700">
-                {language === 'en'
-                  ? `Your Soul Urge ${soulUrge} reveals the innermost chamber of your heart. This number is calculated from the vowels in your name — the breath, the voice, the life force within each syllable. It speaks of what you crave at the deepest level, what truly fulfills you beyond material achievements.`
-                  : `आपका सोल अर्ज ${soulUrge} आपके दिल की सबसे गहरी परत प्रकट करता है। यह संख्या आपके नाम के स्वरों से निकाली जाती है।`
-                }
-              </p>
-            </div>
+    <h2 className="font-serif text-2xl font-bold text-gray-900 mb-3">
+      {t('soulUrgeTitle')}
+    </h2>
 
-            <div className="p-4 bg-emerald-50/40 border border-emerald-200 rounded-xl">
-              <strong className="text-emerald-700 uppercase tracking-wider block text-[10px] mb-2">✦ {language === 'en' ? 'Relationship Needs & Love Language' : (language === 'gu' ? 'સંબંધ જરૂરિયાત' : 'रिश्तों में जरूरतें')}</strong>
-              <p className="text-gray-700">
-                {language === 'en'
-                  ? `In relationships, Soul Urge ${soulUrge} individuals need their core emotional needs to be understood and respected. They thrive when their partners align with their values and support their inner journey. Love, for you, must feel authentic and spiritually connected.`
-                  : `रिश्तों में, सोल अर्ज ${soulUrge} वाले व्यक्तियों को अपनी मूल भावनात्मक जरूरतों को समझा और सम्मानित किया जाना चाहिए।`
-                }
-              </p>
-            </div>
-          </div>
-        </div>
-        {renderFooter(11)}
+    <div className="space-y-3 text-xs text-gray-700 leading-relaxed text-justify">
+
+      <h3 className="font-serif text-lg font-bold text-amber-700">
+        {language === 'en'
+          ? 'Soul Urge Number'
+          : 'आंतरिक इच्छा संख्या'}{' '}
+        {soulUrge}
+        &nbsp;—&nbsp;
+        {t('rulerLabel')}: {getTranslation(planetaryLords[soulUrge])}
+      </h3>
+
+      <div className="p-4 bg-pink-50/50 border border-pink-200 rounded-xl">
+
+        <strong className="text-pink-700 uppercase tracking-wider block text-[10px] mb-1">
+          ✦ {
+            language === 'en'
+              ? 'What Your Soul Truly Desires'
+              : language === 'gu'
+              ? 'આત્માની સાચી ઇચ્છા'
+              : 'आत्मा की सच्ची इच्छा'
+          }
+        </strong>
+
+        <p>{t('soulUrgeDesc')}</p>
+
       </div>
+
+      <div className="p-4 bg-violet-50/40 border border-violet-200 rounded-xl">
+
+        <strong className="text-violet-700 uppercase tracking-wider block text-[10px] mb-1">
+          ✦ {t('vibeDetailsLabel')}
+        </strong>
+
+        <p>
+          {t('soulUrgeVibeDetails', {
+            lord: getTranslation(planetaryLords[soulUrge]),
+          })}
+        </p>
+
+      </div>
+
+      <div className="p-4 bg-sky-50/40 border border-sky-200 rounded-xl">
+
+        <strong className="text-sky-700 uppercase tracking-wider block text-[10px] mb-2">
+          ✦ {
+            language === 'en'
+              ? 'Inner Motivations & Deep Drives'
+              : language === 'gu'
+              ? 'આંતરિક પ્રેરણાઓ'
+              : 'आंतरिक प्रेरणाएं'
+          }
+        </strong>
+
+        <p className="text-gray-700">
+
+          {language === 'en'
+
+            ? `Your Soul Urge ${soulUrge} reveals the innermost chamber of your heart. This number is calculated from the vowels in your name — the breath, the voice, the life force within each syllable. It speaks of what you crave at the deepest level, what truly fulfills you beyond material achievements.`
+
+            : `आपका सोल अर्ज ${soulUrge} आपके दिल की सबसे गहरी परत प्रकट करता है। यह संख्या आपके नाम के स्वरों से निकाली जाती है।`
+          }
+
+        </p>
+
+      </div>
+
+      <div className="p-4 bg-emerald-50/40 border border-emerald-200 rounded-xl">
+
+        <strong className="text-emerald-700 uppercase tracking-wider block text-[10px] mb-2">
+          ✦ {
+            language === 'en'
+              ? 'Relationship Needs & Love Language'
+              : language === 'gu'
+              ? 'સંબંધ જરૂરિયાત'
+              : 'रिश्तों में जरूरतें'
+          }
+        </strong>
+
+        <p className="text-gray-700">
+
+          {language === 'en'
+
+            ? `In relationships, Soul Urge ${soulUrge} individuals need their core emotional needs to be understood and respected. They thrive when their partners align with their values and support their inner journey. Love, for you, must feel authentic and spiritually connected.`
+
+            : `रिश्तों में, सोल अर्ज ${soulUrge} वाले व्यक्तियों को अपनी मूल भावनात्मक जरूरतों को समझा और सम्मानित किया जाना चाहिए।`
+          }
+
+        </p>
+
+      </div>
+
+    </div>
+  </div>
+
+  {renderFooter(11)}
+</div>
 
 
       {/* PAGE 12: PERSONALITY NUMBER */}
@@ -1748,42 +1887,87 @@ export default function DetailedReportTemplate({ reportData, language = 'en' }) 
 
 
       {/* PAGE 15: MOBILE NUMEROLOGY SUM */}
-      <div className="pdf-page relative p-12 bg-white flex flex-col justify-between" style={{ height: '297mm', width: '210mm', pageBreakAfter: 'always' }}>
-        {renderWatermark()}
-        <div>
-          {renderHeader(15)}
-          <h2 className="font-serif text-2xl font-bold text-gray-900 mb-4">{t('mobileAnalysisTitle')}</h2>
-          <div className="space-y-4 text-xs text-gray-700 leading-relaxed text-justify">
-            <p>
-              {t('mobileIntroText')}
-            </p>
-            {mobileAnalysis && (
-              <div className="p-4 bg-amber-50/20 border border-amber-100 rounded-xl space-y-3">
-                <div className="grid grid-cols-2 gap-2">
-                  <span>{t('targetPhoneLabel')}</span>
-                  <span className="font-bold text-gray-950">{mobileNumber}</span>
-                  <span>{t('digitSumLabel')}</span>
-                  <span className="font-bold text-gray-950">{mobileAnalysis.sum}</span>
-                  <span>{t('reducedValueLabel')}</span>
-                  <span className="font-bold text-gray-950">{mobileAnalysis.reduced}</span>
-                  <span>{t('planetaryLordLabel')}</span>
-                  <span className="font-bold text-gray-950">{getTranslation(planetaryLords[mobileAnalysis.reduced])}</span>
-                </div>
-                {currentMobileVal && (
-                  <div className="border-t border-amber-200/50 pt-2 text-[11px] text-gray-650 leading-relaxed">
-                    <p>{getTranslation(currentMobileVal)}</p>
-                  </div>
-                )}
-              </div>
-            )}
+
+<div
+  className="pdf-page relative p-12 bg-white flex flex-col justify-between"
+  style={{
+    height: '297mm',
+    width: '210mm',
+    pageBreakAfter: 'always',
+  }}
+>
+  {renderWatermark()}
+
+  <div style={{ position: 'relative', zIndex: 1 }}>
+    {renderHeader(15)}
+
+    <h2 className="font-serif text-2xl font-bold text-gray-900 mb-4">
+      {t('mobileAnalysisTitle')}
+    </h2>
+
+    <div className="space-y-4 text-xs text-gray-700 leading-relaxed text-justify">
+
+      <p>
+        {t('mobileIntroText')}
+      </p>
+
+      {mobileAnalysis && (
+
+        <div className="p-4 bg-amber-50/20 border border-amber-100 rounded-xl space-y-3">
+
+          <div className="grid grid-cols-2 gap-2">
+
+            <span>{t('targetPhoneLabel')}</span>
+
+            <span className="font-bold text-gray-950">
+              {mobileNumber}
+            </span>
+
+            <span>{t('digitSumLabel')}</span>
+
+            <span className="font-bold text-gray-950">
+              {mobileAnalysis.sum}
+            </span>
+
+            <span>{t('reducedValueLabel')}</span>
+
+            <span className="font-bold text-gray-950">
+              {mobileAnalysis.reduced}
+            </span>
+
+            <span>{t('planetaryLordLabel')}</span>
+
+            <span className="font-bold text-gray-950">
+              {getTranslation(
+                planetaryLords[mobileAnalysis.reduced]
+              )}
+            </span>
+
           </div>
+
+          {currentMobileVal && (
+
+            <div className="border-t border-amber-200/50 pt-2 text-[11px] text-gray-600 leading-relaxed">
+
+              <p>
+                {getTranslation(currentMobileVal)}
+              </p>
+
+            </div>
+
+          )}
+
         </div>
-        {renderFooter(15)}
-      </div>
 
+      )}
 
-      {/* PAGE 16: MOBILE COMPATIBILITY */}
-     {/* PAGE 16: MOBILE COMPATIBILITY */}
+    </div>
+  </div>
+
+  {renderFooter(15)}
+</div>
+
+{/* PAGE 16: MOBILE COMPATIBILITY */}
 
 <div
   className="pdf-page relative p-12 bg-white flex flex-col justify-between"

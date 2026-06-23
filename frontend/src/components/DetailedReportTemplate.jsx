@@ -713,8 +713,8 @@ export default function DetailedReportTemplate({ reportData, language = 'en' }) 
      <div
   className="pdf-page"
   style={{
-    height: '297mm',
-    width: '210mm',
+    height: '1123px',
+    width: '794px',
     pageBreakAfter: 'always',
     position: 'relative',
 
@@ -937,12 +937,11 @@ export default function DetailedReportTemplate({ reportData, language = 'en' }) 
             <span
               style={{
                 fontSize: '11px',
-
                 fontWeight: '700',
-
                 color: row.color,
-
                 fontFamily: 'Inter, sans-serif',
+                wordBreak: 'break-all',
+                wordWrap: 'break-word',
               }}
             >
               {row.value}
@@ -988,8 +987,8 @@ export default function DetailedReportTemplate({ reportData, language = 'en' }) 
 <div
   className="pdf-page relative p-12 bg-white flex flex-col justify-between"
   style={{
-    height: '297mm',
-    width: '210mm',
+    height: '1123px',
+    width: '794px',
     pageBreakAfter: 'always',
   }}
 >
@@ -1035,8 +1034,8 @@ export default function DetailedReportTemplate({ reportData, language = 'en' }) 
 <div
   className="pdf-page relative p-12 bg-white flex flex-col justify-between"
   style={{
-    height: '297mm',
-    width: '210mm',
+    height: '1123px',
+    width: '794px',
     pageBreakAfter: 'always',
   }}
 >
@@ -1091,8 +1090,8 @@ export default function DetailedReportTemplate({ reportData, language = 'en' }) 
 <div
   className="pdf-page relative p-12 bg-white flex flex-col justify-between"
   style={{
-    height: '297mm',
-    width: '210mm',
+    height: '1123px',
+    width: '794px',
     pageBreakAfter: 'always',
   }}
 >
@@ -1159,8 +1158,8 @@ export default function DetailedReportTemplate({ reportData, language = 'en' }) 
 <div
   className="pdf-page relative p-12 bg-white flex flex-col justify-between"
   style={{
-    height: '297mm',
-    width: '210mm',
+    height: '1123px',
+    width: '794px',
     pageBreakAfter: 'always',
   }}
 >
@@ -1273,8 +1272,8 @@ export default function DetailedReportTemplate({ reportData, language = 'en' }) 
 <div
   className="pdf-page relative p-12 bg-white flex flex-col justify-between"
   style={{
-    height: '297mm',
-    width: '210mm',
+    height: '1123px',
+    width: '794px',
     pageBreakAfter: 'always',
   }}
 >
@@ -1438,7 +1437,7 @@ export default function DetailedReportTemplate({ reportData, language = 'en' }) 
 
 
       {/* PAGE 7: BHAGYANK JOURNEY */}
-      <div className="pdf-page relative p-12 bg-white flex flex-col justify-between" style={{ height: '297mm', width: '210mm', pageBreakAfter: 'always' }}>
+      <div className="pdf-page relative p-12 bg-white flex flex-col justify-between" style={{ height: '1123px', width: '794px', pageBreakAfter: 'always' }}>
         {renderWatermark()}
         <div style={{ position: 'relative', zIndex: 1 }}>
           {renderHeader(7)}
@@ -1501,8 +1500,8 @@ export default function DetailedReportTemplate({ reportData, language = 'en' }) 
 <div
   className="pdf-page relative p-12 bg-white flex flex-col justify-between"
   style={{
-    height: '297mm',
-    width: '210mm',
+    height: '1123px',
+    width: '794px',
     pageBreakAfter: 'always',
   }}
 >
@@ -1591,7 +1590,7 @@ export default function DetailedReportTemplate({ reportData, language = 'en' }) 
 
 
       {/* PAGE 9: DESTINY NUMBER */}
-      <div className="pdf-page relative p-12 bg-white flex flex-col justify-between" style={{ height: '297mm', width: '210mm', pageBreakAfter: 'always' }}>
+      <div className="pdf-page relative p-12 bg-white flex flex-col justify-between" style={{ height: '1123px', width: '794px', pageBreakAfter: 'always' }}>
         {renderWatermark()}
         <div style={{ position: 'relative', zIndex: 1 }}>
           {renderHeader(9)}
@@ -1642,7 +1641,7 @@ export default function DetailedReportTemplate({ reportData, language = 'en' }) 
 
 
       {/* PAGE 10: NAME VIBRATION */}
-      <div className="pdf-page relative p-12 bg-white flex flex-col justify-between" style={{ height: '297mm', width: '210mm', pageBreakAfter: 'always' }}>
+      <div className="pdf-page relative p-12 bg-white flex flex-col justify-between" style={{ height: '1123px', width: '794px', pageBreakAfter: 'always' }}>
         {renderWatermark()}
         <div style={{ position: 'relative', zIndex: 1 }}>
           {renderHeader(10)}
@@ -1702,8 +1701,8 @@ export default function DetailedReportTemplate({ reportData, language = 'en' }) 
 <div
   className="pdf-page relative p-12 bg-white flex flex-col justify-between"
   style={{
-    height: '297mm',
-    width: '210mm',
+    height: '1123px',
+    width: '794px',
     pageBreakAfter: 'always',
   }}
 >
@@ -1815,7 +1814,7 @@ export default function DetailedReportTemplate({ reportData, language = 'en' }) 
 
 
       {/* PAGE 12: PERSONALITY NUMBER */}
-      <div className="pdf-page relative p-12 bg-white flex flex-col justify-between" style={{ height: '297mm', width: '210mm', pageBreakAfter: 'always' }}>
+      <div className="pdf-page relative p-12 bg-white flex flex-col justify-between" style={{ height: '1123px', width: '794px', pageBreakAfter: 'always' }}>
         {renderWatermark()}
         <div style={{ position: 'relative', zIndex: 1, flex: 1, display: 'flex', flexDirection: 'column' }}>
           {renderHeader(12)}
@@ -1864,8 +1863,8 @@ export default function DetailedReportTemplate({ reportData, language = 'en' }) 
 <div
   className="pdf-page relative p-12 bg-white flex flex-col justify-between"
   style={{
-    height: '297mm',
-    width: '210mm',
+    height: '1123px',
+    width: '794px',
     pageBreakAfter: 'always',
   }}
 >
@@ -1910,7 +1909,7 @@ export default function DetailedReportTemplate({ reportData, language = 'en' }) 
 
 
       {/* PAGE 14: SPELLING SUGGESTIONS */}
-      <div className="pdf-page relative p-12 bg-white flex flex-col justify-between" style={{ height: '297mm', width: '210mm', pageBreakAfter: 'always' }}>
+      <div className="pdf-page relative p-12 bg-white flex flex-col justify-between" style={{ height: '1123px', width: '794px', pageBreakAfter: 'always' }}>
         {renderWatermark()}
         <div style={{ position: 'relative', zIndex: 1, flex: 1, display: 'flex', flexDirection: 'column' }}>
           {renderHeader(14)}
@@ -1951,8 +1950,8 @@ export default function DetailedReportTemplate({ reportData, language = 'en' }) 
 <div
   className="pdf-page relative p-12 bg-white flex flex-col justify-between"
   style={{
-    height: '297mm',
-    width: '210mm',
+    height: '1123px',
+    width: '794px',
     pageBreakAfter: 'always',
   }}
 >
@@ -2014,8 +2013,8 @@ export default function DetailedReportTemplate({ reportData, language = 'en' }) 
 <div
   className="pdf-page relative p-12 bg-white flex flex-col justify-between"
   style={{
-    height: '297mm',
-    width: '210mm',
+    height: '1123px',
+    width: '794px',
     pageBreakAfter: 'always',
   }}
 >
@@ -2070,7 +2069,7 @@ export default function DetailedReportTemplate({ reportData, language = 'en' }) 
 
 
       {/* PAGE 17: VIP NUMBER RECOMMENDATIONS */}
-      <div className="pdf-page relative p-12 bg-white flex flex-col justify-between" style={{ height: '297mm', width: '210mm', pageBreakAfter: 'always' }}>
+      <div className="pdf-page relative p-12 bg-white flex flex-col justify-between" style={{ height: '1123px', width: '794px', pageBreakAfter: 'always' }}>
         {renderWatermark()}
         <div style={{ position: 'relative', zIndex: 1, flex: 1, display: 'flex', flexDirection: 'column' }}>
           {renderHeader(17)}
@@ -2109,7 +2108,7 @@ export default function DetailedReportTemplate({ reportData, language = 'en' }) 
 
 
       {/* PAGE 18: YEARLY PREDICTIONS 2026 */}
-      <div className="pdf-page relative p-12 bg-white flex flex-col justify-between" style={{ height: '297mm', width: '210mm', pageBreakAfter: 'always' }}>
+      <div className="pdf-page relative p-12 bg-white flex flex-col justify-between" style={{ height: '1123px', width: '794px', pageBreakAfter: 'always' }}>
         {renderWatermark()}
         <div style={{ position: 'relative', zIndex: 1 }}>
           {renderHeader(18)}
@@ -2126,7 +2125,7 @@ export default function DetailedReportTemplate({ reportData, language = 'en' }) 
 
 
       {/* PAGE 19: LUCKY COORDINATES */}
-      <div className="pdf-page relative p-12 bg-white flex flex-col justify-between" style={{ height: '297mm', width: '210mm', pageBreakAfter: 'always' }}>
+      <div className="pdf-page relative p-12 bg-white flex flex-col justify-between" style={{ height: '1123px', width: '794px', pageBreakAfter: 'always' }}>
         {renderWatermark()}
         <div style={{ position: 'relative', zIndex: 1 }}>
           {renderHeader(19)}
@@ -2148,7 +2147,7 @@ export default function DetailedReportTemplate({ reportData, language = 'en' }) 
 
 
       {/* PAGE 20: REMEDIES & CONCLUSION */}
-      <div className="pdf-page relative p-12 bg-white flex flex-col justify-between" style={{ height: '297mm', width: '210mm', pageBreakAfter: 'always' }}>
+      <div className="pdf-page relative p-12 bg-white flex flex-col justify-between" style={{ height: '1123px', width: '794px', pageBreakAfter: 'always' }}>
         {renderWatermark()}
         <div style={{ position: 'relative', zIndex: 1, flex: 1, display: 'flex', flexDirection: 'column' }}>
           {renderHeader(20)}

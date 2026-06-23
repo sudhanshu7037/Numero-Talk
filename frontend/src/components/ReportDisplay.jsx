@@ -218,6 +218,8 @@ export default function ReportDisplay({ reportData, onBack }) {
           logging: false,
           width: pagePixelWidth,
           height: pagePixelHeight,
+          windowWidth: 794,
+          windowHeight: 1123,
           scrollX: 0,
           scrollY: 0,
           imageTimeout: 0,

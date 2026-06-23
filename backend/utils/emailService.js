@@ -1,29 +1,37 @@
-import nodemailer from 'nodemailer';
-
-const createTransporter = () => nodemailer.createTransport({
-  host: process.env.SMTP_HOST || 'smtp-relay.brevo.com',
-  port: parseInt(process.env.SMTP_PORT) || 587,
-  secure: false, // Brevo uses STARTTLS on port 587
-  auth: {
-    user: process.env.SMTP_USER,
-    pass: process.env.SMTP_PASS,
-  },
-  tls: {
-    rejectUnauthorized: false,
-  },
-});
-
+// Using Brevo HTTP API instead of SMTP (Render free tier blocks all SMTP ports)
 export const sendEmail = async ({ to, subject, html }) => {
-  const transporter = createTransporter();
+  const apiKey = process.env.BREVO_API_KEY;
   const senderName = process.env.SENDER_NAME || 'NumeroTalk';
-  const senderEmail = process.env.SENDER_EMAIL || process.env.SMTP_USER;
-  const from = `"${senderName}" <${senderEmail}>`;
+  const senderEmail = process.env.SENDER_EMAIL || 'tomarsudhanshu7037@gmail.com';
+
+  const payload = {
+    sender: { name: senderName, email: senderEmail },
+    to: [{ email: to }],
+    subject,
+    htmlContent: html,
+  };
+
   try {
-    const info = await transporter.sendMail({ from, to, subject, html });
-    console.log(`[Email OK] To:${to} MsgID:${info.messageId}`);
+    const response = await fetch('https://api.brevo.com/v3/smtp/email', {
+      method: 'POST',
+      headers: {
+        'accept': 'application/json',
+        'api-key': apiKey,
+        'content-type': 'application/json',
+      },
+      body: JSON.stringify(payload),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(`Brevo API error: ${JSON.stringify(data)}`);
+    }
+
+    console.log(`[Email OK] To:${to} MsgID:${data.messageId}`);
     return { success: true };
   } catch (err) {
-    console.error(`[Email FAIL] code=${err.code} cmd=${err.command} msg=${err.message}`);
+    console.error(`[Email FAIL] msg=${err.message}`);
     throw err;
   }
 };

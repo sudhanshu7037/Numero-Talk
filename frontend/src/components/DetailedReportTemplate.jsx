@@ -697,61 +697,90 @@ export default function DetailedReportTemplate({ reportData, language = 'en' }) 
   return (
     <div className="pdf-report-container">
       
-      {/* PAGE 1: COVER PAGE */}
-      <div className="pdf-page relative p-12 bg-white flex flex-col justify-between border-[8px] border-amber-600/30" style={{ height: '297mm', width: '210mm', pageBreakAfter: 'always', position: 'relative' }}>
-        <div className="text-center pt-8">
-          <span className="text-xs uppercase tracking-widest font-bold text-amber-700 font-serif">
+      {/* PAGE 1: COVER PAGE — all inline styles for reliable html2canvas rendering */}
+      <div className="pdf-page" style={{
+        height: '297mm', width: '210mm', pageBreakAfter: 'always', position: 'relative',
+        background: 'white', padding: '14mm',
+        display: 'flex', flexDirection: 'column', justifyContent: 'space-between',
+        border: '8px solid rgba(217,119,6,0.3)', boxSizing: 'border-box'
+      }}>
+
+        {/* TOP: OM */}
+        <div style={{ textAlign: 'center', paddingTop: '8px' }}>
+          <span style={{ fontSize: '11px', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '0.15em', color: '#b45309', fontFamily: 'Cinzel, Georgia, serif' }}>
             {t('omGanesha')}
           </span>
-          <div className="w-12 h-0.5 bg-amber-600 mx-auto mt-2" />
+          <div style={{ width: '48px', height: '1.5px', background: '#d97706', margin: '6px auto 0' }} />
         </div>
 
-        <div className="text-center space-y-6 my-auto">
+        {/* MIDDLE: Ganesha + Title + Details */}
+        <div style={{ textAlign: 'center', margin: 'auto 0' }}>
           <GaneshaSVG />
-          <h1 className="font-serif text-4xl font-extrabold text-gray-900 tracking-wider uppercase leading-snug">
-            {t('coverTitle')}<br />
-            <span className="text-amber-700 text-3xl font-bold">{t('coverSubtitle')}</span>
+
+          <h1 style={{
+            fontFamily: 'Cinzel, Georgia, serif', fontSize: '34px', fontWeight: '900',
+            color: '#111827', textTransform: 'uppercase', letterSpacing: '0.05em',
+            margin: '16px 0 0', lineHeight: '1.3'
+          }}>
+            {t('coverTitle')}
           </h1>
-          <p className="text-gray-500 text-sm max-w-sm mx-auto leading-relaxed">
+          <p style={{
+            fontFamily: 'Cinzel, Georgia, serif', fontSize: '22px', fontWeight: '700',
+            color: '#b45309', margin: '4px 0 0'
+          }}>
+            {t('coverSubtitle')}
+          </p>
+
+          <p style={{
+            color: '#6b7280', fontSize: '12px', maxWidth: '340px',
+            margin: '12px auto 0', lineHeight: '1.7'
+          }}>
             {t('coverDesc')}
           </p>
 
-          <div className="w-24 h-[1px] bg-amber-600/30 mx-auto pt-4" />
+          <div style={{ width: '80px', height: '1px', background: 'rgba(217,119,6,0.3)', margin: '16px auto' }} />
 
-          {/* Client Details Box */}
-          <div className="max-w-md mx-auto p-6 bg-amber-50/30 border border-amber-100 rounded-2xl text-left">
-            <h3 className="text-[10px] uppercase font-bold text-amber-700 tracking-wider border-b border-amber-200/50 pb-1.5 mb-3">
+          {/* Client Details Box — centered, no table layout */}
+          <div style={{
+            maxWidth: '360px', margin: '0 auto',
+            padding: '18px 24px',
+            background: 'rgba(254,243,199,0.25)',
+            border: '1px solid rgba(251,191,36,0.35)',
+            borderRadius: '14px',
+            textAlign: 'left'
+          }}>
+            <div style={{
+              fontSize: '9px', textTransform: 'uppercase', fontWeight: 'bold',
+              color: '#b45309', letterSpacing: '0.12em',
+              borderBottom: '1px solid rgba(251,191,36,0.3)',
+              paddingBottom: '6px', marginBottom: '10px',
+              fontFamily: 'Inter, sans-serif'
+            }}>
               {t('personalCoordinates')}
-            </h3>
-            <div style={{ display: 'table', width: '100%', borderSpacing: '0 6px' }}>
-              <div style={{ display: 'table-row' }}>
-                <span style={{ display: 'table-cell', fontSize: '11px', color: '#374151', fontWeight: '500', paddingRight: '12px', whiteSpace: 'nowrap' }}>{t('nameLabel')}</span>
-                <span style={{ display: 'table-cell', fontSize: '11px', color: '#111827', fontWeight: '700' }}>{fullName}</span>
-              </div>
-              <div style={{ display: 'table-row' }}>
-                <span style={{ display: 'table-cell', fontSize: '11px', color: '#374151', fontWeight: '500', paddingRight: '12px', whiteSpace: 'nowrap' }}>{t('dobLabel')}</span>
-                <span style={{ display: 'table-cell', fontSize: '11px', color: '#111827', fontWeight: '700' }}>{dob}</span>
-              </div>
-              {mobileNumber && (
-                <div style={{ display: 'table-row' }}>
-                  <span style={{ display: 'table-cell', fontSize: '11px', color: '#374151', fontWeight: '500', paddingRight: '12px', whiteSpace: 'nowrap' }}>{t('mobileLabel')}</span>
-                  <span style={{ display: 'table-cell', fontSize: '11px', color: '#111827', fontWeight: '700' }}>{mobileNumber}</span>
-                </div>
-              )}
-              <div style={{ display: 'table-row' }}>
-                <span style={{ display: 'table-cell', fontSize: '11px', color: '#374151', fontWeight: '500', paddingRight: '12px', whiteSpace: 'nowrap' }}>{t('emailLabel')}</span>
-                <span style={{ display: 'table-cell', fontSize: '11px', color: '#111827', fontWeight: '700' }}>{email}</span>
-              </div>
-              <div style={{ display: 'table-row' }}>
-                <span style={{ display: 'table-cell', fontSize: '11px', color: '#374151', fontWeight: '500', paddingRight: '12px', whiteSpace: 'nowrap' }}>{t('preparedBy')}</span>
-                <span style={{ display: 'table-cell', fontSize: '11px', color: '#b45309', fontWeight: '700' }}>{t('vedicAstrologer')}</span>
-              </div>
             </div>
+
+            {[
+              { label: t('nameLabel'), value: fullName, color: '#111827' },
+              { label: t('dobLabel'), value: dob, color: '#111827' },
+              ...(mobileNumber ? [{ label: t('mobileLabel'), value: mobileNumber, color: '#111827' }] : []),
+              { label: t('emailLabel'), value: email, color: '#111827' },
+              { label: t('preparedBy'), value: t('vedicAstrologer'), color: '#b45309' },
+            ].map((row, i) => (
+              <div key={i} style={{ marginBottom: '7px', lineHeight: '1.4' }}>
+                <span style={{ fontSize: '11px', color: '#6b7280', fontWeight: '500', fontFamily: 'Inter, sans-serif' }}>
+                  {row.label}{' '}
+                </span>
+                <span style={{ fontSize: '11px', fontWeight: '700', color: row.color, fontFamily: 'Inter, sans-serif' }}>
+                  {row.value}
+                </span>
+              </div>
+            ))}
           </div>
         </div>
 
-        <div className="text-center border-t border-amber-200/40 pt-4">
-          <span className="text-[10px] text-amber-700/60 uppercase tracking-widest font-serif">
+        {/* BOTTOM: Numerotalk */}
+        <div style={{ textAlign: 'center', borderTop: '1px solid rgba(251,191,36,0.35)', paddingTop: '12px' }}>
+          <span style={{ fontSize: '10px', color: 'rgba(180,83,9,0.6)', textTransform: 'uppercase', letterSpacing: '0.15em', fontFamily: 'Cinzel, Georgia, serif' }}>
             ✦ &nbsp; Numerotalk &nbsp; ✦
           </span>
         </div>

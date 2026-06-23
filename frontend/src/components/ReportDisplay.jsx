@@ -285,27 +285,28 @@ export default function ReportDisplay({ reportData, onBack }) {
         className="w-full relative overflow-hidden text-left py-6"
       >
         {/* Report Header */}
-        <div className="border-b border-gray-200 pb-6 mb-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+        <div className="border-b border-gray-200 pb-4 sm:pb-6 mb-4 sm:mb-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-3 sm:gap-4">
           <div>
             <span className="font-sans text-xs font-bold uppercase tracking-wider text-amber-700">
               {currentLabels.engine}
             </span>
-            <h2 className="font-serif text-3xl sm:text-4xl font-extrabold text-gray-900 tracking-wider mt-1">
+            <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl font-extrabold text-gray-900 tracking-wider mt-1">
               {currentLabels.analysis}
             </h2>
             <p className="text-gray-500 text-xs mt-1">
               {currentLabels.generatedOn} {new Date().toLocaleDateString(language === 'en' ? 'en-US' : language, { month: 'long', day: 'numeric', year: 'numeric' })}
             </p>
           </div>
-          <div className="flex flex-col items-start min-w-[200px] text-xs py-2 border-l border-gray-250 pl-4">
+          <div className="flex flex-col items-start w-full md:min-w-[200px] md:w-auto text-xs py-2 md:border-l md:border-gray-200 md:pl-4 border-t border-gray-100 pt-3 md:border-t-0 md:pt-2">
             <span className="text-[10px] uppercase tracking-wider text-amber-700 font-bold mb-1">
               {currentLabels.profile}
             </span>
-            <span className="text-gray-900 font-semibold truncate max-w-[180px]">{fullName}</span>
+            <span className="text-gray-900 font-semibold">{fullName}</span>
             <span className="text-gray-600">{formatDOB(dob)}</span>
-            <span className="text-gray-500 font-mono mt-1 text-[10px]">{email}</span>
+            <span className="text-gray-500 font-mono mt-1 text-[10px] break-all">{email}</span>
           </div>
         </div>
+
 
         {/* Scrollable Horizontal Tab list — mobile friendly */}
         <div className="flex overflow-x-auto gap-1 sm:gap-3 py-3 sm:py-4 border-b border-gray-200 no-scrollbar">

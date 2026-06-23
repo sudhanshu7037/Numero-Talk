@@ -40,35 +40,46 @@ export default function ReportDisplay({ reportData, onBack }) {
   const currentInterpretations = translations[language]?.interpretations || translations.en.interpretations;
   const activeMeaning = currentInterpretations[activeTab][calculations[activeTab]];
 
-  // Core function: renders each .pdf-page div individually → avoids browser canvas size limits
+  // Core PDF generation — always captures from the VISIBLE preview modal DOM
+  // so the PDF is pixel-perfect identical to what the user sees in preview.
   const generatePdfBlob = async () => {
-    const sourceElement = detailedReportRef.current;
-    if (!sourceElement) throw new Error('Report template not found');
+    // 1️⃣  Prefer the already-rendered preview modal (exact visual match)
+    const previewRoot = document.getElementById('preview-report-template-root');
+    // 2️⃣  Fallback: clone the hidden template for email (preview not open)
+    const hiddenRoot = detailedReportRef.current;
 
-    // Deep-clone the element and mount directly on body so there
-    // are no parent overflow/clip constraints.
-    const clone = sourceElement.cloneNode(true);
-    clone.removeAttribute('id');
-    clone.style.cssText = [
-      'position: fixed',
-      'left: -9999px',  /* Off-screen - user can\'t see it */
-      'top: 0',
-      'width: 794px',   /* 210mm @ 96 dpi */
-      'height: auto',
-      'overflow: visible',
-      'opacity: 1',
-      'z-index: 99999',
-      'pointer-events: none',
-      'background: white',
-    ].join('; ');
-    document.body.appendChild(clone);
+    if (!previewRoot && !hiddenRoot) throw new Error('Report template not found');
 
-    // Give the browser time to lay out fonts + Tailwind styles
-    await new Promise(r => setTimeout(r, 600));
+    let clone = null;
+    let captureRoot = null;
+
+    if (previewRoot) {
+      // ✅ Use live preview content — no clone needed
+      captureRoot = previewRoot;
+    } else {
+      // 📧 Email path: render hidden template off-screen
+      clone = hiddenRoot.cloneNode(true);
+      clone.style.cssText = [
+        'position: fixed',
+        'left: -9999px',
+        'top: 0',
+        'width: 794px',
+        'height: auto',
+        'overflow: visible',
+        'opacity: 1',
+        'z-index: 99999',
+        'pointer-events: none',
+        'background: white',
+      ].join('; ');
+      document.body.appendChild(clone);
+      // Extra wait — ensure fonts + CSS variables render
+      await new Promise(r => setTimeout(r, 900));
+      captureRoot = clone;
+    }
 
     try {
-      const pages = Array.from(clone.querySelectorAll('.pdf-page'));
-      if (!pages.length) throw new Error('No .pdf-page elements found in clone');
+      const pages = Array.from(captureRoot.querySelectorAll('.pdf-page'));
+      if (!pages.length) throw new Error('No .pdf-page elements found');
 
       const pdf = new jsPDF({ unit: 'mm', format: 'a4', orientation: 'portrait' });
       const A4_W = 210;
@@ -77,7 +88,19 @@ export default function ReportDisplay({ reportData, onBack }) {
       for (let i = 0; i < pages.length; i++) {
         const page = pages[i];
 
-        // Each page is captured as its own canvas → no combined size limit
+        // Temporarily strip preview-mode visual extras (shadow, border, margin)
+        // so they don't bleed into the captured image
+        const savedStyles = {
+          marginBottom: page.style.marginBottom,
+          boxShadow:    page.style.boxShadow,
+          border:       page.style.border,
+          borderRadius: page.style.borderRadius,
+        };
+        page.style.marginBottom = '0';
+        page.style.boxShadow    = 'none';
+        page.style.border       = 'none';
+        page.style.borderRadius = '0';
+
         const canvas = await html2canvas(page, {
           scale: 2,
           useCORS: true,
@@ -87,19 +110,26 @@ export default function ReportDisplay({ reportData, onBack }) {
           logging: false,
           width: 794,
           height: 1123, /* 297mm @ 96 dpi */
+          windowWidth: 1200,
           scrollX: 0,
           scrollY: 0,
         });
+
+        // Restore preview-mode styles
+        page.style.marginBottom = savedStyles.marginBottom;
+        page.style.boxShadow    = savedStyles.boxShadow;
+        page.style.border       = savedStyles.border;
+        page.style.borderRadius = savedStyles.borderRadius;
 
         const imgData = canvas.toDataURL('image/jpeg', 0.95);
         if (i > 0) pdf.addPage();
         pdf.addImage(imgData, 'JPEG', 0, 0, A4_W, A4_H);
       }
 
-      document.body.removeChild(clone);
+      if (clone) document.body.removeChild(clone);
       return pdf;
     } catch (err) {
-      if (document.body.contains(clone)) document.body.removeChild(clone);
+      if (clone && document.body.contains(clone)) document.body.removeChild(clone);
       throw err;
     }
   };
@@ -571,5 +601,5 @@ export default function ReportDisplay({ reportData, onBack }) {
         </div>
       )}
     </div>
-  );
+  
 }

@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
+import { createPortal } from 'react-dom';
 import { Download, Mail, ArrowLeft, Check, Eye, Heart, User, Sun, Moon } from 'lucide-react';
 import { translations } from '../utils/translations';
 import html2canvas from 'html2canvas-pro';
@@ -371,7 +372,8 @@ export default function ReportDisplay({ reportData, onBack }) {
   ];
 
   return (
-    <div className="w-full space-y-4 sm:space-y-8 animate-fade-in">
+    <>
+      <div className="w-full space-y-4 sm:space-y-8 animate-fade-in">
       {/* Action Panel — fully responsive mobile layout */}
       <div className="no-print py-3 sm:py-4 border-b border-gray-200">
         {/* Top row: Back button + Language selector */}
@@ -525,6 +527,7 @@ export default function ReportDisplay({ reportData, onBack }) {
         <div className="mt-12 flex justify-between items-center text-[10px] text-gray-500 border-t border-gray-200 pt-4 font-mono">
           <span>{currentLabels.version}</span>
           <span>{currentLabels.verifiedMath}</span>
+        </div>
         </div>
       </div>
 
@@ -701,6 +704,6 @@ export default function ReportDisplay({ reportData, onBack }) {
           </div>
         </div>
       )}
-    </div>
+    </>
   );
 }

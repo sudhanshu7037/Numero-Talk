@@ -1101,74 +1101,52 @@ export default function DetailedReportTemplate({ reportData, language = 'en' }) 
   <div style={{ position: 'relative', zIndex: 1 }}>
     {renderHeader(4)}
 
-    <h2 className="font-serif text-2xl font-bold text-gray-900 mb-6">
+    <h2 className="font-serif text-2xl font-bold text-gray-900 mb-4">
       {t('cosmicGridTitle')}
     </h2>
 
-    <div className="space-y-6 text-xs text-gray-700 leading-relaxed text-justify">
+    <div className="space-y-4 text-xs text-gray-700 leading-relaxed text-justify">
 
-      <div className="grid grid-cols-2 gap-4">
-
-        {[
-          {
-            title: t('moolankBoxTitle'),
-            value: moolank,
-            desc: `${t('planetLabel')}: ${getTranslation(
-              planetaryLords[moolank]
-            )}`,
-          },
-
-          {
-            title: t('bhagyankBoxTitle'),
-            value: bhagyank,
-            desc: `${t('planetLabel')}: ${getTranslation(
-              planetaryLords[bhagyank]
-            )}`,
-          },
-
-          {
-            title: t('destinyPythBoxTitle'),
-            value: destinyPyth,
-            desc: t('pythDescLabel'),
-          },
-
-          {
-            title: t('destinyChaldBoxTitle'),
-            value: destinyChald,
-            desc: t('chaldDescLabel'),
-          },
-
-          {
-            title: t('soulUrgeBoxTitle'),
-            value: soulUrge,
-            desc: t('vowelsLabel'),
-          },
-
-          {
-            title: t('personalityBoxTitle'),
-            value: personality,
-            desc: t('consonantsLabel'),
-          },
-        ].map((grid, idx) => (
-          <div
-            key={idx}
-            className="p-4 bg-amber-50/20 border border-amber-100 rounded-xl space-y-1.5"
-          >
-            <span className="text-[10px] uppercase font-bold text-gray-400">
-              {grid.title}
-            </span>
-
-            <span className="text-3xl font-black text-amber-700 block">
-              {grid.value}
-            </span>
-
-            <span className="text-[10px] text-gray-500 font-medium">
-              {grid.desc}
-            </span>
+      <div className="p-4 rounded-xl" style={{ background: '#FFFBEB', border: '1px solid #FCD34D' }}>
+        <div className="space-y-2">
+          <div>
+            <strong style={{ color: '#B45309' }}>{t('moolankBoxTitle')}: </strong>
+            <span className="text-sm font-bold">{moolank}</span>
+            <span className="text-[10px] text-gray-600 ml-2">({t('planetLabel')}: {getTranslation(planetaryLords[moolank])})</span>
           </div>
-        ))}
-
+          <div>
+            <strong style={{ color: '#B45309' }}>{t('bhagyankBoxTitle')}: </strong>
+            <span className="text-sm font-bold">{bhagyank}</span>
+            <span className="text-[10px] text-gray-600 ml-2">({t('planetLabel')}: {getTranslation(planetaryLords[bhagyank])})</span>
+          </div>
+          <div>
+            <strong style={{ color: '#B45309' }}>{t('destinyPythBoxTitle')}: </strong>
+            <span className="text-sm font-bold">{destinyPyth}</span>
+            <span className="text-[10px] text-gray-600 ml-2">({t('pythDescLabel')})</span>
+          </div>
+          <div>
+            <strong style={{ color: '#B45309' }}>{t('destinyChaldBoxTitle')}: </strong>
+            <span className="text-sm font-bold">{destinyChald}</span>
+            <span className="text-[10px] text-gray-600 ml-2">({t('chaldDescLabel')})</span>
+          </div>
+          <div>
+            <strong style={{ color: '#B45309' }}>{t('soulUrgeBoxTitle')}: </strong>
+            <span className="text-sm font-bold">{soulUrge}</span>
+            <span className="text-[10px] text-gray-600 ml-2">({t('vowelsLabel')})</span>
+          </div>
+          <div>
+            <strong style={{ color: '#B45309' }}>{t('personalityBoxTitle')}: </strong>
+            <span className="text-sm font-bold">{personality}</span>
+            <span className="text-[10px] text-gray-600 ml-2">({t('consonantsLabel')})</span>
+          </div>
+        </div>
       </div>
+
+      <p>
+        {language === 'en'
+          ? 'These six numbers form your cosmic blueprint. Each represents a different dimension of your personality and life path. Together, they create a complete picture of who you are and where you are destined to go.'
+          : 'ये छह संख्याएं आपके ब्रह्मांडीय खाके का निर्माण करती हैं। प्रत्येक आपके व्यक्तित्व और जीवन पथ के एक अलग आयाम का प्रतिनिधित्व करता है।'}
+      </p>
 
     </div>
   </div>
@@ -1276,25 +1254,11 @@ export default function DetailedReportTemplate({ reportData, language = 'en' }) 
           }
         </strong>
 
-        <div className="grid grid-cols-2 gap-1">
-          {[
-            'Leadership',
-            'Creativity',
-            'Intuition',
-            'Determination',
-            'Adaptability',
-            'Vision',
-          ].map((s, i) => (
-            <span
-              key={i}
-              className="text-[10px] text-gray-600 flex items-center gap-1"
-            >
-              <span className="text-amber-600">▸</span>
-
-              {s}
-            </span>
-          ))}
-        </div>
+        <p className="text-gray-700 text-[10px]">
+          {language === 'en'
+            ? 'Leadership • Creativity • Intuition • Determination • Adaptability • Vision'
+            : 'नेतृत्व • रचनात्मकता • अंतर्ज्ञान • दृढ़ संकल्प • अनुकूलनशीलता • दृष्टि'}
+        </p>
       </div>
 
     </div>
@@ -1428,66 +1392,11 @@ export default function DetailedReportTemplate({ reportData, language = 'en' }) 
 
         </strong>
 
-        <div className="grid grid-cols-2 gap-2">
-
-          {[
-
-            language === 'en'
-
-              ? 'Avoid excessive stress'
-
-              : 'अत्यधिक तनाव से बचें',
-
-            language === 'en'
-
-              ? 'Practice meditation daily'
-
-              : 'दैनिक ध्यान करें',
-
-            language === 'en'
-
-              ? 'Keep hydrated always'
-
-              : 'हाइड्रेटेड रहें',
-
-            language === 'en'
-
-              ? 'Yoga & breathing exercises'
-
-              : 'योग और प्राणायाम',
-
-            language === 'en'
-
-              ? 'Avoid heavy late-night meals'
-
-              : 'रात देर से खाने से बचें',
-
-            language === 'en'
-
-              ? 'Regular health check-ups'
-
-              : 'नियमित स्वास्थ्य जांच',
-
-          ].map((tip, i) => (
-
-            <span
-              key={i}
-              className="text-[10px] text-gray-600 flex items-center gap-1"
-            >
-
-              <span style={{ color: '#0D9488' }}>
-
-                ✓
-
-              </span>
-
-              {tip}
-
-            </span>
-
-          ))}
-
-        </div>
+        <p className="text-gray-700 text-[11px]">
+          {language === 'en'
+            ? 'Avoid excessive stress • Practice meditation daily • Keep hydrated always • Yoga & breathing exercises • Avoid heavy late-night meals • Regular health check-ups'
+            : 'अत्यधिक तनाव से बचें • दैनिक ध्यान करें • हाइड्रेटेड रहें • योग और प्राणायाम • रात देर से खाने से बचें • नियमित स्वास्थ्य जांच'}
+        </p>
 
       </div>
 
@@ -1631,21 +1540,9 @@ export default function DetailedReportTemplate({ reportData, language = 'en' }) 
           }
         </strong>
 
-        <div className="grid grid-cols-2 gap-1.5">
-          {getTranslation(currentBhagyank.career)
-            .split(',')
-            .slice(0, 8)
-            .map((c, i) => (
-              <span
-                key={i}
-                className="text-[10px] text-gray-600 flex items-center gap-1"
-              >
-                <span className="text-sky-500">▸</span>
-
-                {c.trim()}
-              </span>
-            ))}
-        </div>
+        <p className="text-gray-700 text-[11px]">
+          {getTranslation(currentBhagyank.career)}
+        </p>
       </div>
 
       <div className="p-4 bg-violet-50/40 border border-violet-200 rounded-xl">
@@ -1703,17 +1600,14 @@ export default function DetailedReportTemplate({ reportData, language = 'en' }) 
             <h3 className="font-serif text-base font-bold text-gray-900">{t('alignmentLabel')}</h3>
             <p>{t('destinyIntroText')}</p>
 
-            <div className="grid grid-cols-2 gap-4 my-2">
-              <div className="p-4 bg-gray-50 border border-gray-200 rounded-xl text-center">
-                <span className="text-[10px] uppercase font-bold text-gray-400 block">{language === 'en' ? 'Pythagorean Destiny' : 'पाइथागोरस नामांक'}</span>
-                <span className="text-3xl font-black text-gray-900 block mt-1">{destinyPyth}</span>
-                <span className="text-[10px] text-gray-500 font-medium">{t('rulerLabel')}: {getTranslation(planetaryLords[destinyPyth])}</span>
-              </div>
-              <div className="p-4 bg-gray-50 border border-gray-200 rounded-xl text-center">
-                <span className="text-[10px] uppercase font-bold text-gray-400 block">{language === 'en' ? 'Chaldean Destiny' : 'चाल्डियन नामांक'}</span>
-                <span className="text-3xl font-black text-gray-900 block mt-1">{destinyChald}</span>
-                <span className="text-[10px] text-gray-500 font-medium">{t('rulerLabel')}: {getTranslation(planetaryLords[destinyChald])}</span>
-              </div>
+            <div className="p-4 bg-gray-50 border border-gray-200 rounded-xl">
+              <strong className="text-gray-600 uppercase tracking-wider block text-[10px] mb-2">{language === 'en' ? 'Destiny Numbers' : 'नामांक'}</strong>
+              <p className="text-gray-700 text-[11px]">
+                <strong>{language === 'en' ? 'Pythagorean Destiny' : 'पाइथागोरस नामांक'}: </strong>{destinyPyth} ({getTranslation(planetaryLords[destinyPyth])})
+              </p>
+              <p className="text-gray-700 text-[11px] mt-1">
+                <strong>{language === 'en' ? 'Chaldean Destiny' : 'चाल्डियन नामांक'}: </strong>{destinyChald} ({getTranslation(planetaryLords[destinyChald])})
+              </p>
             </div>
 
             <p>{t('destinyOutroText')}</p>
@@ -1788,18 +1682,12 @@ export default function DetailedReportTemplate({ reportData, language = 'en' }) 
               </p>
             </div>
 
-            <div className="grid grid-cols-3 gap-2">
-              <div className="p-3 bg-gray-50 border border-gray-200 rounded-xl text-center">
-                <div className="text-[9px] uppercase font-bold text-gray-400 mb-1">{language === 'en' ? 'Total Letters' : 'कुल अक्षर'}</div>
-                <div className="text-xl font-black text-gray-800">{fullName.replace(/\s/g, '').length}</div>
-              </div>
-              <div className="p-3 bg-gray-50 border border-gray-200 rounded-xl text-center">
-                <div className="text-[9px] uppercase font-bold text-gray-400 mb-1">{language === 'en' ? 'Vowel Sum' : 'स्वर योग'}</div>
-                <div className="text-xl font-black text-amber-700">{soulUrge}</div>
-              </div>
-              <div className="p-3 bg-gray-50 border border-gray-200 rounded-xl text-center">
-                <div className="text-[9px] uppercase font-bold text-gray-400 mb-1">{language === 'en' ? 'Consonant Sum' : 'व्यंजन योग'}</div>
-                <div className="text-xl font-black text-gray-800">{personality}</div>
+            <div className="p-4 bg-gray-50 border border-gray-200 rounded-xl">
+              <strong className="text-gray-600 uppercase tracking-wider block text-[10px] mb-2">{language === 'en' ? 'Name Summary' : 'नाम सारांश'}</strong>
+              <div className="space-y-2 text-[11px]">
+                <div><strong>{language === 'en' ? 'Total Letters' : 'कुल अक्षर'}: </strong>{fullName.replace(/\s/g, '').length}</div>
+                <div><strong>{language === 'en' ? 'Vowel Sum' : 'स्वर योग'}: </strong>{soulUrge}</div>
+                <div><strong>{language === 'en' ? 'Consonant Sum' : 'व्यंजन योग'}: </strong>{personality}</div>
               </div>
             </div>
           </div>
@@ -1957,19 +1845,13 @@ export default function DetailedReportTemplate({ reportData, language = 'en' }) 
               </p>
             </div>
 
-            <div className="grid grid-cols-2 gap-2">
-              <div className="p-3 border border-gray-200 rounded-xl" style={{ background: '#F3F4F6' }}>
-                <div className="text-[9px] uppercase font-bold text-gray-500 mb-2">{language === 'en' ? 'Outer Strengths' : 'बाह्य शक्तियां'}</div>
-                {['Charming presence', 'Natural communicator', 'Reliable & trustworthy', 'Strong first impressions'].map((s, i) => (
-                  <div key={i} className="text-[10px] text-gray-600 flex items-center gap-1 mt-0.5"><span style={{ color: '#059669' }}>+</span> {s}</div>
-                ))}
-              </div>
-              <div className="p-3 border border-gray-200 rounded-xl" style={{ background: '#F3F4F6' }}>
-                <div className="text-[9px] uppercase font-bold text-gray-500 mb-2">{language === 'en' ? 'Social Patterns' : 'सामाजिक पैटर्न'}</div>
-                {['Prefers quality over quantity', 'Loyal to close circle', 'Diplomatic under pressure', 'Values authenticity'].map((s, i) => (
-                  <div key={i} className="text-[10px] text-gray-600 flex items-center gap-1 mt-0.5"><span style={{ color: '#B45309' }}>▸</span> {s}</div>
-                ))}
-              </div>
+            <div className="p-4 border border-gray-200 rounded-xl" style={{ background: '#F3F4F6' }}>
+              <strong className="text-[10px] uppercase font-bold text-gray-600 block mb-2">{language === 'en' ? 'Strengths & Patterns' : 'शक्तियां और पैटर्न'}</strong>
+              <p className="text-[10px] text-gray-700">
+                {language === 'en'
+                  ? 'Charming presence • Natural communicator • Reliable & trustworthy • Strong first impressions • Loyal to close circle • Diplomatic under pressure • Values authenticity'
+                  : 'आकर्षक व्यक्तित्व • प्राकृतिक संचारक • विश्वसनीय • मजबूत पहली छाप • करीबियों के प्रति वफादार • दबाव में कूटनीतिक'}
+              </p>
             </div>
           </div>
         </div>
@@ -2008,25 +1890,13 @@ export default function DetailedReportTemplate({ reportData, language = 'en' }) 
           {t('currentSpellingLabel')}
         </h4>
 
-        <div className="grid grid-cols-2 gap-2">
+        <div className="text-[11px] space-y-1">
 
-          <span>{t('originalNameLabel')}</span>
+          <p><strong>{t('originalNameLabel')}: </strong>{fullName}</p>
 
-          <span className="font-bold text-gray-950">
-            {fullName}
-          </span>
+          <p><strong>{t('pythValueLabel')}: </strong>{destinyPyth}</p>
 
-          <span>{t('pythValueLabel')}</span>
-
-          <span className="font-bold text-gray-950">
-            {destinyPyth}
-          </span>
-
-          <span>{t('chaldValueLabel')}</span>
-
-          <span className="font-bold text-gray-950">
-            {destinyChald}
-          </span>
+          <p><strong>{t('chaldValueLabel')}: </strong>{destinyChald}</p>
 
         </div>
 
@@ -2103,35 +1973,17 @@ export default function DetailedReportTemplate({ reportData, language = 'en' }) 
 
       {mobileAnalysis && (
 
-        <div className="p-4 bg-amber-50/20 border border-amber-100 rounded-xl space-y-3">
+        <div className="p-4 bg-amber-50/20 border border-amber-100 rounded-xl space-y-2">
 
-          <div className="grid grid-cols-2 gap-2">
+          <div className="text-[11px]">
 
-            <span>{t('targetPhoneLabel')}</span>
+            <p><strong>{t('targetPhoneLabel')}: </strong>{mobileNumber}</p>
 
-            <span className="font-bold text-gray-950">
-              {mobileNumber}
-            </span>
+            <p className="mt-1"><strong>{t('digitSumLabel')}: </strong>{mobileAnalysis.sum}</p>
 
-            <span>{t('digitSumLabel')}</span>
+            <p className="mt-1"><strong>{t('reducedValueLabel')}: </strong>{mobileAnalysis.reduced}</p>
 
-            <span className="font-bold text-gray-950">
-              {mobileAnalysis.sum}
-            </span>
-
-            <span>{t('reducedValueLabel')}</span>
-
-            <span className="font-bold text-gray-950">
-              {mobileAnalysis.reduced}
-            </span>
-
-            <span>{t('planetaryLordLabel')}</span>
-
-            <span className="font-bold text-gray-950">
-              {getTranslation(
-                planetaryLords[mobileAnalysis.reduced]
-              )}
-            </span>
+            <p className="mt-1"><strong>{t('planetaryLordLabel')}: </strong>{getTranslation(planetaryLords[mobileAnalysis.reduced])}</p>
 
           </div>
 
@@ -2280,22 +2132,13 @@ export default function DetailedReportTemplate({ reportData, language = 'en' }) 
           {renderHeader(19)}
           <h2 className="font-serif text-2xl font-bold text-gray-900 mb-4">{t('luckyCoordinatesTitle')}</h2>
           <div className="space-y-4 text-xs text-gray-700">
-            <div className="grid grid-cols-2 gap-3">
-              <div className="p-3.5 bg-gray-50 border border-gray-200 rounded-xl">
-                <span className="text-[10px] uppercase font-bold text-gray-400 block">{t('luckyColorsLabel')}</span>
-                <span className="font-semibold text-gray-950 mt-1 block">{getTranslation(luckyColors[moolank]) || 'White'}</span>
-              </div>
-              <div className="p-3.5 bg-gray-50 border border-gray-200 rounded-xl">
-                <span className="text-[10px] uppercase font-bold text-gray-400 block">{t('luckyDatesLabel')}</span>
-                <span className="font-bold text-amber-700 mt-1 block">{luckyDates[moolank] || '5, 14, 23'}</span>
-              </div>
-              <div className="p-3.5 bg-gray-50 border border-gray-200 rounded-xl">
-                <span className="text-[10px] uppercase font-bold text-gray-400 block">{t('luckyGemstoneLabel')}</span>
-                <span className="font-semibold text-gray-950 mt-1 block">{getTranslation(luckyGemstones[moolank]) || 'Pearl'}</span>
-              </div>
-              <div className="p-3.5 bg-gray-50 border border-gray-200 rounded-xl">
-                <span className="text-[10px] uppercase font-bold text-gray-400 block">{t('luckyRudrakshaLabel')}</span>
-                <span className="font-semibold text-gray-950 mt-1 block">{getTranslation(luckyRudrakshas[moolank]) || '5 Mukhi'}</span>
+            <div className="p-4 bg-gray-50 border border-gray-200 rounded-xl">
+              <strong className="text-gray-600 uppercase tracking-wider block text-[10px] mb-2">{t('luckyCoordinatesLabel') || 'Lucky Coordinates'}</strong>
+              <div className="space-y-1.5 text-[11px]">
+                <p><strong>{t('luckyColorsLabel')}: </strong>{getTranslation(luckyColors[moolank]) || 'White'}</p>
+                <p><strong>{t('luckyDatesLabel')}: </strong>{luckyDates[moolank] || '5, 14, 23'}</p>
+                <p><strong>{t('luckyGemstoneLabel')}: </strong>{getTranslation(luckyGemstones[moolank]) || 'Pearl'}</p>
+                <p><strong>{t('luckyRudrakshaLabel')}: </strong>{getTranslation(luckyRudrakshas[moolank]) || '5 Mukhi'}</p>
               </div>
             </div>
           </div>

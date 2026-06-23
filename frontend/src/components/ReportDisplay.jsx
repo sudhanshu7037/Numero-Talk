@@ -135,21 +135,21 @@ export default function ReportDisplay({ reportData, onBack }) {
   const currentInterpretations = translations[language]?.interpretations || translations.en.interpretations;
   const activeMeaning = currentInterpretations[activeTab][calculations[activeTab]];
 
-  // Core function: renders each .pdf-page div individually → avoids browser canvas size limits
-  // PRODUCTION-SAFE: Matches preview perfectly
+  // ─────────────────────────────────────────────────────────────
+  //  generatePdfBlob
+  //  Strategy: Create a fresh off-screen container that mirrors the
+  //  preview modal's exact DOM environment (same width = 794 px,
+  //  same CSS classes, same fonts).  Capture each .pdf-page at 3×
+  //  scale so the resulting PDF is crisp and matches the preview.
+  // ─────────────────────────────────────────────────────────────
   const generatePdfBlob = async () => {
-    const sourceElement = detailedReportRef.current;
-    if (!sourceElement) throw new Error('Report template not found');
-
-    // Deep-clone the element and mount directly on body so there
-    // are no parent overflow/clip constraints.
-    const clone = sourceElement.cloneNode(true);
-    clone.removeAttribute('id');
-    clone.style.cssText = [
+    // 1. Build an off-screen host container
+    const host = document.createElement('div');
+    host.style.cssText = [
       'position: fixed',
-      'left: -9999px',  /* Off-screen - user can\'t see it */
+      'left: -9999px',
       'top: 0',
-      'width: 210mm',   /* Exact A4 width */
+      'width: 794px',   // 210mm @ 96 DPI — same as preview
       'height: auto',
       'overflow: visible',
       'opacity: 1',
@@ -159,74 +159,92 @@ export default function ReportDisplay({ reportData, onBack }) {
       'margin: 0',
       'padding: 0',
     ].join('; ');
-    document.body.appendChild(clone);
 
-    // Wait for fonts + images to load (critical for consistency)
-    await new Promise(r => setTimeout(r, 1000));
-    
-    // Force layout re-calculation
-    clone.offsetHeight;
+    // 2. Create an inner wrapper with the same classes as the preview
+    const inner = document.createElement('div');
+    inner.className = 'preview-mode bg-white text-gray-900';
+    host.appendChild(inner);
+    document.body.appendChild(host);
+
+    // 3. Render the React template into the inner wrapper
+    //    We use the already-rendered preview DOM if the modal is open,
+    //    otherwise we clone the hidden ref and reset its styles.
+    const previewRoot = document.getElementById('preview-report-template-root');
+    let sourceNode;
+    if (previewRoot) {
+      // Modal is open → clone the exact preview DOM (guaranteed match)
+      sourceNode = previewRoot.cloneNode(true);
+    } else {
+      // Modal is closed → clone from the hidden ref but fix its styles
+      const hiddenRoot = detailedReportRef.current;
+      if (!hiddenRoot) throw new Error('Report template not mounted');
+      sourceNode = hiddenRoot.cloneNode(true);
+    }
+    sourceNode.removeAttribute('id');
+    sourceNode.style.cssText = ''; // strip any inline overrides
+    sourceNode.className = 'preview-mode bg-white text-gray-900';
+    inner.appendChild(sourceNode);
+
+    // 4. Wait for fonts & layout
+    await new Promise(r => setTimeout(r, 1200));
+    host.offsetHeight; // force reflow
 
     try {
-      const pages = Array.from(clone.querySelectorAll('.pdf-page'));
-      if (!pages.length) throw new Error('No .pdf-page elements found in clone');
+      const pages = Array.from(host.querySelectorAll('.pdf-page'));
+      if (!pages.length) throw new Error('No .pdf-page elements found');
 
-      const pdf = new jsPDF({ 
-        unit: 'mm', 
-        format: 'a4', 
+      const pdf = new jsPDF({
+        unit: 'mm',
+        format: 'a4',
         orientation: 'portrait',
-        compress: false, // Disable compression for consistent rendering
+        compress: true,
       });
+
       const A4_W = 210;
       const A4_H = 297;
-      const DPI = 96; // Standard screen DPI for preview matching
+      // 3× scale = 288 DPI → crisp text, same as preview renders
+      const CAPTURE_SCALE = 3;
+      const pagePixelWidth  = Math.round((A4_W / 25.4) * 96); // 794 px
+      const pagePixelHeight = Math.round((A4_H / 25.4) * 96); // 1123 px
 
       for (let i = 0; i < pages.length; i++) {
         const page = pages[i];
 
-        // Calculate exact pixel dimensions at 96 DPI
-        const pagePixelWidth = Math.round((A4_W / 25.4) * DPI);  // 210mm = ~794px @ 96dpi
-        const pagePixelHeight = Math.round((A4_H / 25.4) * DPI); // 297mm = ~1123px @ 96dpi
-
-        // Each page is captured as its own canvas → no combined size limit
         const canvas = await html2canvas(page, {
-          scale: 1,           // 1:1 scale = 96 DPI (matches screen preview)
+          scale: CAPTURE_SCALE,
           useCORS: true,
           allowTaint: true,
           backgroundColor: '#ffffff',
-          letterRendering: false, // Disable for consistent font rendering
           logging: false,
           width: pagePixelWidth,
           height: pagePixelHeight,
           scrollX: 0,
           scrollY: 0,
-          imageTimeout: 0,    // Wait indefinitely for images
+          imageTimeout: 0,
           onclone: (clonedDoc) => {
-            // Ensure all fonts are loaded in cloned document
             const style = clonedDoc.createElement('style');
             style.innerHTML = `
-              * { 
-                -webkit-font-smoothing: antialiased;
-                -moz-osx-font-smoothing: grayscale;
-              }
+              * { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
               body { margin: 0; padding: 0; }
+              .pdf-page { width: 794px !important; height: 1123px !important; overflow: hidden !important; }
             `;
             clonedDoc.head.appendChild(style);
           },
         });
 
-        const imgData = canvas.toDataURL('image/png'); // PNG for lossless quality
+        const imgData = canvas.toDataURL('image/jpeg', 0.97); // JPEG for smaller file, near-lossless
         if (i > 0) pdf.addPage();
-        pdf.addImage(imgData, 'PNG', 0, 0, A4_W, A4_H);
+        pdf.addImage(imgData, 'JPEG', 0, 0, A4_W, A4_H);
       }
 
-      document.body.removeChild(clone);
+      document.body.removeChild(host);
       return pdf;
     } catch (err) {
-      if (document.body.contains(clone)) document.body.removeChild(clone);
+      if (document.body.contains(host)) document.body.removeChild(host);
       throw err;
     }
   };
+
 
   const handleDownloadPDF = async () => {
     setPdfGenerating(true);
@@ -602,20 +620,22 @@ export default function ReportDisplay({ reportData, onBack }) {
         </div>
       )}
 
-      {/* Hidden Detailed 20-Page PDF Template */}
+      {/* Hidden Detailed 20-Page PDF Template — fallback source for PDF generation */}
       <div 
         ref={detailedReportRef} 
         id="detailed-report-template-root" 
+        className="preview-mode"
         style={{ 
-          position: 'absolute', 
-          left: '0', 
-          top: '0', 
-          width: '210mm', 
-          height: '1px', 
-          overflow: 'hidden', 
-          opacity: 0.02, 
-          pointerEvents: 'none', 
-          background: 'white' 
+          position: 'fixed',
+          left: '-9999px',
+          top: '0',
+          width: '794px',    // 210mm @ 96 DPI — matches preview exactly
+          height: 'auto',
+          overflow: 'visible',
+          opacity: 0.001,    // Nearly invisible but still renders properly
+          pointerEvents: 'none',
+          background: 'white',
+          zIndex: -1,
         }}
       >
         <DetailedReportTemplate reportData={reportData} language={language} />

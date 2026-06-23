@@ -1320,27 +1320,29 @@ export default function DetailedReportTemplate({ reportData, language = 'en' }) 
     style={{
       position: 'relative',
       zIndex: 1,
-      minHeight: '220mm',
-      width: '100%',
+      flex: 1,
+      display: 'flex',
+      flexDirection: 'column',
     }}
   >
     {renderHeader(6)}
 
-    <h2 className="font-serif text-2xl font-bold text-gray-900 mb-4">
+    <h2 className="font-serif text-2xl font-bold text-gray-900 mb-3">
       {t('moolankChallengesTitle')}
     </h2>
 
     <div
-      className="space-y-4 text-xs text-gray-700 leading-relaxed text-justify"
+      className="space-y-3 text-xs text-gray-700 leading-relaxed text-justify"
       style={{
+        flex: 1,
         overflowWrap: 'break-word',
       }}
     >
       {/* Challenges */}
 
-      <div className="p-4 bg-rose-50/50 border border-rose-200 rounded-xl">
+      <div className="p-4 border border-rose-200 rounded-xl" style={{ background: '#FEE2E2' }}>
 
-        <strong className="text-rose-700 uppercase tracking-wider block text-[10px] mb-2">
+        <strong className="uppercase tracking-wider block text-[10px] mb-2" style={{ color: '#B91C1C' }}>
           ✦ {t('challengesLabel')}
         </strong>
 
@@ -1352,9 +1354,9 @@ export default function DetailedReportTemplate({ reportData, language = 'en' }) 
 
       {/* Areas Requiring Attention */}
 
-      <div className="p-4 bg-orange-50/40 border border-orange-200 rounded-xl">
+      <div className="p-4 border border-orange-200 rounded-xl" style={{ background: '#FFEDD5' }}>
 
-        <strong className="text-orange-700 uppercase tracking-wider block text-[10px] mb-2">
+        <strong className="uppercase tracking-wider block text-[10px] mb-2" style={{ color: '#92400E' }}>
 
           ✦ {language === 'en'
             ? 'Areas Requiring Attention'
@@ -1392,13 +1394,13 @@ export default function DetailedReportTemplate({ reportData, language = 'en' }) 
 
       <div>
 
-        <h3 className="font-serif text-lg font-bold text-gray-900 mb-2">
+        <h3 className="font-serif text-lg font-bold text-gray-900 mb-1">
 
           {t('healthGuidelineTitle')} {moolank}
 
         </h3>
 
-        <p>
+        <p className="text-[10px] text-gray-600">
 
           {t('healthGuidelineText', {
             num: moolank,
@@ -1410,9 +1412,9 @@ export default function DetailedReportTemplate({ reportData, language = 'en' }) 
 
       {/* Wellness */}
 
-      <div className="p-4 bg-teal-50/40 border border-teal-200 rounded-xl">
+      <div className="p-4 border border-teal-200 rounded-xl" style={{ background: '#CCFBF1' }}>
 
-        <strong className="text-teal-700 uppercase tracking-wider block text-[10px] mb-2">
+        <strong className="uppercase tracking-wider block text-[10px] mb-2" style={{ color: '#0D9488' }}>
 
           ✦ {language === 'en'
 
@@ -1426,7 +1428,7 @@ export default function DetailedReportTemplate({ reportData, language = 'en' }) 
 
         </strong>
 
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-2 gap-2">
 
           {[
 
@@ -1473,7 +1475,7 @@ export default function DetailedReportTemplate({ reportData, language = 'en' }) 
               className="text-[10px] text-gray-600 flex items-center gap-1"
             >
 
-              <span className="text-teal-500">
+              <span style={{ color: '#0D9488' }}>
 
                 ✓
 
@@ -1491,9 +1493,9 @@ export default function DetailedReportTemplate({ reportData, language = 'en' }) 
 
       {/* Emotional Balance */}
 
-      <div className="p-4 bg-purple-50/30 border border-purple-100 rounded-xl">
+      <div className="p-4 border border-purple-200 rounded-xl" style={{ background: '#F3E8FF' }}>
 
-        <strong className="text-purple-700 uppercase tracking-wider block text-[10px] mb-2">
+        <strong className="uppercase tracking-wider block text-[10px] mb-2" style={{ color: '#7E22CE' }}>
 
           ✦ {language === 'en'
 
@@ -1927,27 +1929,27 @@ export default function DetailedReportTemplate({ reportData, language = 'en' }) 
       {/* PAGE 12: PERSONALITY NUMBER */}
       <div className="pdf-page relative p-12 bg-white flex flex-col justify-between" style={{ height: '297mm', width: '210mm', pageBreakAfter: 'always' }}>
         {renderWatermark()}
-        <div style={{ position: 'relative', zIndex: 1 }}>
+        <div style={{ position: 'relative', zIndex: 1, flex: 1, display: 'flex', flexDirection: 'column' }}>
           {renderHeader(12)}
           <h2 className="font-serif text-2xl font-bold text-gray-900 mb-3">{t('personalityTitle')}</h2>
-          <div className="space-y-3 text-xs text-gray-700 leading-relaxed text-justify">
-            <h3 className="font-serif text-lg font-bold text-amber-700">
+          <div className="space-y-3 text-xs text-gray-700 leading-relaxed text-justify" style={{ flex: 1 }}>
+            <h3 className="font-serif text-lg font-bold" style={{ color: '#B45309' }}>
               {language === 'en' ? 'Personality Number' : 'व्यक्तित्व संख्या'} {personality} &mdash; {t('rulerLabel')}: {getTranslation(planetaryLords[personality])}
             </h3>
 
-            <div className="p-4 bg-amber-50/50 border border-amber-200 rounded-xl">
-              <strong className="text-amber-700 uppercase tracking-wider block text-[10px] mb-1">✦ {language === 'en' ? 'How the World Sees You' : (language === 'gu' ? 'દુનિયા તમને કેવી રીતે જુએ છે' : 'दुनिया आपको कैसे देखती है')}</strong>
+            <div className="p-4 border border-amber-200 rounded-xl" style={{ background: '#FFFBEB' }}>
+              <strong className="uppercase tracking-wider block text-[10px] mb-1" style={{ color: '#B45309' }}>✦ {language === 'en' ? 'How the World Sees You' : (language === 'gu' ? 'દુનિયા તમને કેવી રીતે જુએ છે' : 'दुनिया आपको कैसे देखती है')}</strong>
               <p>{t('personalityDesc')}</p>
             </div>
 
-            <div className="p-4 bg-orange-50/40 border border-orange-200 rounded-xl">
-              <strong className="text-orange-700 uppercase tracking-wider block text-[10px] mb-1">✦ {t('vibeDetailsLabel')}</strong>
+            <div className="p-4 border border-orange-200 rounded-xl" style={{ background: '#FEF3C7' }}>
+              <strong className="uppercase tracking-wider block text-[10px] mb-1" style={{ color: '#D97706' }}>✦ {t('vibeDetailsLabel')}</strong>
               <p>{t('personalityVibeDetails', { lord: getTranslation(planetaryLords[personality]) })}</p>
             </div>
 
-            <div className="p-4 bg-teal-50/40 border border-teal-200 rounded-xl">
-              <strong className="text-teal-700 uppercase tracking-wider block text-[10px] mb-2">✦ {language === 'en' ? 'First Impression & Social Presence' : (language === 'gu' ? 'પ્રથમ છાપ અને સામાજિક હાજરી' : 'पहली छाप और सामाजिक उपस्थिति')}</strong>
-              <p className="text-gray-700">
+            <div className="p-4 border border-teal-200 rounded-xl" style={{ background: '#CCFBF1' }}>
+              <strong className="uppercase tracking-wider block text-[10px] mb-2" style={{ color: '#0D9488' }}>✦ {language === 'en' ? 'First Impression & Social Presence' : (language === 'gu' ? 'પ્રથમ છાપ અને સામાજિક હાજરી' : 'पहली छाप और सामाजिक उपस्थिति')}</strong>
+              <p className="text-gray-700 text-[10px]">
                 {language === 'en'
                   ? `Your Personality Number ${personality} is derived from the consonants of your name — the outer shell of your vibrational identity. It shapes your first impression, the energy you radiate in new environments, and the persona people encounter before they truly know you. It is your social mask, your public face, your cosmic calling card.`
                   : `आपका व्यक्तित्व संख्या ${personality} आपके नाम के व्यंजनों से निकाली जाती है — आपकी कंपनात्मक पहचान का बाहरी आवरण।`
@@ -1955,17 +1957,17 @@ export default function DetailedReportTemplate({ reportData, language = 'en' }) 
               </p>
             </div>
 
-            <div className="grid grid-cols-2 gap-3">
-              <div className="p-3 bg-gray-50 border border-gray-200 rounded-xl">
-                <div className="text-[9px] uppercase font-bold text-gray-400 mb-2">{language === 'en' ? 'Outer Strengths' : 'बाह्य शक्तियां'}</div>
+            <div className="grid grid-cols-2 gap-2">
+              <div className="p-3 border border-gray-200 rounded-xl" style={{ background: '#F3F4F6' }}>
+                <div className="text-[9px] uppercase font-bold text-gray-500 mb-2">{language === 'en' ? 'Outer Strengths' : 'बाह्य शक्तियां'}</div>
                 {['Charming presence', 'Natural communicator', 'Reliable & trustworthy', 'Strong first impressions'].map((s, i) => (
-                  <div key={i} className="text-[10px] text-gray-600 flex items-center gap-1 mt-0.5"><span className="text-teal-500">+</span> {s}</div>
+                  <div key={i} className="text-[10px] text-gray-600 flex items-center gap-1 mt-0.5"><span style={{ color: '#059669' }}>+</span> {s}</div>
                 ))}
               </div>
-              <div className="p-3 bg-gray-50 border border-gray-200 rounded-xl">
-                <div className="text-[9px] uppercase font-bold text-gray-400 mb-2">{language === 'en' ? 'Social Patterns' : 'सामाजिक पैटर्न'}</div>
+              <div className="p-3 border border-gray-200 rounded-xl" style={{ background: '#F3F4F6' }}>
+                <div className="text-[9px] uppercase font-bold text-gray-500 mb-2">{language === 'en' ? 'Social Patterns' : 'सामाजिक पैटर्न'}</div>
                 {['Prefers quality over quantity', 'Loyal to close circle', 'Diplomatic under pressure', 'Values authenticity'].map((s, i) => (
-                  <div key={i} className="text-[10px] text-gray-600 flex items-center gap-1 mt-0.5"><span className="text-amber-500">▸</span> {s}</div>
+                  <div key={i} className="text-[10px] text-gray-600 flex items-center gap-1 mt-0.5"><span style={{ color: '#B45309' }}>▸</span> {s}</div>
                 ))}
               </div>
             </div>
@@ -2040,25 +2042,33 @@ export default function DetailedReportTemplate({ reportData, language = 'en' }) 
       {/* PAGE 14: SPELLING SUGGESTIONS */}
       <div className="pdf-page relative p-12 bg-white flex flex-col justify-between" style={{ height: '297mm', width: '210mm', pageBreakAfter: 'always' }}>
         {renderWatermark()}
-        <div style={{ position: 'relative', zIndex: 1 }}>
+        <div style={{ position: 'relative', zIndex: 1, flex: 1, display: 'flex', flexDirection: 'column' }}>
           {renderHeader(14)}
-          <h2 className="font-serif text-2xl font-bold text-gray-900 mb-4">{t('spellingSuggestionsTitle')}</h2>
-          <div className="space-y-4 text-xs text-gray-700 leading-relaxed text-justify">
-            <p>
+          <h2 className="font-serif text-2xl font-bold text-gray-900 mb-3">{t('spellingSuggestionsTitle')}</h2>
+          <div className="space-y-3 text-xs text-gray-700 leading-relaxed text-justify" style={{ flex: 1 }}>
+            <p className="text-[11px]">
               {t('spellingSuggestionsDesc')}
             </p>
             <div className="space-y-2">
               {nameSuggestions.map((s, idx) => (
-                <div key={idx} className="p-3 bg-gray-50 border border-gray-200 rounded-xl" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <div>
-                    <span className="font-bold text-gray-950 block">{s.name}</span>
-                    <span className="text-[10px] text-gray-500">{s.change}</span>
+                <div key={idx} className="p-3 border border-gray-200 rounded-xl" style={{ background: '#F3F4F6', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '8px' }}>
+                  <div style={{ flex: 1 }}>
+                    <span className="font-bold text-gray-950 block text-[11px]">{s.name}</span>
+                    <span className="text-[9px] text-gray-500">{s.change}</span>
                   </div>
-                  <div style={{ textAlign: 'right' }}>
-                    <span className="font-bold text-gray-800 font-mono">{language === 'en' ? 'Value' : 'मान'}: {s.reduced}</span>
+                  <div style={{ textAlign: 'right', whiteSpace: 'nowrap' }}>
+                    <div className="text-[10px] text-gray-500">{language === 'en' ? 'Sum' : 'योग'}</div>
+                    <span className="font-bold text-gray-900 font-mono text-[12px]">{s.reduced}</span>
                   </div>
                 </div>
               ))}
+            </div>
+            <div className="p-3 rounded-xl" style={{ background: '#DBEAFE', border: '1px solid #93C5FD' }}>
+              <p className="text-[10px] text-blue-900">
+                {language === 'en'
+                  ? '💡 Adopting one of these spelling variations can align your name vibration with lucky numbers (1, 3, 5, 6, 9) for enhanced prosperity and harmony.'
+                  : '💡 इन वर्तनी विविधताओं को अपनाने से आपके नाम का कंपन भाग्यशाली संख्याओं के साथ संरेखित हो सकता है।'}
+              </p>
             </div>
           </div>
         </div>
@@ -2210,20 +2220,34 @@ export default function DetailedReportTemplate({ reportData, language = 'en' }) 
       {/* PAGE 17: VIP NUMBER RECOMMENDATIONS */}
       <div className="pdf-page relative p-12 bg-white flex flex-col justify-between" style={{ height: '297mm', width: '210mm', pageBreakAfter: 'always' }}>
         {renderWatermark()}
-        <div style={{ position: 'relative', zIndex: 1 }}>
+        <div style={{ position: 'relative', zIndex: 1, flex: 1, display: 'flex', flexDirection: 'column' }}>
           {renderHeader(17)}
-          <h2 className="font-serif text-2xl font-bold text-gray-900 mb-4">{t('vipRecommendationsTitle')}</h2>
-          <div className="space-y-4 text-xs text-gray-700 leading-relaxed text-justify">
+          <h2 className="font-serif text-2xl font-bold text-gray-900 mb-3">{t('vipRecommendationsTitle')}</h2>
+          <div className="space-y-3 text-xs text-gray-700 leading-relaxed text-justify" style={{ flex: 1 }}>
             <h3 className="font-serif text-base font-bold text-gray-900">{t('selectingLuckyDigitsLabel')}</h3>
-            <p>
+            <p className="text-[11px]">
               {t('selectingLuckyDigitsDesc')}
             </p>
-            <div className="space-y-3">
-              <div className="p-3 bg-amber-50/20 border border-amber-100 rounded-xl">
+            <div className="p-4 rounded-xl border border-amber-200" style={{ background: '#FFFBEB' }}>
+              <strong className="uppercase tracking-wider block text-[10px] mb-2" style={{ color: '#B45309' }}>
+                ✦ {language === 'en' ? 'Lucky Ending Combinations' : 'भाग्यशाली अंतिम संयोजन'}
+              </strong>
+              <p className="text-gray-700 text-[11px]">
                 {t('luckyEndingDesc')}
+              </p>
+              <div className="mt-2 p-2 rounded" style={{ background: '#FEF3C7' }}>
+                <span className="font-mono font-bold text-amber-900">1339, 3913, 5555</span>
               </div>
-              <div className="p-3 bg-gray-50 border border-gray-200 rounded-xl">
+            </div>
+            <div className="p-4 rounded-xl border border-rose-200" style={{ background: '#FEE2E2' }}>
+              <strong className="uppercase tracking-wider block text-[10px] mb-2" style={{ color: '#B91C1C' }}>
+                ✦ {language === 'en' ? 'Numbers to Avoid' : 'टालने के लिए संख्याएं'}
+              </strong>
+              <p className="text-gray-700 text-[11px]">
                 {t('avoidEndingDesc')}
+              </p>
+              <div className="mt-2 p-2 rounded" style={{ background: '#FECACA' }}>
+                <span className="font-mono font-bold text-red-900">4, 7, 8</span>
               </div>
             </div>
           </div>
@@ -2256,7 +2280,7 @@ export default function DetailedReportTemplate({ reportData, language = 'en' }) 
           {renderHeader(19)}
           <h2 className="font-serif text-2xl font-bold text-gray-900 mb-4">{t('luckyCoordinatesTitle')}</h2>
           <div className="space-y-4 text-xs text-gray-700">
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 gap-3">
               <div className="p-3.5 bg-gray-50 border border-gray-200 rounded-xl">
                 <span className="text-[10px] uppercase font-bold text-gray-400 block">{t('luckyColorsLabel')}</span>
                 <span className="font-semibold text-gray-950 mt-1 block">{getTranslation(luckyColors[moolank]) || 'White'}</span>
@@ -2283,19 +2307,26 @@ export default function DetailedReportTemplate({ reportData, language = 'en' }) 
       {/* PAGE 20: REMEDIES & CONCLUSION */}
       <div className="pdf-page relative p-12 bg-white flex flex-col justify-between" style={{ height: '297mm', width: '210mm', pageBreakAfter: 'always' }}>
         {renderWatermark()}
-        <div style={{ position: 'relative', zIndex: 1 }}>
+        <div style={{ position: 'relative', zIndex: 1, flex: 1, display: 'flex', flexDirection: 'column' }}>
           {renderHeader(20)}
-          <h2 className="font-serif text-2xl font-bold text-gray-900 mb-4">{t('remediesMantraTitle')}</h2>
-          <div className="space-y-4 text-xs text-gray-700 leading-relaxed text-justify">
-            <div className="p-4 bg-amber-50/20 border border-amber-100 rounded-xl">
-              <strong className="text-amber-700 uppercase tracking-wider block text-[10px] mb-2">{t('sacredMantraLabel')}</strong>
-              <span className="text-sm font-bold text-gray-950 font-serif block">{specialMantras[moolank] || 'ॐ गुरवे नमः'}</span>
-              <p className="text-[10px] text-gray-500 mt-1">{t('sacredMantraDesc')}</p>
+          <h2 className="font-serif text-2xl font-bold text-gray-900 mb-3">{t('remediesMantraTitle')}</h2>
+          <div className="space-y-3 text-xs text-gray-700 leading-relaxed text-justify" style={{ flex: 1 }}>
+            <div className="p-4 rounded-xl border border-purple-200" style={{ background: '#F3E8FF' }}>
+              <strong className="uppercase tracking-wider block text-[10px] mb-2" style={{ color: '#7E22CE' }}>✦ {t('sacredMantraLabel')}</strong>
+              <p className="text-sm font-bold text-gray-950 font-serif text-center italic leading-relaxed">"{specialMantras[moolank] || 'ॐ गुरवे नमः'}"</p>
+              <p className="text-[9px] text-purple-700 text-center mt-2">{t('sacredMantraDesc')}</p>
             </div>
-            <h3 className="font-serif text-base font-bold text-gray-900 mt-6">{t('finalGuidanceTitle')}</h3>
-            <p>
+            <h3 className="font-serif text-base font-bold text-gray-900 mt-4">{t('finalGuidanceTitle')}</h3>
+            <p className="text-[11px]">
               {t('finalGuidanceText')}
             </p>
+            <div className="p-3 rounded-xl text-center" style={{ background: '#FEF3C7', border: '1px solid #FCD34D' }}>
+              <p className="font-serif italic text-[10px] text-amber-900 leading-relaxed">
+                {language === 'en'
+                  ? '✨ May your numerology guide you toward prosperity, harmony, and inner peace. Trust the numbers, align with the universe, and embrace your destiny. 🙏'
+                  : '✨ संख्याओं पर भरोसा करें, ब्रह्मांड के साथ संरेखित हों। आपकी संख्याएं, आपका भाग्य। 🙏'}
+              </p>
+            </div>
           </div>
         </div>
         {renderFooter(20)}

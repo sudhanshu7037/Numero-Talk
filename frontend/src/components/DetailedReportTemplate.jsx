@@ -1304,58 +1304,226 @@ export default function DetailedReportTemplate({ reportData, language = 'en' }) 
 </div>
 
       {/* PAGE 6: MOOLANK CHALLENGES */}
-      <div className="pdf-page relative p-12 bg-white flex flex-col justify-between" style={{ height: '297mm', width: '210mm', pageBreakAfter: 'always' }}>
-        {renderWatermark()}
-        <div style={{ position: 'relative', zIndex: 1 }}>
-          {renderHeader(6)}
-          <h2 className="font-serif text-2xl font-bold text-gray-900 mb-3">{t('moolankChallengesTitle')}</h2>
-          <div className="space-y-3 text-xs text-gray-700 leading-relaxed text-justify">
-            <div className="p-4 bg-rose-50/50 border border-rose-200 rounded-xl space-y-2">
-              <strong className="text-rose-700 uppercase tracking-wider block text-[10px]">✦ {t('challengesLabel')}</strong>
-              <p className="text-gray-700">{getTranslation(currentMoolank.weaknesses)}</p>
-            </div>
+    {/* PAGE 6: MOOLANK CHALLENGES */}
 
-            <div className="p-4 bg-orange-50/40 border border-orange-200 rounded-xl">
-              <strong className="text-orange-700 uppercase tracking-wider block text-[10px] mb-2">✦ {language === 'en' ? 'Areas Requiring Attention' : (language === 'gu' ? 'ધ્યાન જરૂરી ક્ષેત્રો' : 'ध्यान आवश्यक क्षेत्र')}</strong>
-              <ul className="list-disc list-inside space-y-1 text-gray-700">
-                {getTranslation(currentMoolank.weaknesses).split('.').filter(s => s.trim().length > 10).slice(0, 4).map((w, i) => (
-                  <li key={i}>{w.trim()}.</li>
-                ))}
-              </ul>
-            </div>
+<div
+  className="pdf-page relative p-12 bg-white flex flex-col justify-between"
+  style={{
+    height: '297mm',
+    width: '210mm',
+    pageBreakAfter: 'always',
+  }}
+>
+  {renderWatermark()}
 
-            <h3 className="font-serif text-base font-bold text-gray-900">{t('healthGuidelineTitle')} {moolank}</h3>
-            <p>{t('healthGuidelineText', { num: moolank })}</p>
+  <div
+    style={{
+      position: 'relative',
+      zIndex: 1,
+      minHeight: '220mm',
+      width: '100%',
+    }}
+  >
+    {renderHeader(6)}
 
-            <div className="p-4 bg-teal-50/40 border border-teal-200 rounded-xl">
-              <strong className="text-teal-700 uppercase tracking-wider block text-[10px] mb-2">✦ {language === 'en' ? 'Health & Wellness Tips' : (language === 'gu' ? 'સ્વાસ્થ્ય સૂચનો' : 'स्वास्थ्य सुझाव')}</strong>
-              <div className="grid grid-cols-2 gap-2">
-                {[
-                  language === 'en' ? 'Avoid excessive stress' : 'अत्यधिक तनाव से बचें',
-                  language === 'en' ? 'Practice meditation daily' : 'दैनिक ध्यान करें',
-                  language === 'en' ? 'Keep hydrated always' : 'हाइड्रेटेड रहें',
-                  language === 'en' ? 'Yoga & breathing exercises' : 'योग और प्राणायाम',
-                  language === 'en' ? 'Avoid heavy late-night meals' : 'रात देर से खाने से बचें',
-                  language === 'en' ? 'Regular health check-ups' : 'नियमित स्वास्थ्य जांच',
-                ].map((tip, i) => (
-                  <span key={i} className="text-[10px] text-gray-600 flex items-center gap-1"><span className="text-teal-500">✓</span> {tip}</span>
-                ))}
-              </div>
-            </div>
+    <h2 className="font-serif text-2xl font-bold text-gray-900 mb-4">
+      {t('moolankChallengesTitle')}
+    </h2>
 
-            <div className="p-3 bg-purple-50/30 border border-purple-100 rounded-xl">
-              <strong className="text-purple-700 uppercase tracking-wider block text-[10px] mb-1">✦ {language === 'en' ? 'Emotional Balance' : (language === 'gu' ? 'ભાવનાત્મક સંતુલન' : 'भावनात्मक संतुलन')}</strong>
-              <p className="text-gray-700 text-[10px]">
-                {language === 'en'
-                  ? `People with Moolank ${moolank} tend to be emotionally intense. Channel this energy through creative outlets, journaling, or spiritual practices. Building strong emotional boundaries is key to maintaining inner harmony and lasting relationships.`
-                  : `मूलांक ${moolank} वाले लोग भावनात्मक रूप से तीव्र होते हैं। इस ऊर्जा को रचनात्मक अभिव्यक्ति, जर्नलिंग या आध्यात्मिक अभ्यासों के माध्यम से चैनल करें।`
-                }
-              </p>
-            </div>
-          </div>
-        </div>
-        {renderFooter(6)}
+    <div
+      className="space-y-4 text-xs text-gray-700 leading-relaxed text-justify"
+      style={{
+        overflowWrap: 'break-word',
+      }}
+    >
+      {/* Challenges */}
+
+      <div className="p-4 bg-rose-50/50 border border-rose-200 rounded-xl">
+
+        <strong className="text-rose-700 uppercase tracking-wider block text-[10px] mb-2">
+          ✦ {t('challengesLabel')}
+        </strong>
+
+        <p className="text-gray-700">
+          {getTranslation(currentMoolank.weaknesses)}
+        </p>
+
       </div>
+
+      {/* Areas Requiring Attention */}
+
+      <div className="p-4 bg-orange-50/40 border border-orange-200 rounded-xl">
+
+        <strong className="text-orange-700 uppercase tracking-wider block text-[10px] mb-2">
+
+          ✦ {language === 'en'
+            ? 'Areas Requiring Attention'
+            : language === 'gu'
+            ? 'ધ્યાન જરૂરી ક્ષેત્રો'
+            : 'ध्यान आवश्यक क्षेत्र'}
+
+        </strong>
+
+        <ul className="list-disc list-inside space-y-1 text-gray-700">
+
+          {getTranslation(currentMoolank.weaknesses)
+
+            .split('.')
+
+            .filter((s) => s.trim().length > 10)
+
+            .slice(0, 4)
+
+            .map((w, i) => (
+
+              <li key={i}>
+
+                {w.trim()}.
+
+              </li>
+
+            ))}
+
+        </ul>
+
+      </div>
+
+      {/* Health */}
+
+      <div>
+
+        <h3 className="font-serif text-lg font-bold text-gray-900 mb-2">
+
+          {t('healthGuidelineTitle')} {moolank}
+
+        </h3>
+
+        <p>
+
+          {t('healthGuidelineText', {
+            num: moolank,
+          })}
+
+        </p>
+
+      </div>
+
+      {/* Wellness */}
+
+      <div className="p-4 bg-teal-50/40 border border-teal-200 rounded-xl">
+
+        <strong className="text-teal-700 uppercase tracking-wider block text-[10px] mb-2">
+
+          ✦ {language === 'en'
+
+            ? 'Health & Wellness Tips'
+
+            : language === 'gu'
+
+            ? 'સ્વાસ્થ્ય સૂચનો'
+
+            : 'स्वास्थ्य सुझाव'}
+
+        </strong>
+
+        <div className="grid grid-cols-2 gap-3">
+
+          {[
+
+            language === 'en'
+
+              ? 'Avoid excessive stress'
+
+              : 'अत्यधिक तनाव से बचें',
+
+            language === 'en'
+
+              ? 'Practice meditation daily'
+
+              : 'दैनिक ध्यान करें',
+
+            language === 'en'
+
+              ? 'Keep hydrated always'
+
+              : 'हाइड्रेटेड रहें',
+
+            language === 'en'
+
+              ? 'Yoga & breathing exercises'
+
+              : 'योग और प्राणायाम',
+
+            language === 'en'
+
+              ? 'Avoid heavy late-night meals'
+
+              : 'रात देर से खाने से बचें',
+
+            language === 'en'
+
+              ? 'Regular health check-ups'
+
+              : 'नियमित स्वास्थ्य जांच',
+
+          ].map((tip, i) => (
+
+            <span
+              key={i}
+              className="text-[10px] text-gray-600 flex items-center gap-1"
+            >
+
+              <span className="text-teal-500">
+
+                ✓
+
+              </span>
+
+              {tip}
+
+            </span>
+
+          ))}
+
+        </div>
+
+      </div>
+
+      {/* Emotional Balance */}
+
+      <div className="p-4 bg-purple-50/30 border border-purple-100 rounded-xl">
+
+        <strong className="text-purple-700 uppercase tracking-wider block text-[10px] mb-2">
+
+          ✦ {language === 'en'
+
+            ? 'Emotional Balance'
+
+            : language === 'gu'
+
+            ? 'ભાવનાત્મક સંતુલન'
+
+            : 'भावनात्मक संतुलन'}
+
+        </strong>
+
+        <p className="text-gray-700 text-[10px]">
+
+          {language === 'en'
+
+            ? `People with Moolank ${moolank} tend to be emotionally intense. Channel this energy through creative outlets, journaling, or spiritual practices. Building strong emotional boundaries is key to maintaining inner harmony and lasting relationships.`
+
+            : `मूलांक ${moolank} वाले लोग भावनात्मक रूप से तीव्र होते हैं। इस ऊर्जा को रचनात्मक अभिव्यक्ति, जर्नलिंग या आध्यात्मिक अभ्यासों के माध्यम से चैनल करें।`}
+
+        </p>
+
+      </div>
+
+    </div>
+  </div>
+
+  {renderFooter(6)}
+</div>
 
 
       {/* PAGE 7: BHAGYANK JOURNEY */}

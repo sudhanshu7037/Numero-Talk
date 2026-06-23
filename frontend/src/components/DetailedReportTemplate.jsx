@@ -1202,124 +1202,105 @@ export default function DetailedReportTemplate({ reportData, language = 'en' }) 
 
       {/* PAGE 8: BHAGYANK CAREER */}
 
+{/* PAGE 8: BHAGYANK CAREER */}
+
 <div
-  className="pdf-page relative bg-white flex flex-col"
+  className="pdf-page relative p-12 bg-white flex flex-col justify-between"
   style={{
     height: '297mm',
     width: '210mm',
     pageBreakAfter: 'always',
-    padding: '14mm',
-    boxSizing: 'border-box',
   }}
 >
   {renderWatermark()}
 
-  <div
-    style={{
-      position: 'relative',
-      zIndex: 1,
+  <div style={{ position: 'relative', zIndex: 1 }}>
+    {renderHeader(8)}
 
-      flex: 1,
+    <h2 className="font-serif text-2xl font-bold text-gray-900 mb-3">
+      {t('bhagyankCareerTitle')}
+    </h2>
 
-      display: 'flex',
+    <div className="space-y-3 text-xs text-gray-700 leading-relaxed text-justify">
 
-      justifyContent: 'center',
+      <div className="p-4 bg-amber-50/50 border border-amber-200 rounded-xl space-y-1.5">
+        <strong className="text-amber-700 uppercase tracking-wider block text-[10px]">
+          ✦ {t('professionalChannelsLabel')}
+        </strong>
 
-      alignItems: 'center',
+        <p className="text-gray-900 font-semibold">
+          {getTranslation(currentBhagyank.career)}
+        </p>
+      </div>
 
-      width: '100%',
-    }}
-  >
-    <div
-      style={{
-        width: '100%',
-        maxWidth: '170mm',
-        margin: '0 auto',
-      }}
-    >
-      {renderHeader(8)}
+      <p>{t('bhagyankDescText')}</p>
 
-      <h2 className="font-serif text-2xl font-bold text-gray-900 mb-3 text-center">
-        {t('bhagyankCareerTitle')}
-      </h2>
-
-      <div
-        className="space-y-3 text-xs text-gray-700 leading-relaxed"
-        style={{
-          width: '100%',
-          textAlign: 'left',
-        }}
-      >
-        <div className="p-4 bg-amber-50/50 border border-amber-200 rounded-xl space-y-1.5">
-          <strong className="text-amber-700 uppercase tracking-wider block text-[10px]">
-            ✦ {t('professionalChannelsLabel')}
-          </strong>
-
-          <p className="text-gray-900 font-semibold">
-            {getTranslation(currentBhagyank.career)}
-          </p>
-        </div>
-
-        <p>{t('bhagyankDescText')}</p>
-
-        <div className="p-4 bg-sky-50/40 border border-sky-200 rounded-xl">
-          <strong className="text-sky-700 uppercase tracking-wider block text-[10px] mb-2">
-            ✦ {language === 'en'
+      <div className="p-4 bg-sky-50/40 border border-sky-200 rounded-xl">
+        <strong className="text-sky-700 uppercase tracking-wider block text-[10px] mb-2">
+          ✦ {
+            language === 'en'
               ? 'Ideal Career Fields'
               : language === 'gu'
               ? 'આદર્શ કારકિર્દી ક્ષેત્રો'
-              : 'आदर्श करियर क्षेत्र'}
-          </strong>
+              : 'आदर्श करियर क्षेत्र'
+          }
+        </strong>
 
-          <div className="grid grid-cols-2 gap-1.5">
-            {getTranslation(currentBhagyank.career)
-              .split(',')
-              .slice(0, 8)
-              .map((c, i) => (
-                <span
-                  key={i}
-                  className="text-[10px] text-gray-600 flex items-center gap-1"
-                >
-                  <span className="text-sky-500">▸</span>
+        <div className="grid grid-cols-2 gap-1.5">
+          {getTranslation(currentBhagyank.career)
+            .split(',')
+            .slice(0, 8)
+            .map((c, i) => (
+              <span
+                key={i}
+                className="text-[10px] text-gray-600 flex items-center gap-1"
+              >
+                <span className="text-sky-500">▸</span>
 
-                  {c.trim()}
-                </span>
-              ))}
-          </div>
+                {c.trim()}
+              </span>
+            ))}
         </div>
+      </div>
 
-        <div className="p-4 bg-violet-50/40 border border-violet-200 rounded-xl">
-          <strong className="text-violet-700 uppercase tracking-wider block text-[10px] mb-1">
-            ✦ {language === 'en'
+      <div className="p-4 bg-violet-50/40 border border-violet-200 rounded-xl">
+        <strong className="text-violet-700 uppercase tracking-wider block text-[10px] mb-1">
+          ✦ {
+            language === 'en'
               ? 'Financial Prosperity Guidance'
               : language === 'gu'
               ? 'આર્થિક સમૃદ્ધિ માર્ગદર્શન'
-              : 'आर्थिक समृद्धि मार्गદર્શન'}
-          </strong>
+              : 'आर्थिक समृद्धि मार्गदर्शन'
+          }
+        </strong>
 
-          <p className="text-gray-700">
-            {language === 'en'
-              ? `Your Bhagyank ${bhagyank} creates natural financial cycles. Peak earning periods align with years that vibrate with ${bhagyank} or its multiples. Invest wisely in the first half of each year and consolidate gains in the second half. Avoid impulsive financial decisions under Mercury retrograde periods.`
-              : `आपका भाग्यांक ${bhagyank} प्राकृतिक वित्तीय चक्र बनाता है। वर्ष की पहली छमाही में निवेश करें और दूसरी में लाभ समेकित करें। आवेगी वित्तीय निर्णयों से बचें।`}
-          </p>
-        </div>
+        <p className="text-gray-700">
+          {language === 'en'
+            ? `Your Bhagyank ${bhagyank} creates natural financial cycles. Peak earning periods align with years that vibrate with ${bhagyank} or its multiples. Invest wisely in the first half of each year and consolidate gains in the second half. Avoid impulsive financial decisions under Mercury retrograde periods.`
+            : `आपका भाग्यांक ${bhagyank} प्राकृतिक वित्तीय चक्र बनाता है। वर्ष की पहली छमाही में निवेश करें और दूसरी में लाभ समेकित करें। आवेगी वित्तीय निर्णयों से बचें।`
+          }
+        </p>
+      </div>
 
-        <div className="p-3 bg-gray-50 border border-gray-200 rounded-xl">
-          <strong className="text-gray-600 uppercase tracking-wider block text-[10px] mb-1">
-            ✦ {language === 'en'
+      <div className="p-3 bg-gray-50 border border-gray-200 rounded-xl">
+        <strong className="text-gray-600 uppercase tracking-wider block text-[10px] mb-1">
+          ✦ {
+            language === 'en'
               ? 'Business Partnership Advice'
               : language === 'gu'
               ? 'વ્યાપારિક ભાગીદારી સલાહ'
-              : 'व्यापारिक साझेदारी सलाह'}
-          </strong>
+              : 'व्यापारिक साझेदारी सलाह'
+          }
+        </strong>
 
-          <p className="text-[10px] text-gray-600">
-            {language === 'en'
-              ? `Look for partners with Moolank or Bhagyank 1, 3, or 9 for the most harmonious and productive collaborations. Avoid partnerships formed during negative number years (4, 8 heavy periods).`
-              : `मूलांक या भाग्यांक 1, 3 या 9 वाले साझेदारों की तलाश करें। नकारात्मक संख्या वर्षों (4, 8 भारी काल) में साझेदारी से बचें।`}
-          </p>
-        </div>
+        <p className="text-[10px] text-gray-600">
+          {language === 'en'
+            ? `Look for partners with Moolank or Bhagyank 1, 3, or 9 for the most harmonious and productive collaborations. Avoid partnerships formed during negative number years (4, 8 heavy periods).`
+            : `मूलांक या भाग्यांक 1, 3 या 9 वाले साझेदारों की तलाश करें। नकारात्मक संख्या वर्षों (4, 8 भारी काल) में साझेदारी से बचें।`
+          }
+        </p>
       </div>
+
     </div>
   </div>
 

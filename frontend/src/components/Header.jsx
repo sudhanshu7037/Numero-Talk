@@ -36,7 +36,7 @@ export default function Header({ user, onLogout }) {
       <div className="flex items-center justify-between w-full">
         {/* Logo on Left */}
         <div 
-          className="flex items-center gap-3 cursor-pointer group"
+          className="flex items-center gap-3 cursor-pointer group shrink-0"
           onClick={() => handleNav('/')}
         >
           <div className="relative">
@@ -63,21 +63,21 @@ export default function Header({ user, onLogout }) {
         {/* Hamburger Menu Toggle on Right for Mobile */}
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="lg:hidden p-2 rounded-xl text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition-all cursor-pointer"
+          className="xl:hidden p-2 rounded-xl text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition-all cursor-pointer"
           aria-label="Toggle Menu"
         >
           {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
         </button>
 
         {/* Desktop Navigation */}
-        <nav className="hidden lg:flex items-center gap-3">
+        <nav className="hidden xl:flex items-center gap-1 2xl:gap-3">
           {navItems.map((item) => {
             const isActive = currentTab === item.id;
             return (
               <button
                 key={item.id}
                 onClick={() => handleNav(item.path)}
-                className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 cursor-pointer border ${
+                className={`px-3 2xl:px-4 py-2 rounded-full text-[13px] 2xl:text-sm font-medium transition-all duration-300 cursor-pointer border whitespace-nowrap ${
                   isActive
                     ? 'bg-amber-50 text-amber-700 border-amber-200 shadow-xs'
                     : 'text-gray-600 hover:text-gray-950 hover:bg-gray-50 border-transparent'
@@ -90,13 +90,13 @@ export default function Header({ user, onLogout }) {
 
           {/* Auth State Button */}
           {user ? (
-            <div className="flex items-center gap-3 ml-2 border-l border-gray-200 pl-3">
-              <span className="text-xs text-gray-700 font-medium font-sans">
+            <div className="flex items-center gap-2 2xl:gap-3 ml-1 2xl:ml-2 border-l border-gray-200 pl-2 2xl:pl-3 shrink-0">
+              <span className="text-xs text-gray-700 font-medium font-sans whitespace-nowrap">
                 Hi, {user.name ? user.name.split(' ')[0] : 'User'}
               </span>
               <button
                 onClick={onLogout}
-                className="px-3.5 py-1.5 rounded-full text-xs font-semibold bg-gray-105 text-gray-700 hover:bg-gray-200 transition-all cursor-pointer border border-gray-250"
+                className="px-3.5 py-1.5 rounded-full text-xs font-semibold bg-gray-105 text-gray-700 hover:bg-gray-200 transition-all cursor-pointer border border-gray-250 whitespace-nowrap"
               >
                 Sign Out
               </button>
@@ -104,7 +104,7 @@ export default function Header({ user, onLogout }) {
           ) : (
             <button
               onClick={() => handleNav('/signup')}
-              className="px-5 py-2 rounded-full text-sm font-semibold tracking-wide transition-all duration-300 cursor-pointer ml-2 bg-amber-600 text-white hover:bg-amber-700"
+              className="px-4 2xl:px-5 py-2 rounded-full text-[13px] 2xl:text-sm font-semibold tracking-wide transition-all duration-300 cursor-pointer ml-1 2xl:ml-2 bg-amber-600 text-white hover:bg-amber-700 whitespace-nowrap shrink-0"
             >
               Sign In
             </button>
@@ -114,7 +114,7 @@ export default function Header({ user, onLogout }) {
 
       {/* Mobile Navigation Dropdown */}
       {isOpen && (
-        <nav className="lg:hidden flex flex-col gap-2 mt-4 pt-4 border-t border-gray-150 animate-fade-in-up">
+        <nav className="xl:hidden flex flex-col gap-2 mt-4 pt-4 border-t border-gray-150 animate-fade-in-up">
           {navItems.map((item) => {
             const isActive = currentTab === item.id;
             return (

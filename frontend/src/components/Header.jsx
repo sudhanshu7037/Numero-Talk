@@ -55,7 +55,7 @@ export default function Header({ user, onLogout }) {
               NUMERO TALK
             </h1>
             <span className="text-[9px] tracking-wider text-gray-500 font-sans uppercase font-medium">
-              Vadic Cosmic Numerology
+              Vedic Cosmic Numerology
             </span>
           </div>
         </div>
